@@ -25,6 +25,13 @@ namespace KrisApp.Controllers
             return View(model);
         }
 
+        public ActionResult List()
+        {
+            ArticleListModel model = _articleSrv.PrepareArticleListModel();
+
+            return View(model);
+        }
+
         public ActionResult Create()
         {
             ArticleCreateModel model = _articleSrv.PrepareArticleCreateModel();

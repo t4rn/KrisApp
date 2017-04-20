@@ -14,14 +14,14 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Articles[0].TypeId)
+            @Html.DisplayNameFor(model => model.Articles[0].Type)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Articles[0].Title)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Articles[0].Content)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Articles[0].Author)
         </th>
@@ -38,14 +38,14 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TypeId)
+                @Html.DisplayFor(modelItem => item.Type.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Content)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
             </td>

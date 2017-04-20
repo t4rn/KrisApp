@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace KrisApp.Services
 {
@@ -150,6 +151,7 @@ namespace KrisApp.Services
             using (KrisDbContext context = new KrisDbContext())
             {
                 model.Articles = context.Articles.AsNoTracking()
+                    .Include(x => x.Type)
                     .OrderByDescending(x => x.Id).ToList();
             }
 

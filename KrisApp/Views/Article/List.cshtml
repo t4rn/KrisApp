@@ -1,0 +1,11 @@
+﻿@model KrisApp.Models.Articles.ArticleListModel
+
+@{
+    ViewBag.Title = "Lista artykułów";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<div>
+    @{ Html.RenderPartial("_ArticleList", Model.Articles); }
+</div>

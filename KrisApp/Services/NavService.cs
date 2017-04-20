@@ -116,7 +116,7 @@ namespace KrisApp.Services
 
             MenuItemModel allArticlesItem = new MenuItemModel()
             {
-                Action = "Index",
+                Action = "List",
                 Controller = "Article",
                 Text = "Wszystkie artykuły"
             };
