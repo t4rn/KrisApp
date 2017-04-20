@@ -1,0 +1,23 @@
+﻿@model KrisApp.Models.Me.AboutMeModel
+
+@{
+    ViewBag.Title = "O mnie";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<p>
+    <b>Zawodowo:</b><br />
+    Programista .NET z 5 letnim doświadczeniem.<br />
+    Technologie, biblioteki i narzędzia, z którymi miałem styczność:
+    <ul>
+        @foreach (string item in Model.MyTechnologies)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</p>
+<p>
+    <b>Prywatnie:</b><br />
+    Mąż, tata, emerytowany gracz (Diablo, Starcraft, HoMM, Quake, Fifa), snowboardzista.
+</p>

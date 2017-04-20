@@ -1,0 +1,14 @@
+﻿@model KrisApp.Models.Articles.ArticlePageModel
+
+@{
+    ViewBag.Title = "Edycja";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@{ Html.RenderPartial("_EditArticle", Model.Article); }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

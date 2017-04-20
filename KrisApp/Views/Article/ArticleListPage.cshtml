@@ -1,0 +1,10 @@
+﻿@model KrisApp.Models.Articles.ArticleListModel
+@{
+    ViewBag.Title = ViewBag.Type;
+}
+
+<h2>@ViewBag.Type</h2>
+@if (Model.Articles?.Count > 0)
+{
+    Html.RenderPartial("_ArticleList", Model.Articles);
+}

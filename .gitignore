@@ -1,0 +1,10 @@
+/packages
+/KrisApp/obj
+/KrisApp/bin
+/KrisApp/*.user
+/KrisApp/Properties/PublishProfiles/*.user
+/.vs
+/KrisApp.DataModel/obj
+/KrisApp.DataModel/bin
+/KrisApp.Common/bin
+/KrisApp.Common/obj

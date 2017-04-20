@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Strona główna";
+}
+
+<div class="jumbotron">
+    <h1>Zaawansowane programowanie C#</h1>
+    <p class="lead">Strona poświęcona programowaniu w języku C# w technologii .NET Framework.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Artykuły</h2>
+        <p>Sekcja zawierająca artykuły dotyczące programowania i baz danych.</p>
+        <p>@Html.ActionLink("Przejdź", "Index", "Article", null, new { @class = "btn btn-success" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Pytania rekrutacyjne</h2>
+        <p>Sekcja poświęcona najczęściej zadawanym pytaniom na rozmowach kwalifikacyjnych.</p>
+        <p>@Html.ActionLink("Przejdź", "Index", "Rekru", null, new { @class = "btn btn-success" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>O mnie</h2>
+        <p>Parę słów o mnie, o stronie oraz formularz kontaktowy.</p>
+        <p>@Html.ActionLink("Przejdź", "About", "Me", null, new { @class = "btn btn-success" })</p>
+    </div>
+</div>

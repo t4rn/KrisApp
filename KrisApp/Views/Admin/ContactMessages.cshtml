@@ -1,0 +1,62 @@
+﻿@model KrisApp.Models.Admin.ContactsListModel
+
+@{
+    ViewBag.Title = "Przesłane wiadomości";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactMessages[0].ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactMessages[0].Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactMessages[0].Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactMessages[0].Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactMessages[0].IP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactMessages[0].AddDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ContactMessages)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

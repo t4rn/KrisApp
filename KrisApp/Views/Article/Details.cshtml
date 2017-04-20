@@ -1,0 +1,57 @@
+﻿@model KrisApp.Models.Articles.ArticlePageModel
+
+@{
+    ViewBag.Title = Model.Article.Title;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.TypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.TypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Content)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Article.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.AddDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.AddDate)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Powrót do artykułów", "Index")
+</p>

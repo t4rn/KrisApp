@@ -1,0 +1,34 @@
+﻿@model KrisApp.Models.Nav.MenuModel
+
+<ul class="nav navbar-nav nav-pills">
+    @foreach (var item in Model.MenuItems)
+    {
+        <li class="dropdown @(item.Active ? "active" : "null")">
+            @if (item.SubMenu?.Count > 0)
+            {
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    @item.Text<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (var sub in item.SubMenu)
+                    {
+                        <li>@Html.ActionLink(sub.Text, sub.Action, sub.Controller)</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                @Html.ActionLink(item.Text, item.Action, item.Controller)
+            }
+        </li>
+    }
+</ul>
+
+@*<form class="navbar-form navbar-left">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Wyszukaj...">
+    </div>
+    <button type="submit" class="btn btn-default">Wyszukaj</button>
+</form>*@
+
+@Html.Partial("_LoginPartial", new ViewDataDictionary(Model.Login))

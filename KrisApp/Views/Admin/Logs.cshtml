@@ -1,0 +1,44 @@
+﻿@model KrisApp.Models.Admin.LogsViewModel
+
+@{
+    ViewBag.Title = "Logi z aplikacji";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppLogs[0].ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppLogs[0].Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppLogs[0].Ip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppLogs[0].AddDate)
+        </th>
+    </tr>
+
+    @foreach (var log in Model.AppLogs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => log.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => log.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => log.Ip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => log.AddDate)
+            </td>
+        </tr>
+    }
+
+</table>

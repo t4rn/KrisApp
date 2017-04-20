@@ -1,0 +1,27 @@
+﻿@model string
+
+@if (!string.IsNullOrWhiteSpace(Model))
+{
+    @*using (Html.BeginForm("LogOut", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form navbar-right" }))
+    {
+    @Html.AntiForgeryToken()*@
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink($"Witaj {Model}!", "Account", "User")
+        </li>
+
+        <li>
+            @Html.ActionLink("Wyloguj", "LogOut", "User")
+            @*<input type="submit" value="Log out" class="btn btn-default" />*@
+        </li>
+    </ul>
+    //}
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Zarejestruj", "Register", "User", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Zaloguj", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

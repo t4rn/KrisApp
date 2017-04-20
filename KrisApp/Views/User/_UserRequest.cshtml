@@ -1,0 +1,56 @@
+﻿@model KrisApp.Models.User.UserRequestModel
+
+@{
+    ViewData.TemplateInfo.HtmlFieldPrefix = "";
+}
+<tr>
+    <td>
+        @Html.DisplayFor(x => x.UserRequest.Login)
+    </td>
+    <td>
+        @Html.DisplayFor(x => x.UserRequest.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(x => x.UserRequest.Comment)
+    </td>
+    <td>
+        @Html.DisplayFor(x => x.UserRequest.AddDate)
+    </td>
+    <td>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#typePickModal-@Model.UserRequest.Id">
+            Akceptuj
+        </button>
+        @Html.ActionLink("Odrzuć", "RejectRequest", routeValues: new { id = Model.UserRequest.Id }, htmlAttributes: new { @class = "btn btn-warning" })
+
+        @using (Html.BeginForm("AcceptRequest", "User", FormMethod.Post, null))
+        {
+        <!-- Modal -->
+            <div class="modal fade" id="typePickModal-@Model.UserRequest.Id" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Wybór roli</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Wybierz typ konta dla użytkownika '@Model.UserRequest.Login':</p>
+
+                            @Html.AntiForgeryToken()
+                            @*<input id="requestID-@Model.UserRequest.Id" type="hidden" name="RequestId"  value="@Model.UserRequest.Id" />*@
+                            @Html.Hidden("requestId", Model.UserRequest.Id, htmlAttributes: new { id = $"requestId-{@Model.UserRequest.Id}" })
+                            @Html.DropDownList("typeId", selectList: Model.UserTypes, htmlAttributes: new { @class = "form-control", id = $"typeId-{Model.UserRequest.Id}" })
+                            @*@Html.DropDownListFor(x => x.UserTypes, Model.UserTypes, htmlAttributes: new { @class = "form-control" })*@
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" value="Anuluj" class="btn btn-default" data-dismiss="modal" />
+                            <input type="submit" value="Akceptuj" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </td>
+</tr>
+

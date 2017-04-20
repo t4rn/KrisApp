@@ -1,0 +1,66 @@
+﻿@model KrisApp.Models.Articles.ArticleListModel
+
+@{
+    ViewBag.Title = "Artykuły";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+
+<p>
+    @Html.ActionLink("Utwórz nowy", "Create", "Article")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles[0].TypeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles[0].Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles[0].Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles[0].Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles[0].IsGhost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles[0].AddDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Articles)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsGhost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Article", routeValues: new { id = item.Id }, htmlAttributes: null) |
+                @Html.ActionLink("Details", "Details", "Article", routeValues: new { id = item.Id }, htmlAttributes: null) |
+                @Html.ActionLink("Delete", "Delete", "Article", routeValues: new { id = item.Id }, htmlAttributes: null)
+            </td>
+        </tr>
+    }
+
+</table>

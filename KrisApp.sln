@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisApp", "KrisApp\KrisApp.csproj", "{C3C8190C-8FC4-4874-AE7D-B36B6207CC74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisApp.DataModel", "KrisApp.DataModel\KrisApp.DataModel.csproj", "{26B17E8B-B087-4F99-B5C1-4457CA767A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisApp.Common", "KrisApp.Common\KrisApp.Common.csproj", "{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3C8190C-8FC4-4874-AE7D-B36B6207CC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C8190C-8FC4-4874-AE7D-B36B6207CC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C8190C-8FC4-4874-AE7D-B36B6207CC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C8190C-8FC4-4874-AE7D-B36B6207CC74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B17E8B-B087-4F99-B5C1-4457CA767A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B17E8B-B087-4F99-B5C1-4457CA767A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B17E8B-B087-4F99-B5C1-4457CA767A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B17E8B-B087-4F99-B5C1-4457CA767A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
