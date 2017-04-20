@@ -25,9 +25,9 @@ namespace KrisApp.Controllers
             {
                 ".NET", "C#", "ASP.NET Web Forms", "ASP.NET MVC", "Web Services", "WCF", "WebAPI", "Windows Forms", "Windows Services", "HTML", "CSS", "XML", "JSON",
                 "Entity Framework", "Fluent NHibernate", "Dapper", "LINQ",
-                "JavaScript", "jQuery", "AngularJS", "SignalR",
+                //"JavaScript", "jQuery", "AngularJS", "SignalR",
                 "MS SQL", "PostgreSQL",
-                "NUnit", "NLog", "Ninject", "Moq",
+                "NUnit", "NLog", "Ninject", "Moq", "Autofac", "AutoMapper",
                 "SoapUI", "Postman", "Fiddler",
                 "SVN", "GIT", "IIS", "Redmine", "Jira", "Jenkins"
 
@@ -49,7 +49,7 @@ namespace KrisApp.Controllers
                 "ASP.NET Web API 2",
                 "Entity Framework 6",
                 "MemoryCache",
-                "Automapper",
+                "AutoMapper",
                 "Autofac",
                 "MS SQL",
                 "Bootstrap 3"

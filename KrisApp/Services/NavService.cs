@@ -4,6 +4,7 @@ using KrisApp.DataModel.Users;
 using KrisApp.Models.Nav;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace KrisApp.Services
 {
@@ -28,27 +29,14 @@ namespace KrisApp.Services
             model.Login = _user?.Login;
 
             MenuItemModel articleMenu = PrepareArticleMenu();
-
             model.MenuItems.Add(articleMenu);
-            model.MenuItems.Add(new MenuItemModel()
-            {
-                Action = "Index",
-                Controller = "Rekru",
-                Text = "Rekrutacja"
-            });
 
-            model.MenuItems.Add(new MenuItemModel()
-            {
-                Action = "XXX",
-                Controller = "Me",
-                Text = "O mnie",
-                SubMenu = new List<MenuItemModel>()
-                {
-                    new MenuItemModel { Action = "About", Controller = "Me", Text = "O mnie" },
-                    new MenuItemModel { Action = "Website", Controller = "Me", Text = "O stronie" },
-                    new MenuItemModel { Action = "Contact", Controller = "Me", Text = "Kontakt" },
-                }
-            });
+            MenuItemModel rekruMenu = PrepareRekruMenu();
+            model.MenuItems.Add(rekruMenu);
+
+            MenuItemModel aboutMenu = PrepareAboutMenu();
+            model.MenuItems.Add(aboutMenu);
+
 
             if (_user?.Type.Code == UserType.UserTypeCodes.ADM.ToString())
             {
@@ -123,6 +111,38 @@ namespace KrisApp.Services
             m.SubMenu.Add(allArticlesItem);
 
             return m;
+        }
+
+        /// <summary>
+        /// Zwraca element menu dotyczący rekrutacji
+        /// </summary>
+        private MenuItemModel PrepareRekruMenu()
+        {
+            return new MenuItemModel()
+            {
+                Action = "Index",
+                Controller = "Rekru",
+                Text = "Rekrutacja"
+            };
+        }
+
+        /// <summary>
+        /// Zwraca element menu dotyczący rekrutacji
+        /// </summary>
+        private MenuItemModel PrepareAboutMenu()
+        {
+            return new MenuItemModel()
+            {
+                Action = "XXX",
+                Controller = "Me",
+                Text = "O mnie",
+                SubMenu = new List<MenuItemModel>()
+                {
+                    new MenuItemModel { Action = "About", Controller = "Me", Text = "O mnie" },
+                    new MenuItemModel { Action = "Website", Controller = "Me", Text = "O stronie" },
+                    new MenuItemModel { Action = "Contact", Controller = "Me", Text = "Kontakt" },
+                }
+            };
         }
 
         /// <summary>
