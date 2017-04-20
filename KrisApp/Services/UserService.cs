@@ -1,6 +1,7 @@
 ﻿using KrisApp.Common;
 using KrisApp.Common.Extensions;
 using KrisApp.DataAccess;
+using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.DataModel.Result;
 using KrisApp.DataModel.Users;
 using KrisApp.Models.User;
@@ -13,8 +14,12 @@ namespace KrisApp.Services
 {
     public class UserService : AbstractService
     {
+        private readonly IUserRequestRepository _userRequestRepo;
+
         public UserService(KrisLogger log) : base(log)
-        {}
+        {
+            _userRequestRepo = new UserRequestRepo(Properties.Settings.Default.csDB);
+        }
 
         /// <summary>
         /// Zwraca informację, czy istnieje na bazie niezduchowany użytkownik o danym loginie i haśle
@@ -199,7 +204,7 @@ namespace KrisApp.Services
         /// </summary>
         internal List<UserRequest> GetPendingUsers()
         {
-            List<UserRequest> userRequests = new List<UserRequest>();
+            List<UserRequest> userRequests = _userRequestRepo.GetUserRequests(false);
 
             using (KrisDbContext context = new KrisDbContext())
             {

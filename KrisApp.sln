@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisApp.DataModel", "KrisAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisApp.Common", "KrisApp.Common\KrisApp.Common.csproj", "{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisApp.DataAccess", "KrisApp.DataAccess\KrisApp.DataAccess.csproj", "{89031A50-2B61-47F1-A217-83E1A4BAE210}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55A099E7-60DD-4CA6-A556-89EE10D0E0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89031A50-2B61-47F1-A217-83E1A4BAE210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89031A50-2B61-47F1-A217-83E1A4BAE210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89031A50-2B61-47F1-A217-83E1A4BAE210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89031A50-2B61-47F1-A217-83E1A4BAE210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

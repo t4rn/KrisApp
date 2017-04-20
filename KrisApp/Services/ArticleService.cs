@@ -1,23 +1,25 @@
 ﻿using KrisApp.DataAccess;
-using KrisApp.DataModel.Article;
+using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Enums;
+using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.Models.Articles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Data.Entity;
 
 namespace KrisApp.Services
 {
     public class ArticleService : AbstractService
     {
         private readonly DictionaryService _dictSrv;
+        private readonly IArticleRepository _articleRepo;
 
         public ArticleService(KrisLogger log) : base(log)
         {
             _dictSrv = new DictionaryService(log);
+            _articleRepo = new ArticleRepo(Properties.Settings.Default.csDB);
         }
 
         /// <summary>
@@ -53,11 +55,8 @@ namespace KrisApp.Services
                 model.TypeId, model.Author, model.Title, model.Content.Length);
 
             Article a = PrepareArticleFromModel(model);
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                context.Articles.Add(a);
-                context.SaveChanges();
-            }
+
+            _articleRepo.AddArticle(a);
 
             return a;
         }
@@ -83,11 +82,7 @@ namespace KrisApp.Services
         internal ArticlePageModel PrepareArticlePageModel(int id)
         {
             ArticlePageModel model = new ArticlePageModel();
-
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                model.Article = context.Articles.Where(x => x.Id == id).FirstOrDefault();
-            }
+            model.Article = _articleRepo.GetByID(id);
 
             return model;
         }
@@ -97,12 +92,7 @@ namespace KrisApp.Services
         /// </summary>
         internal void UpdateArticle(Article article)
         {
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                //context.Articles.Attach(article);
-                context.Entry(article).State = System.Data.Entity.EntityState.Modified;
-                context.SaveChanges();
-            }
+            _articleRepo.UpdateArticle(article);
         }
 
         /// <summary>
@@ -114,10 +104,7 @@ namespace KrisApp.Services
             //model.ArticleToCreate = new ArticleModel();
 
             List<ArticleType> articleTypes;
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                articleTypes = _dictSrv.GetArticleTypes().Where(x => x.IsMain == false).ToList();
-            }
+            articleTypes = _dictSrv.GetArticleTypes().Where(x => x.IsMain == false).ToList();
 
             model.ArticleTypes = PrepareArticleTypesSelectItemList(articleTypes);
 
@@ -146,14 +133,9 @@ namespace KrisApp.Services
         internal ArticleListModel PrepareArticleListModel()
         {
             ArticleListModel model = new ArticleListModel();
-            model.Articles = new List<Article>();
-
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                model.Articles = context.Articles.AsNoTracking()
-                    .Include(x => x.Type)
-                    .OrderByDescending(x => x.Id).ToList();
-            }
+            model.Articles = _articleRepo.GetArticles()
+                    .OrderByDescending(x => x.Id)
+                    .ToList();
 
             return model;
         }
@@ -164,13 +146,7 @@ namespace KrisApp.Services
         internal ArticleListModel PrepareArticleListModel(ArticleTypeEnum articleType)
         {
             ArticleListModel model = new ArticleListModel();
-            model.Articles = new List<Article>();
-
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                model.Articles = context.Articles.AsNoTracking()
-                    .Where(x => x.Type.Code == articleType.ToString()).ToList();
-            }
+            model.Articles = _articleRepo.GetArticlesByType(articleType.ToString());
 
             return model;
         }

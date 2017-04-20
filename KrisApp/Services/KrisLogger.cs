@@ -7,11 +7,11 @@ namespace KrisApp.Services
 {
     public class KrisLogger
     {
-        private readonly AppLogDAL _logDAL;
+        private readonly AppLogRepo _logDAL;
 
         public KrisLogger()
         {
-            _logDAL = new AppLogDAL(Properties.Settings.Default.csDB);
+            _logDAL = new AppLogRepo(Properties.Settings.Default.csDB);
         }
 
         public void Error(string format, params object[] args)

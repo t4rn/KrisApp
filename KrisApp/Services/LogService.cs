@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using KrisApp.DataAccess;
+using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.Models.Admin;
-using KrisApp.DataAccess;
+using System.Linq;
 
 namespace KrisApp.Services
 {
     public class LogService : AbstractService
     {
+        private readonly ILogRepository _logRepo;
+
         public LogService(KrisLogger log) : base(log)
-        {}
+        {
+            _logRepo = new AppLogRepo(Properties.Settings.Default.csDB);
+        }
 
         /// <summary>
         /// Zwraca wszystkie logi
@@ -19,10 +21,8 @@ namespace KrisApp.Services
         {
             LogsViewModel model = new LogsViewModel();
 
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                model.AppLogs = context.AppLogs.OrderByDescending(x => x.ID).ToList();
-            }
+            model.AppLogs = _logRepo.GetLogs();
+
 
             return model;
         }

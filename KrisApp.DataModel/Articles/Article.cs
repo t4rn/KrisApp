@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KrisApp.DataModel.Article
+namespace KrisApp.DataModel.Articles
 {
     [Table("Article", Schema = "Work")]
     public class Article

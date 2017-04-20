@@ -195,10 +195,6 @@
     <Compile Include="Controllers\RekruController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WorkerApiController.cs" />
-    <Compile Include="DataAccess\AppLogDAL.cs" />
-    <Compile Include="DataAccess\BaseDAL.cs" />
-    <Compile Include="DataAccess\KrisDbContext.cs" />
-    <Compile Include="DataAccess\DbDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -354,6 +350,10 @@
     <ProjectReference Include="..\KrisApp.Common\KrisApp.Common.csproj">
       <Project>{55a099e7-60dd-4ca6-a556-89ee10d0e0b3}</Project>
       <Name>KrisApp.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KrisApp.DataAccess\KrisApp.DataAccess.csproj">
+      <Project>{89031A50-2B61-47F1-A217-83E1A4BAE210}</Project>
+      <Name>KrisApp.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\KrisApp.DataModel\KrisApp.DataModel.csproj">
       <Project>{26b17e8b-b087-4f99-b5c1-4457ca767a4a}</Project>

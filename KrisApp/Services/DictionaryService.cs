@@ -1,5 +1,6 @@
 ﻿using KrisApp.DataAccess;
 using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace KrisApp.Services
     public class DictionaryService : AbstractService
     {
         private readonly int cacheTimeMinutes = 360;
+        private readonly IUserTypeRepository _userTypeRepo;
+        private readonly IArticleTypeRepository _articleTypeRepo;
 
         private enum DictionaryTypes
         {
@@ -17,7 +20,10 @@ namespace KrisApp.Services
         }
 
         public DictionaryService(KrisLogger log) : base(log)
-        {}
+        {
+            _userTypeRepo = new UserTypeRepo(Properties.Settings.Default.csDB);
+            _articleTypeRepo = new ArticleTypeRepo(Properties.Settings.Default.csDB);
+        }
 
         /// <summary>
         /// Zwraca listę typów użytkowników - z cache albo z DB
@@ -44,12 +50,7 @@ namespace KrisApp.Services
         /// </summary>
         private List<UserType> GetUserTypesFromDB()
         {
-            List<UserType> userTypes = null;
-
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                userTypes = context.UserTypes.Where(x => x.Ghost == false).ToList();
-            }
+            List<UserType> userTypes = _userTypeRepo.GetUserTypes();
 
             return userTypes;
         }
@@ -59,12 +60,7 @@ namespace KrisApp.Services
         /// </summary>
         private List<ArticleType> GetArticleTypesFromDB()
         {
-            List<ArticleType> dict = null;
-
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                dict = context.ArticleTypes.AsNoTracking().Where(x => x.Ghost == false).ToList();
-            }
+            List<ArticleType> dict = _articleTypeRepo.GetArticleTypes();
 
             return dict;
         }

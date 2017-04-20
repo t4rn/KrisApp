@@ -1,4 +1,4 @@
-﻿using KrisApp.DataModel.Article;
+﻿using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Enums;
 using KrisApp.Models.Articles;
 using KrisApp.Services;
