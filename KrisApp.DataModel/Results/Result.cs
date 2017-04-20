@@ -1,4 +1,4 @@
-﻿namespace KrisApp.DataModel.Result
+﻿namespace KrisApp.DataModel.Results
 {
     public class Result
     {

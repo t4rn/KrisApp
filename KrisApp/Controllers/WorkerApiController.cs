@@ -11,15 +11,20 @@ namespace KrisApp.Controllers
     [RoutePrefix("api/workers")]
     public class WorkerApiController : ApiController
     {
-        private KrisLogger log = new KrisLogger();
-        private WorkerService workerSrv = new WorkerService(new KrisLogger());
-        private KrisDbContext db = new KrisDbContext();
+        private readonly KrisLogger _log;
+        private readonly WorkerService _workerSrv;
+
+        public WorkerApiController()
+        {
+            _log = new KrisLogger();
+            _workerSrv = new WorkerService(_log);
+        }
 
         // GET: api/Workers
         [Route("")]
         public IEnumerable<WorkerModel> GetWorkers()
         {
-            List<WorkerModel> workersModel = workerSrv.GetWorkers();
+            List<WorkerModel> workersModel = _workerSrv.GetWorkers();
             return workersModel;
         }
 
@@ -28,7 +33,7 @@ namespace KrisApp.Controllers
         [Route("{id:int}")]
         public IHttpActionResult GetWorker(int id)
         {
-            WorkerModel worker = workerSrv.GetWorkerByID(id);
+            WorkerModel worker = _workerSrv.GetWorkerByID(id);
             if (worker == null)
             {
                 return NotFound();
@@ -42,7 +47,7 @@ namespace KrisApp.Controllers
         [Route("{id:int}/skills")]
         public IHttpActionResult GetWorkerSkills(int id)
         {
-            WorkerModel worker = workerSrv.GetWorkerByID(id);
+            WorkerModel worker = _workerSrv.GetWorkerByID(id);
             if (worker == null)
             {
                 return NotFound();
@@ -56,7 +61,7 @@ namespace KrisApp.Controllers
         [Route("{id:int}/positions")]
         public IHttpActionResult GetWorkerPositions(int id)
         {
-            WorkerModel worker = workerSrv.GetWorkerByID(id);
+            WorkerModel worker = _workerSrv.GetWorkerByID(id);
             if (worker == null)
             {
                 return NotFound();
@@ -68,13 +73,13 @@ namespace KrisApp.Controllers
         [Route("skills")]
         public IHttpActionResult GetSkillTypes()
         {
-            return Ok(db.SkillTypes);
+            return Ok(_workerSrv.GetSkillTypes());
         }
 
         [Route("positions")]
         public IHttpActionResult GetPositionTypes()
         {
-            return Ok(db.PositionTypes);
+            return Ok(_workerSrv.GetPositionTypes());
         }
 
         /*

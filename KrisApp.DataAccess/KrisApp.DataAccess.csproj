@@ -52,12 +52,15 @@
     <Compile Include="AppLogRepo.cs" />
     <Compile Include="ArticleRepo.cs" />
     <Compile Include="BaseDAL.cs" />
+    <Compile Include="ContactMessageRepo.cs" />
     <Compile Include="DbContexts\KrisDbContext.cs" />
-    <Compile Include="DbDAL.cs" />
+    <Compile Include="Dictionaries\DictionaryRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ArticleTypeRepo.cs" />
+    <Compile Include="UserRepo.cs" />
     <Compile Include="UserRequestRepo.cs" />
     <Compile Include="UserTypeRepo.cs" />
+    <Compile Include="WorkerRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,31 +1,30 @@
 ﻿using KrisApp.DataAccess;
+using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.DataModel.Work;
 using KrisApp.Models.Work;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System;
+using KrisApp.DataModel.Dictionaries;
 
 namespace KrisApp.Services
 {
     public class WorkerService : AbstractService
     {
-        private KrisDbContext db = new KrisDbContext();
+        private readonly IWorkerRepository _workerRepo;
+        private readonly DictionaryService _dictSrv;
 
         public WorkerService(KrisLogger log) : base(log)
-        { }
+        {
+            _workerRepo = new WorkerRepo(Properties.Settings.Default.csDB);
+            _dictSrv = new DictionaryService(log);
+        }
 
         internal List<WorkerModel> GetWorkers()
         {
             List<WorkerModel> workersModel = new List<WorkerModel>();
 
-            db.Database.Log = log => System.Diagnostics.Debug.WriteLine(log);
-
             // pobieramy dane z bazy
-            List<Worker> workers = db.Workers
-                .Include(x => x.Positions.Select(p => p.Position))
-                .Include(x => x.Skills.Select(s => s.Skill))
-                .ToList();
+            List<Worker> workers = _workerRepo.GetWorkers();
 
             // mapujemy encje z bazy na modele
             workersModel = MapService.MapWorkersToModel(workers);
@@ -40,12 +39,7 @@ namespace KrisApp.Services
         {
             WorkerModel workerModel = null;
 
-            db.Database.Log = log => System.Diagnostics.Debug.WriteLine(log);
-
-            Worker worker = db.Workers
-                .Include(x => x.Positions.Select(p => p.Position))
-                .Include(x => x.Skills.Select(s =>s.Skill))
-                .FirstOrDefault(x => x.ID == id);
+            Worker worker = _workerRepo.GetWorker(id);  
 
             if (worker != null)
             {
@@ -53,6 +47,21 @@ namespace KrisApp.Services
             }
 
             return workerModel;
+        }
+
+        internal List<PositionType> GetPositionTypes()
+        {
+            List<PositionType> positionTypes = _dictSrv.GetPositionTypes();
+
+            return positionTypes;
+        }
+
+        internal List<SkillType> GetSkillTypes()
+        {
+            List<SkillType> skillTypes = _dictSrv.GetSkillTypes();
+
+            return skillTypes;
+       
         }
     }
 }

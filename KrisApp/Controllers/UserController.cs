@@ -1,13 +1,10 @@
-﻿using KrisApp.DataModel.Result;
+﻿using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Results;
 using KrisApp.Models.User;
 using KrisApp.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using KrisApp.DataModel.Dictionaries;
 
 namespace KrisApp.Controllers
 {

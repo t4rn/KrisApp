@@ -2,12 +2,11 @@
 using KrisApp.Common.Extensions;
 using KrisApp.DataAccess;
 using KrisApp.DataModel.Interfaces.Repositories;
-using KrisApp.DataModel.Result;
+using KrisApp.DataModel.Results;
 using KrisApp.DataModel.Users;
 using KrisApp.Models.User;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace KrisApp.Services
@@ -15,10 +14,12 @@ namespace KrisApp.Services
     public class UserService : AbstractService
     {
         private readonly IUserRequestRepository _userRequestRepo;
+        private readonly IUserRepository _userRepo;
 
         public UserService(KrisLogger log) : base(log)
         {
             _userRequestRepo = new UserRequestRepo(Properties.Settings.Default.csDB);
+            _userRepo = new UserRepo(Properties.Settings.Default.csDB);
         }
 
         /// <summary>
@@ -31,27 +32,19 @@ namespace KrisApp.Services
             _log.Debug("[AuthenticateUser] Próba logowania usera '{0}'", login);
             string passwdMd5 = Md5.CreateMd5(password);
 
-            using (KrisDbContext context = new KrisDbContext())
+            result.User = _userRepo.GetUser(login, passwdMd5, false);
+
+            if (result.User != null)
             {
-                //context.Database.Log = LogDb();
-                User user = context.Users
-                    .Where(x => x.Login == login && x.Password == passwdMd5 && x.Ghost == false)
-                    .Include(x => x.Type)
-                    .FirstOrDefault();
+                result.IsOK = true;
 
-                if (user != null)
-                {
-                    result.IsOK = true;
-                    result.User = user;
-
-                    _log.Debug("[AuthenticateUser] Pomyślnie autoryzowano '{0}'",
-                        login);
-                }
-                else
-                {
-                    result.Message = $"Brak aktywnego użytkownika o danym loginie i haśle.";
-                    _log.Error("[AuthenticateUser] '{0}'", result.Message);
-                }
+                _log.Debug("[AuthenticateUser] Pomyślnie autoryzowano '{0}'",
+                    login);
+            }
+            else
+            {
+                result.Message = $"Brak aktywnego użytkownika o danym loginie i haśle.";
+                _log.Error("[AuthenticateUser] '{0}'", result.Message);
             }
 
             return result;
@@ -67,27 +60,24 @@ namespace KrisApp.Services
             {
                 _log.Debug("Próba rejestracji usera = '{0}' o email = '{1}'", model.UserName, model.Email);
 
-                using (KrisDbContext context = new KrisDbContext())
+                bool userExists = _userRequestRepo.IsUserExisting(model.UserName);
+
+                if (userExists)
                 {
-                    //context.Database.Log = LogDb();
-                    bool userExists = context.UserRequests.Any(x => x.Login == model.UserName);
-                    if (userExists)
-                    {
-                        result.Message = $"Użytkownik o loginie = '{model.UserName}' już istnieje w systemie!";
-                    }
-                    else
-                    {
-                        UserRequest userReq = PrepareUserRequest(model);
-                        context.UserRequests.Add(userReq);
-                        context.SaveChanges();
-
-                        result.IsOK = true;
-                        result.Message = $"Prośba o ID = '{userReq.Id}' utworzona pomyślnie!";
-                    }
-
-                    _log.Debug("[AddUserRequest] Wynik dla '{0}' -> '{1}' - {2}",
-                        model.UserName, result.IsOK, result.Message);
+                    result.Message = $"Użytkownik o loginie = '{model.UserName}' już istnieje w systemie!";
                 }
+                else
+                {
+                    UserRequest userReq = PrepareUserRequest(model);
+                    _userRequestRepo.AddUserRequest(userReq);
+
+                    result.IsOK = true;
+                    result.Message = $"Prośba o ID = '{userReq.Id}' utworzona pomyślnie!";
+                }
+
+                _log.Debug("[AddUserRequest] Wynik dla '{0}' -> '{1}' - {2}",
+                    model.UserName, result.IsOK, result.Message);
+
             }
             catch (Exception ex)
             {
@@ -123,34 +113,30 @@ namespace KrisApp.Services
 
             try
             {
-                using (KrisDbContext context = new KrisDbContext())
+                UserRequest userRequest = _userRequestRepo.GetUserRequest(userRequestID);
+
+                if (userRequest != null)
                 {
-                    UserRequest userRequest = context.UserRequests.Where(x => x.Id == userRequestID).FirstOrDefault();
+                    userRequest.Ghost = true;
+                    User newUser = PrepareUserFromRequest(userRequest, userTypeID);
 
-                    if (userRequest != null)
-                    {
-                        userRequest.Ghost = true;
-                        User newUser = PrepareUserFromRequest(userRequest, userTypeID);
+                    _userRepo.AddUser(newUser);
 
-                        context.Users.Add(newUser);
-                        context.SaveChanges();
+                    result.IsOK = true;
+                    result.User = newUser;
 
-                        result.IsOK = true;
-                        result.User = newUser;
-
-                        _log.Debug("[AcceptRequest] Pomyślnie dodano usera o requestID = '{0}' -> otrzymał ID = '{1}'",
-                            userRequestID, newUser.Id);
-                    }
-                    else
-                    {
-                        result.Message = $"Brak requesta o ID = '{userRequestID}'.";
-                    }
+                    _log.Debug("[AcceptRequest] Pomyślnie dodano usera o requestID = '{0}' -> otrzymał ID = '{1}'",
+                        userRequestID, newUser.Id);
+                }
+                else
+                {
+                    result.Message = $"Brak requesta o ID = '{userRequestID}'.";
                 }
             }
             catch (Exception ex)
             {
                 result.Message = ex.Message;
-                _log.Error("[AcceptUserRequest] Ex: {0} {1}", 
+                _log.Error("[AcceptUserRequest] Ex: {0} {1}",
                     ex.MessageFromInnerEx(), ex.StackTrace);
             }
 
@@ -162,22 +148,15 @@ namespace KrisApp.Services
         /// </summary>
         internal Result RejectUserRequest(int id)
         {
-            Result result = new Result();
+            Result result = _userRequestRepo.UpdateUserRequestToGhost(id);
 
-            using (KrisDbContext context = new KrisDbContext())
+            if (result.IsOK)
             {
-                UserRequest req = context.UserRequests.Where(x => x.Id == id).FirstOrDefault();
-
-                if (req != null)
-                {
-                    req.Ghost = true;
-                    context.SaveChanges();
-                    _log.Debug("[RejectUserRequest] Pomyślnie zduchowano UserRequest o ID = '{0}'", id);
-                }
-                else
-                {
-                    _log.Error("[RejectUserRequest] Próba odrzucenia konta o nieistniejącym ID = '{0}'", id);
-                }
+                _log.Debug("[RejectUserRequest] Pomyślnie zduchowano UserRequest o ID = '{0}'", id);
+            }
+            else
+            {
+                _log.Error("[RejectUserRequest] Próba odrzucenia konta o nieistniejącym ID = '{0}'", id);
             }
 
             return result;
@@ -195,7 +174,7 @@ namespace KrisApp.Services
             u.Password = userRequest.Password;
             u.RequestId = userRequest.Id;
             u.TypeId = userTypeID;
-            
+
             return u;
         }
 
@@ -205,11 +184,6 @@ namespace KrisApp.Services
         internal List<UserRequest> GetPendingUsers()
         {
             List<UserRequest> userRequests = _userRequestRepo.GetUserRequests(false);
-
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                userRequests = context.UserRequests.Where(x => x.Ghost == false).ToList();
-            }
 
             return userRequests;
         }

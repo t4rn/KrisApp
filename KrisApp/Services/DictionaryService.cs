@@ -1,5 +1,7 @@
 ﻿using KrisApp.DataAccess;
+using KrisApp.DataAccess.Dictionaries;
 using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,16 +15,20 @@ namespace KrisApp.Services
         private readonly int cacheTimeMinutes = 360;
         private readonly IUserTypeRepository _userTypeRepo;
         private readonly IArticleTypeRepository _articleTypeRepo;
+        private readonly IDictionaryRepository _dictRepo;
 
         private enum DictionaryTypes
         {
-            User, Article
+            User, Article,
+            Position,
+            Skill
         }
 
         public DictionaryService(KrisLogger log) : base(log)
         {
             _userTypeRepo = new UserTypeRepo(Properties.Settings.Default.csDB);
             _articleTypeRepo = new ArticleTypeRepo(Properties.Settings.Default.csDB);
+            _dictRepo = new DictionaryRepo(Properties.Settings.Default.csDB);
         }
 
         /// <summary>
@@ -43,6 +49,37 @@ namespace KrisApp.Services
             List<ArticleType> userTypes = GetFromCacheOrDB(DictionaryTypes.Article, () => GetArticleTypesFromDB());
 
             return userTypes;
+        }
+
+        internal List<PositionType> GetPositionTypes()
+        {
+            List<PositionType> positionTypes = GetFromCacheOrDB(DictionaryTypes.Position, () => GetPositionTypesFromDB());
+
+            return positionTypes;
+        }
+
+        internal List<SkillType> GetSkillTypes()
+        {
+            List<SkillType> skillType = GetFromCacheOrDB(DictionaryTypes.Skill, () => GetSkillTypesFromDB());
+
+            return skillType;
+        }
+
+        private List<SkillType> GetSkillTypesFromDB()
+        {
+            List<SkillType> skillType = _dictRepo.GetItems<SkillType>();
+
+            return skillType;
+        }
+
+        /// <summary>
+        /// Zwraca listę typow stanowisk z bazy danych
+        /// </summary>
+        private List<PositionType> GetPositionTypesFromDB()
+        {
+            List<PositionType> positionType = _dictRepo.GetItems<PositionType>();
+
+            return positionType;
         }
 
         /// <summary>

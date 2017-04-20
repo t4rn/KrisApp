@@ -1,4 +1,4 @@
-﻿using KrisApp.DataModel.Article;
+﻿using KrisApp.DataModel.Articles;
 
 namespace KrisApp.Models.Articles
 {

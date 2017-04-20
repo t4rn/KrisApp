@@ -1,6 +1,6 @@
 ﻿using KrisApp.DataModel.Users;
 
-namespace KrisApp.DataModel.Result
+namespace KrisApp.DataModel.Results
 {
     public class UserResult : Result
     {

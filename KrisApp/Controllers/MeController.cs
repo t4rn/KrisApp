@@ -1,4 +1,4 @@
-﻿using KrisApp.DataModel.Result;
+﻿using KrisApp.DataModel.Results;
 using KrisApp.Models.Me;
 using KrisApp.Services;
 using System.Collections.Generic;

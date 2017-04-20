@@ -1,4 +1,7 @@
-﻿namespace KrisApp.DataAccess
+﻿using System;
+using System.Diagnostics;
+
+namespace KrisApp.DataAccess
 {
     public abstract class BaseDAL
     {
@@ -7,6 +10,11 @@
         public BaseDAL(string cs)
         {
             csKris = cs;
+        }
+
+        protected Action<string> LogDb()
+        {
+            return msg => Debug.WriteLine(msg);
         }
     }
 }

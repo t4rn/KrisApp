@@ -1,18 +1,23 @@
 ﻿using KrisApp.Common.Extensions;
 using KrisApp.DataAccess;
 using KrisApp.DataModel.Contact;
-using KrisApp.DataModel.Result;
+using KrisApp.DataModel.Interfaces.Repositories;
+using KrisApp.DataModel.Results;
+using KrisApp.Models.Admin;
 using KrisApp.Models.Me;
 using System;
-using KrisApp.Models.Admin;
 using System.Linq;
 
 namespace KrisApp.Services
 {
     public class ContactService : AbstractService
     {
+        private readonly IContactMessageRepository _contactRepo;
+
         public ContactService(KrisLogger log) : base(log)
-        { }
+        {
+            _contactRepo = new ContactMessageRepo(Properties.Settings.Default.csDB);
+        }
 
         /// <summary>
         /// Dodaje kontakt na bazę [WWW.ContactMessage]
@@ -24,12 +29,7 @@ namespace KrisApp.Services
             {
                 ContactMessage message = PrepareMessage(contactModel);
 
-                // TODO: IoC
-                using (KrisDbContext context = new KrisDbContext())
-                {
-                    context.ContactMessages.Add(message);
-                    context.SaveChanges();
-                }
+                _contactRepo.AddMessage(message);
 
                 if (message.ID > 0)
                 {
@@ -62,11 +62,8 @@ namespace KrisApp.Services
         {
             ContactsListModel model = new ContactsListModel();
 
-            using (KrisDbContext context = new KrisDbContext())
-            {
-                model.ContactMessages = context.ContactMessages.AsNoTracking()
-                    .OrderByDescending(x => x.AddDate).ToList();
-            }
+            model.ContactMessages = _contactRepo.GetContactMessages()
+                .OrderByDescending(x => x.AddDate).ToList();
 
             return model;
         }
