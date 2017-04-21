@@ -58,28 +58,24 @@ namespace KrisApp.Controllers
         public ActionResult Asp()
         {
             ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.ASP);
-            ViewBag.Type = "ASP.NET MVC";
             return View(_articleListView, model);
         }
 
         public ActionResult Wcf()
         {
             ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.WCF);
-            ViewBag.Type = "WCF/WebAPI";
             return View(_articleListView, model);
         }
 
         public ActionResult Pattern()
         {
             ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.PATTERN);
-            ViewBag.Type = "Wzorce projektowe";
             return View(_articleListView, model);
         }
 
         public ActionResult Sql()
         {
             ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.SQL);
-            ViewBag.Type = "SQL";
             return View(_articleListView, model);
         }
 

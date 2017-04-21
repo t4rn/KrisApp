@@ -3,7 +3,9 @@
     ViewBag.Title = ViewBag.Type;
 }
 
-<h2>@ViewBag.Type</h2>
+<h2>@Model.ArticleType</h2>
+<hr />
+
 @if (Model.Articles?.Count > 0)
 {
     Html.RenderPartial("_ArticleList", Model.Articles);

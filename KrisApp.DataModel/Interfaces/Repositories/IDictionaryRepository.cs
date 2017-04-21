@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace KrisApp.DataModel.Interfaces.Repositories
 {
-    public interface IUserTypeRepository
+    public interface IDictionaryRepository
     {
-        List<UserType> GetUserTypes();
+        List<T> GetItems<T>() where T : DictionaryItem;
     }
 }

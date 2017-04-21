@@ -1,6 +1,7 @@
 ﻿using KrisApp.Common;
 using KrisApp.Common.Extensions;
 using KrisApp.DataAccess;
+using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.DataModel.Results;
 using KrisApp.DataModel.Users;
@@ -8,6 +9,7 @@ using KrisApp.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace KrisApp.Services
 {
@@ -15,11 +17,13 @@ namespace KrisApp.Services
     {
         private readonly IUserRequestRepository _userRequestRepo;
         private readonly IUserRepository _userRepo;
+        private readonly DictionaryService _dictSrv;
 
         public UserService(KrisLogger log) : base(log)
         {
             _userRequestRepo = new UserRequestRepo(Properties.Settings.Default.csDB);
             _userRepo = new UserRepo(Properties.Settings.Default.csDB);
+            _dictSrv = new DictionaryService(log);
         }
 
         /// <summary>
@@ -181,11 +185,33 @@ namespace KrisApp.Services
         /// <summary>
         /// Zwraca użytkowników oczekujących na akceptację
         /// </summary>
-        internal List<UserRequest> GetPendingUsers()
+        internal UsersPendingModel PrepareUsersPendingModel()
         {
-            List<UserRequest> userRequests = _userRequestRepo.GetUserRequests(false);
+            UsersPendingModel model = new UsersPendingModel();
+            model.PendingUserRequests = new List<UserRequestModel>();
+            var pendingUsers = _userRequestRepo.GetUserRequests(false);
+            List<SelectListItem> selectList = PrepareUserTypesSelectItemList(_dictSrv.GetDictionary<UserType>());
 
-            return userRequests;
+            foreach (var pendingUser in pendingUsers)
+            {
+                UserRequestModel userreq = new UserRequestModel() { UserRequest = pendingUser, UserTypes = selectList };
+                model.PendingUserRequests.Add(userreq);
+            }
+
+            return model;
+        }
+
+        private List<SelectListItem> PrepareUserTypesSelectItemList(List<UserType> userTypes)
+        {
+            List<SelectListItem> selectList = new List<SelectListItem>();
+
+            foreach (UserType userType in userTypes)
+            {
+                SelectListItem item = new SelectListItem() { Text = userType.Name, Value = userType.ID.ToString() };
+                selectList.Add(item);
+            }
+
+            return selectList;
         }
     }
 }

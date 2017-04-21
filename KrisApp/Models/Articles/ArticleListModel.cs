@@ -6,5 +6,7 @@ namespace KrisApp.Models.Articles
     public class ArticleListModel
     {
         public List<Article> Articles { get; set; }
+
+        public string ArticleType { get; set; }
     }
 }

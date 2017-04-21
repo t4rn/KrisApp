@@ -29,7 +29,7 @@ namespace KrisApp.Services
         {
             ArticleHomeModel model = new ArticleHomeModel();
 
-            List<ArticleType> articleTypes = _dictSrv.GetArticleTypes();
+            List<ArticleType> articleTypes = _dictSrv.GetDictionary<ArticleType>();
             List<ArticleTypeModel> articlesAll = PrepareArticleTypes(articleTypes);
 
             model.MainArticle = articlesAll.FirstOrDefault(x => x.IsMain == true);
@@ -104,7 +104,7 @@ namespace KrisApp.Services
             //model.ArticleToCreate = new ArticleModel();
 
             List<ArticleType> articleTypes;
-            articleTypes = _dictSrv.GetArticleTypes().Where(x => x.IsMain == false).ToList();
+            articleTypes = _dictSrv.GetDictionary<ArticleType>().Where(x => x.IsMain == false).ToList();
 
             model.ArticleTypes = PrepareArticleTypesSelectItemList(articleTypes);
 
@@ -147,6 +147,7 @@ namespace KrisApp.Services
         {
             ArticleListModel model = new ArticleListModel();
             model.Articles = _articleRepo.GetArticlesByType(articleType.ToString());
+            model.ArticleType = model.Articles.FirstOrDefault()?.Type?.Name;
 
             return model;
         }
@@ -156,7 +157,7 @@ namespace KrisApp.Services
         /// </summary>
         internal List<ArticleType> GetArticleTypes()
         {
-            return _dictSrv.GetArticleTypes();
+            return _dictSrv.GetDictionary<ArticleType>();
         }
 
         private List<ArticleTypeModel> PrepareArticleTypes(List<ArticleType> articleTypes)

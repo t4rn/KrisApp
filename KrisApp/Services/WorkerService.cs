@@ -51,14 +51,14 @@ namespace KrisApp.Services
 
         internal List<PositionType> GetPositionTypes()
         {
-            List<PositionType> positionTypes = _dictSrv.GetPositionTypes();
+            List<PositionType> positionTypes = _dictSrv.GetDictionary<PositionType>();
 
             return positionTypes;
         }
 
         internal List<SkillType> GetSkillTypes()
         {
-            List<SkillType> skillTypes = _dictSrv.GetSkillTypes();
+            List<SkillType> skillTypes = _dictSrv.GetDictionary<SkillType>();
 
             return skillTypes;
        

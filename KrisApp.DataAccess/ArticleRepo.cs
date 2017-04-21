@@ -53,7 +53,9 @@ namespace KrisApp.DataAccess
             using (KrisDbContext context = new KrisDbContext(csKris))
             {
                 articles = context.Articles.AsNoTracking()
-                    .Where(x => x.Type.Code == typeCode).ToList();
+                    .Where(x => x.Type.Code == typeCode)
+                    .Include(x => x.Type)
+                    .ToList();
             }
 
             return articles;

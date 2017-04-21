@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using KrisApp.DataModel.Interfaces;
-using KrisApp.DataAccess.DbContexts;
+﻿using KrisApp.DataAccess.DbContexts;
 using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Interfaces.Repositories;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KrisApp.DataAccess.Dictionaries
 {
-    public class DictionaryRepo : BaseDAL, IDictionaryRepository<T>
+    public class DictionaryRepo : BaseDAL, IDictionaryRepository
     {
         public DictionaryRepo(string cs) : base(cs)
         {
         }
-
 
         public List<T> GetItems<T>() where T: DictionaryItem
         {

@@ -1,8 +1,6 @@
-﻿using KrisApp.DataModel.Dictionaries;
-using KrisApp.DataModel.Results;
+﻿using KrisApp.DataModel.Results;
 using KrisApp.Models.User;
 using KrisApp.Services;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -92,38 +90,9 @@ namespace KrisApp.Controllers
         public ActionResult Pending()
         {
             // TODO: dostęp tylko dla admina
-            UsersPendingModel model = PrepareUsersPendingModel();
+            UsersPendingModel model = _userSrv.PrepareUsersPendingModel();
 
             return View(model);
-        }
-
-        private UsersPendingModel PrepareUsersPendingModel()
-        {
-            UsersPendingModel model = new UsersPendingModel();
-            model.PendingUserRequests = new List<UserRequestModel>();
-            var pendingUsers = _userSrv.GetPendingUsers();
-            List<SelectListItem> selectList = PrepareUserTypesSelectItemList(_dictSrv.GetUserTypes());
-
-            foreach (var pendingUser in pendingUsers)
-            {
-                UserRequestModel userreq = new UserRequestModel() { UserRequest = pendingUser, UserTypes = selectList };
-                model.PendingUserRequests.Add(userreq);
-            }
-
-            return model;
-        }
-
-        private List<SelectListItem> PrepareUserTypesSelectItemList(List<UserType> userTypes)
-        {
-            List<SelectListItem> selectList = new List<SelectListItem>();
-
-            foreach (UserType userType in userTypes)
-            {
-                SelectListItem item = new SelectListItem() { Text = userType.Name, Value = userType.ID.ToString() };
-                selectList.Add(item);
-            }
-
-            return selectList;
         }
 
         public ActionResult AcceptRequest(int requestId, int typeId)

@@ -6,10 +6,9 @@ namespace KrisApp.DataModel.Interfaces.Repositories
     public interface IArticleRepository
     {
         void AddArticle(Article article);
-
         Article GetByID(int id);
         void UpdateArticle(Article article);
         List<Article> GetArticles();
-        List<Article> GetArticlesByType(string v);
+        List<Article> GetArticlesByType(string articleType);
     }
 }
