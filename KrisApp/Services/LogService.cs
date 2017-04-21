@@ -1,30 +1,25 @@
-﻿using KrisApp.DataAccess;
+﻿using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Interfaces.Repositories;
-using KrisApp.Models.Admin;
-using System.Linq;
+using KrisApp.DataModel.Logs;
+using System.Collections.Generic;
 
 namespace KrisApp.Services
 {
-    public class LogService : AbstractService
+    public class LogService : AbstractService, IAppLogService
     {
         private readonly ILogRepository _logRepo;
 
-        public LogService(KrisLogger log) : base(log)
+        public LogService(ILogger log, ILogRepository logRepo) : base(log)
         {
-            _logRepo = new AppLogRepo(Properties.Settings.Default.csDB);
+            _logRepo = logRepo;
         }
 
         /// <summary>
         /// Zwraca wszystkie logi
         /// </summary>
-        internal LogsViewModel GetLogsAll()
+        public List<AppLog> GetLogsAll()
         {
-            LogsViewModel model = new LogsViewModel();
-
-            model.AppLogs = _logRepo.GetLogs();
-
-
-            return model;
+            return _logRepo.GetLogs();
         }
     }
 }

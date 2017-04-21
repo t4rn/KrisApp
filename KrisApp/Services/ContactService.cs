@@ -1,33 +1,32 @@
 ﻿using KrisApp.Common.Extensions;
-using KrisApp.DataAccess;
 using KrisApp.DataModel.Contact;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.DataModel.Results;
-using KrisApp.Models.Admin;
-using KrisApp.Models.Me;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace KrisApp.Services
 {
-    public class ContactService : AbstractService
+    public class ContactService : AbstractService, IContactService
     {
         private readonly IContactMessageRepository _contactRepo;
 
-        public ContactService(KrisLogger log) : base(log)
+        public ContactService(ILogger log, IContactMessageRepository contactRepo) : base(log)
         {
-            _contactRepo = new ContactMessageRepo(Properties.Settings.Default.csDB);
+            _contactRepo = contactRepo;
         }
 
         /// <summary>
         /// Dodaje kontakt na bazę [WWW.ContactMessage]
         /// </summary>
-        internal Result AddContactMessage(ContactModel contactModel)
+        public Result AddContactMessage(ContactMessage message)
         {
             Result result = new Result();
             try
             {
-                ContactMessage message = PrepareMessage(contactModel);
+                FillMessage(message);
 
                 _contactRepo.AddMessage(message);
 
@@ -58,31 +57,19 @@ namespace KrisApp.Services
         /// <summary>
         /// Zwraca wszystkie wiadomości
         /// </summary>
-        internal ContactsListModel GetContactMessages()
+        public List<ContactMessage> GetContactMessages()
         {
-            ContactsListModel model = new ContactsListModel();
-
-            model.ContactMessages = _contactRepo.GetContactMessages()
+            return _contactRepo.GetContactMessages()
                 .OrderByDescending(x => x.AddDate).ToList();
-
-            return model;
         }
 
         /// <summary>
-        /// Zwraca ContactMessage wypełniony danymi z przekazanego modelu
+        /// Wypełnia ContactMessage brakującymi danymi
         /// </summary>
-        private ContactMessage PrepareMessage(ContactModel contactModel)
+        private void FillMessage(ContactMessage message)
         {
-            // TODO: automapper
-            ContactMessage message = new ContactMessage();
-
-            message.Author = contactModel.Author;
-            message.Subject = contactModel.Subject;
-            message.Content = contactModel.Content;
             message.IP = NetworkService.GetContextIP();
             message.AddDate = DateTime.Now;
-
-            return message;
         }
     }
 }

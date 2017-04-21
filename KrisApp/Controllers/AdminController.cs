@@ -1,6 +1,6 @@
-﻿using KrisApp.Models.Admin;
+﻿using KrisApp.DataModel.Interfaces;
+using KrisApp.Models.Admin;
 using KrisApp.Models.Articles;
-using KrisApp.Services;
 using System.Web.Mvc;
 
 namespace KrisApp.Controllers
@@ -8,37 +8,42 @@ namespace KrisApp.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly KrisLogger _log;
-        private readonly LogService _logSrv;
-        private readonly ContactService _contactSrv;
-        private readonly ArticleService _articleSrv;
+        private readonly ILogger _log;
+        private readonly IAppLogService _appLogSrv;
+        private readonly IContactService _contactSrv;
+        private readonly IArticleService _articleSrv;
 
-        public AdminController()
+        public AdminController(ILogger log, IAppLogService appLogSrv, IContactService contactSrv, IArticleService articleSrv)
         {
-            _log = new KrisLogger();
-            _logSrv = new LogService(_log);
-            _contactSrv = new ContactService(_log);
-            _articleSrv = new ArticleService(_log);
+            _log = log;
+            _appLogSrv = appLogSrv;
+            _contactSrv = contactSrv;
+            _articleSrv = articleSrv;
         }
 
         public ActionResult Logs()
         {
-            LogsViewModel model = _logSrv.GetLogsAll();
+            LogsViewModel model = new LogsViewModel();
+
+            model.AppLogs = _appLogSrv.GetLogsAll();
             return View(model);
         }
 
         public ActionResult ContactMessages()
         {
-            ContactsListModel model = _contactSrv.GetContactMessages();
+            ContactsListModel model = new ContactsListModel();
+
+            model.ContactMessages = _contactSrv.GetContactMessages();
+
             return View(model);
         }
 
         public ActionResult Articles()
         {
-            ArticleListModel model = _articleSrv.PrepareArticleListModel();
+            ArticleListModel model = new ArticleListModel();
+            model.Articles =_articleSrv.GetArticles();
 
             return View(model);
         }
-
     }
 }

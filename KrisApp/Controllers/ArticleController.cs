@@ -1,44 +1,73 @@
-﻿using KrisApp.DataModel.Articles;
+﻿using AutoMapper;
+using KrisApp.DataModel.Articles;
+using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Enums;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.Models.Articles;
-using KrisApp.Services;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace KrisApp.Controllers
 {
     public class ArticleController : Controller
     {
-        private readonly KrisLogger _log;
-        private readonly ArticleService _articleSrv;
         private readonly string _articleListView;
+        private readonly ILogger _log;
+        private readonly IArticleService _articleSrv;
+        private readonly IDictionaryService _dictSrv;
+        private readonly IMapper _mapper;
 
-        public ArticleController()
+        public ArticleController(ILogger log, IArticleService articleSrv, IDictionaryService dictSrv, IMapper mapper)
         {
-            _log = new KrisLogger();
-            _articleSrv = new ArticleService(_log);
+            _log = log;
+            _articleSrv = articleSrv;
             _articleListView = "ArticleListPage";
+            _dictSrv = dictSrv;
+            _mapper = mapper;
         }
-        public ActionResult Index()
-        {
-            ArticleHomeModel model = _articleSrv.PrepareArticleHomeModel(3);
 
-            return View(model);
-        }
+        //public ActionResult Index()
+        //{
+        //    ArticleHomeModel model = _articleSrv.PrepareArticleHomeModel(3);
+
+        //    return View(model);
+        //}
 
         public ActionResult List()
         {
-            ArticleListModel model = _articleSrv.PrepareArticleListModel();
+            ArticleListModel model = new ArticleListModel();
+            model.Articles = _articleSrv.GetArticles();
 
             return View(model);
         }
 
         public ActionResult Create()
         {
-            ArticleCreateModel model = _articleSrv.PrepareArticleCreateModel();
+            ArticleCreateModel model = new ArticleCreateModel();
+
+            List<ArticleType> articleTypes = _dictSrv.GetDictionary<ArticleType>().Where(x => x.IsMain == false).ToList();
+
+            model.ArticleTypes = PrepareArticleTypesSelectItemList(articleTypes);
 
             ViewBag.Message = TempData["Msg"];
 
             return View(model);
+        }
+
+        /// <summary>
+        /// Zwraca listę SelectListItem wypełnioną danymi z przekazanej listy typów artykułów
+        /// </summary>
+        private List<SelectListItem> PrepareArticleTypesSelectItemList(List<ArticleType> articleTypes)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (ArticleType at in articleTypes)
+            {
+                items.Add(new SelectListItem() { Value = at.ID.ToString(), Text = at.Name });
+            }
+
+            return items;
         }
 
         [HttpPost]
@@ -47,7 +76,8 @@ namespace KrisApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Article article = _articleSrv.AddArticle(model);
+                Article a = _mapper.Map<ArticleModel, Article>(model);
+                Article article = _articleSrv.AddArticle(a);
 
                 TempData["Msg"] = $"Artykuł dodany pomyślnie! Otrzymał ID = {article.Id}.";
             }
@@ -57,38 +87,49 @@ namespace KrisApp.Controllers
 
         public ActionResult Asp()
         {
-            ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.ASP);
+            ArticleListModel model = PrepareArticleListModel(ArticleTypeEnum.ASP);
             return View(_articleListView, model);
         }
 
         public ActionResult Wcf()
         {
-            ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.WCF);
+            ArticleListModel model = PrepareArticleListModel(ArticleTypeEnum.WCF);
             return View(_articleListView, model);
         }
 
         public ActionResult Pattern()
         {
-            ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.PATTERN);
+            ArticleListModel model = PrepareArticleListModel(ArticleTypeEnum.PATTERN);
             return View(_articleListView, model);
         }
 
         public ActionResult Sql()
         {
-            ArticleListModel model = _articleSrv.PrepareArticleListModel(ArticleTypeEnum.SQL);
+            ArticleListModel model = PrepareArticleListModel(ArticleTypeEnum.SQL);
             return View(_articleListView, model);
+        }
+
+        private ArticleListModel PrepareArticleListModel(ArticleTypeEnum articleType)
+        {
+            ArticleListModel model = new ArticleListModel();
+            model.Articles = _articleSrv.GetArticlesByType(articleType);
+            model.ArticleType = model.Articles.FirstOrDefault()?.Type?.Name;
+
+            return model;
         }
 
         public ActionResult Details(int id)
         {
-            ArticlePageModel model = _articleSrv.PrepareArticlePageModel(id);
+            ArticlePageModel model = new ArticlePageModel();
+            model.Article = _articleSrv.GetByID(id);
 
             return View(model);
         }
 
         public ActionResult Edit(int id)
         {
-            ArticlePageModel model = _articleSrv.PrepareArticlePageModel(id);
+            ArticlePageModel model = new ArticlePageModel();
+            model.Article = _articleSrv.GetByID(id);
 
             return View(model);
         }

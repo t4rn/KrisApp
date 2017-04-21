@@ -1,21 +1,21 @@
 ﻿using KrisApp.Common.Extensions;
 using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Users;
 using KrisApp.Models.Nav;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace KrisApp.Services
 {
     public class NavService : AbstractService
     {
-        private readonly ArticleService _articleSrv;
+        private readonly IArticleService _articleSrv;
         private readonly User _user;
 
-        public NavService(KrisLogger log) : base(log)
+        public NavService(ILogger log, IArticleService articleSrv) : base(log)
         {
-            _articleSrv = new ArticleService(log);
+            _articleSrv = articleSrv;
             _user = SessionService.GetFromSession<User>(SessionService.SessionItem.User);
         }
 

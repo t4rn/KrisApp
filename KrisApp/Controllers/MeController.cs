@@ -1,6 +1,8 @@
-﻿using KrisApp.DataModel.Results;
+﻿using AutoMapper;
+using KrisApp.DataModel.Contact;
+using KrisApp.DataModel.Interfaces;
+using KrisApp.DataModel.Results;
 using KrisApp.Models.Me;
-using KrisApp.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -8,13 +10,15 @@ namespace KrisApp.Controllers
 {
     public class MeController : Controller
     {
-        private readonly KrisLogger _log;
-        private readonly ContactService _contactSrv;
+        private readonly ILogger _log;
+        private readonly IContactService _contactSrv;
+        private readonly IMapper _mapper;
 
-        public MeController()
+        public MeController(ILogger log, IContactService contactSrv, IMapper mapper)
         {
-            _log = new KrisLogger();
-            _contactSrv = new ContactService(_log);
+            _log = log;
+            _contactSrv = contactSrv;
+            _mapper = mapper;
         }
 
         public ActionResult About()
@@ -70,7 +74,9 @@ namespace KrisApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Result result = _contactSrv.AddContactMessage(model);
+                ContactMessage msg = _mapper.Map<ContactModel, ContactMessage>(model);
+
+                Result result = _contactSrv.AddContactMessage(msg);
                 // TODO: przenieść do klasy wraz z definicją typu klasy cssowej
                 TempData["Msg"] = $"Wiadomość wysłana pomyślnie! Otrzymała ID = {result.Message}";
             }

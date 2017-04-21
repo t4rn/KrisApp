@@ -1,5 +1,5 @@
-﻿using KrisApp.DataAccess.Dictionaries;
-using KrisApp.DataModel.Dictionaries;
+﻿using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Runtime.Caching;
 
 namespace KrisApp.Services
 {
-    public class DictionaryService : AbstractService
+    public class DictionaryService : AbstractService, IDictionaryService
     {
         private readonly int cacheTimeMinutes = 360;
         private readonly IDictionaryRepository _dictRepo;
@@ -20,15 +20,15 @@ namespace KrisApp.Services
             Skill
         }
 
-        public DictionaryService(KrisLogger log) : base(log)
+        public DictionaryService(ILogger log, IDictionaryRepository dictRepo) : base(log)
         {
-            _dictRepo = new DictionaryRepo(Properties.Settings.Default.csDB);
+            _dictRepo = dictRepo;
         }
 
         /// <summary>
         /// Generyczna metoda zwracająca słownik z cache lub DB
         /// </summary>
-        internal List<T> GetDictionary<T>() where T : DictionaryItem
+        public List<T> GetDictionary<T>() where T : DictionaryItem
         {
             List<T> dictionaryItems = GetFromCacheOrDB(typeof(T).ToString(), () => GetDictFromDB<T>());
 

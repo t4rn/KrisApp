@@ -1,13 +1,14 @@
-﻿using System;
+﻿using KrisApp.DataModel.Interfaces;
+using System;
 using System.Diagnostics;
 
 namespace KrisApp.Services
 {
     public abstract class AbstractService
     {
-        protected readonly KrisLogger _log;
+        protected readonly ILogger _log;
 
-        public AbstractService(KrisLogger log)
+        public AbstractService(ILogger log)
         {
             _log = log;
         }

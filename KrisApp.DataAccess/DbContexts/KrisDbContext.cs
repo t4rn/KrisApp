@@ -10,7 +10,6 @@ namespace KrisApp.DataAccess.DbContexts
 {
     internal class KrisDbContext : DbContext
     {
-        // TODO: przenieść do oddzielnej biblioteki
         public DbSet<Worker> Workers { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<SkillType> SkillTypes { get; set; }

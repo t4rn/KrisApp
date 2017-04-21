@@ -49,6 +49,13 @@
     <Compile Include="Dictionaries\PositionType.cs" />
     <Compile Include="Dictionaries\SkillType.cs" />
     <Compile Include="Enums\ArticleTypeEnum.cs" />
+    <Compile Include="Interfaces\IArticleService.cs" />
+    <Compile Include="Interfaces\IContactService.cs" />
+    <Compile Include="Interfaces\IDictionaryService.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IAppLogService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\IWorkerService.cs" />
     <Compile Include="Interfaces\Repositories\IDictionaryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IArticleRepository.cs" />
     <Compile Include="Interfaces\Repositories\IContactMessageRepository.cs" />

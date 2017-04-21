@@ -1,17 +1,17 @@
-﻿using System;
-using KrisApp.Common.Extensions;
-using KrisApp.DataAccess;
+﻿using KrisApp.Common.Extensions;
+using KrisApp.DataModel.Interfaces;
+using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.DataModel.Logs;
 
 namespace KrisApp.Services
 {
-    public class KrisLogger
+    public class KrisLogger : ILogger
     {
-        private readonly AppLogRepo _logDAL;
+        private readonly ILogRepository _logDAL;
 
-        public KrisLogger()
+        public KrisLogger(ILogRepository logRepo)
         {
-            _logDAL = new AppLogRepo(Properties.Settings.Default.csDB);
+            _logDAL = logRepo;
         }
 
         public void Error(string format, params object[] args)
@@ -24,7 +24,7 @@ namespace KrisApp.Services
         /// <summary>
         /// Zapisuje przekazaną wiadomość na bazie [WWW.Logs]
         /// </summary>
-        internal void Debug(string format, params object[] args)
+        public void Debug(string format, params object[] args)
         {
             AppLog log = PrepareLog(AppLog.LogType.DEBUG, format, args);
 

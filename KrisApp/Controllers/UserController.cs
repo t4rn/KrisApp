@@ -1,6 +1,11 @@
-﻿using KrisApp.DataModel.Results;
+﻿using AutoMapper;
+using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Interfaces;
+using KrisApp.DataModel.Results;
+using KrisApp.DataModel.Users;
 using KrisApp.Models.User;
 using KrisApp.Services;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -9,15 +14,17 @@ namespace KrisApp.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private readonly KrisLogger _log;
-        private readonly UserService _userSrv;
-        private readonly DictionaryService _dictSrv;
+        private readonly ILogger _log;
+        private readonly IUserService _userSrv;
+        private readonly IDictionaryService _dictSrv;
+        private readonly IMapper _mapper;
 
-        public UserController()
+        public UserController(ILogger log, IUserService userSrv, IDictionaryService dictSrv, IMapper mapper)
         {
-            _log = new KrisLogger();
-            _userSrv = new UserService(_log);
-            _dictSrv = new DictionaryService(_log);
+            _log = log;
+            _userSrv = userSrv;
+            _dictSrv = dictSrv;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -72,7 +79,9 @@ namespace KrisApp.Controllers
                 return View(model);
             }
 
-            Result addUserResult = _userSrv.AddUserRequest(model);
+            UserRequest userRequest = _mapper.Map<UserRegisterModel, UserRequest>(model);
+
+            Result addUserResult = _userSrv.AddUserRequest(userRequest);
 
             if (addUserResult?.IsOK == true)
             {
@@ -90,9 +99,36 @@ namespace KrisApp.Controllers
         public ActionResult Pending()
         {
             // TODO: dostęp tylko dla admina
-            UsersPendingModel model = _userSrv.PrepareUsersPendingModel();
+            //UsersPendingModel model = _userSrv.PrepareUsersPendingModel();
+
+            UsersPendingModel model = new UsersPendingModel();
+            model.PendingUserRequests = new List<UserRequestModel>();
+            List<UserRequest> pendingUsers = _userSrv.GetPendingUsers();
+            List<UserType> userTypes = _dictSrv.GetDictionary<UserType>();
+
+            List<SelectListItem> selectList = PrepareUserTypesSelectItemList(userTypes);
+
+            foreach (UserRequest pendingUser in pendingUsers)
+            {
+                UserRequestModel userreq = new UserRequestModel() { UserRequest = pendingUser, UserTypes = selectList };
+                model.PendingUserRequests.Add(userreq);
+            }
+
 
             return View(model);
+        }
+
+        private List<SelectListItem> PrepareUserTypesSelectItemList(List<UserType> userTypes)
+        {
+            List<SelectListItem> selectList = new List<SelectListItem>();
+
+            foreach (UserType userType in userTypes)
+            {
+                SelectListItem item = new SelectListItem() { Text = userType.Name, Value = userType.ID.ToString() };
+                selectList.Add(item);
+            }
+
+            return selectList;
         }
 
         public ActionResult AcceptRequest(int requestId, int typeId)

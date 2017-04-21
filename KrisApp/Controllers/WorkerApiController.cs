@@ -1,7 +1,7 @@
-﻿using KrisApp.DataAccess;
+﻿using AutoMapper;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Work;
 using KrisApp.Models.Work;
-using KrisApp.Services;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -11,20 +11,29 @@ namespace KrisApp.Controllers
     [RoutePrefix("api/workers")]
     public class WorkerApiController : ApiController
     {
-        private readonly KrisLogger _log;
-        private readonly WorkerService _workerSrv;
+        private readonly ILogger _log;
+        private readonly IWorkerService _workerSrv;
+        private readonly IMapper _mapper;
 
-        public WorkerApiController()
+        public WorkerApiController(ILogger log, IWorkerService workerSrv, IMapper mapper)
         {
-            _log = new KrisLogger();
-            _workerSrv = new WorkerService(_log);
+            _log = log;
+            _workerSrv = workerSrv;
+            _mapper = mapper;
         }
 
         // GET: api/Workers
         [Route("")]
         public IEnumerable<WorkerModel> GetWorkers()
         {
-            List<WorkerModel> workersModel = _workerSrv.GetWorkers();
+            List<WorkerModel> workersModel = new List<WorkerModel>();
+
+            // pobieramy dane z bazy
+            List<Worker> workers = _workerSrv.GetWorkers();
+
+            // mapujemy encje z bazy na modele
+            workersModel = _mapper.Map<List<WorkerModel>>(workers);
+
             return workersModel;
         }
 
@@ -33,13 +42,21 @@ namespace KrisApp.Controllers
         [Route("{id:int}")]
         public IHttpActionResult GetWorker(int id)
         {
-            WorkerModel worker = _workerSrv.GetWorkerByID(id);
+            Worker worker = _workerSrv.GetWorkerByID(id);
+
+            WorkerModel workerModel = new WorkerModel();
+
+            if (worker != null)
+            {
+                workerModel = _mapper.Map<WorkerModel>(worker);
+            }
+
             if (worker == null)
             {
                 return NotFound();
             }
 
-            return Ok(worker);
+            return Ok(workerModel);
         }
 
         // GET: api/Workers/5/skills
@@ -47,13 +64,15 @@ namespace KrisApp.Controllers
         [Route("{id:int}/skills")]
         public IHttpActionResult GetWorkerSkills(int id)
         {
-            WorkerModel worker = _workerSrv.GetWorkerByID(id);
-            if (worker == null)
+            Worker worker = _workerSrv.GetWorkerByID(id);
+
+            WorkerModel workerModel = _mapper.Map<WorkerModel>(worker);
+            if (workerModel == null)
             {
                 return NotFound();
             }
 
-            return Ok(worker.Skills);
+            return Ok(workerModel.Skills);
         }
 
         // GET: api/Workers/5/positions
@@ -61,13 +80,15 @@ namespace KrisApp.Controllers
         [Route("{id:int}/positions")]
         public IHttpActionResult GetWorkerPositions(int id)
         {
-            WorkerModel worker = _workerSrv.GetWorkerByID(id);
-            if (worker == null)
+            Worker worker = _workerSrv.GetWorkerByID(id);
+
+            WorkerModel workerModel = _mapper.Map<WorkerModel>(worker);
+            if (workerModel == null)
             {
                 return NotFound();
             }
 
-            return Ok(worker.Positions);
+            return Ok(workerModel.Positions);
         }
 
         [Route("skills")]

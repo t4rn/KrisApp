@@ -1,4 +1,5 @@
-﻿using KrisApp.Models.Nav;
+﻿using KrisApp.DataModel.Interfaces;
+using KrisApp.Models.Nav;
 using KrisApp.Services;
 using System.Web.Mvc;
 
@@ -6,13 +7,13 @@ namespace KrisApp.Controllers
 {
     public class NavController : Controller
     {
-        private readonly KrisLogger _log;
+        private readonly ILogger _log;
         private readonly NavService _navSrv;
 
-        public NavController()
+        public NavController(ILogger log, IArticleService articleSrv)
         {
-            _log = new KrisLogger();
-            _navSrv = new NavService(_log);
+            _log = log;
+            _navSrv = new NavService(_log, articleSrv);
         }
 
         public PartialViewResult MainMenu()

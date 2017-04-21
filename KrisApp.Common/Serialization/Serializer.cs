@@ -23,7 +23,7 @@ namespace KrisApp.Common.Serialization
         /// <summary> 
         /// Serializuje obiekt do zwracanego stringa
         /// </summary>
-        public static string SerializeToString(object obj)
+        public static string SerializeToXML(object obj)
         {
             StringBuilder sb = new StringBuilder();
             XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
@@ -41,7 +41,7 @@ namespace KrisApp.Common.Serialization
         /// <summary> 
         /// Serializuje obiekt do zwracanego stringa
         /// </summary>
-        public static string SerializeToStringWithNamespaces(object obj)
+        public static string SerializeToXMLWithNamespaces(object obj)
         {
             StringBuilder sb = new StringBuilder();
             XmlSerializer xmlSerializer = new XmlSerializer(obj.GetType());
@@ -57,7 +57,7 @@ namespace KrisApp.Common.Serialization
         /// <summary> 
         /// Deserializuje przekazany XML do obiektu
         /// </summary>
-        internal static T Deserialize<T>(string xml)
+        internal static T DeserializeFromXML<T>(string xml)
         {
             var reader = new StringReader(xml);
             var serializer = new XmlSerializer(typeof(T));

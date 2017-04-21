@@ -1,35 +1,32 @@
 ﻿using KrisApp.Common;
 using KrisApp.Common.Extensions;
-using KrisApp.DataAccess;
-using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.DataModel.Results;
 using KrisApp.DataModel.Users;
 using KrisApp.Models.User;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace KrisApp.Services
 {
-    public class UserService : AbstractService
+    public class UserService : AbstractService, IUserService
     {
         private readonly IUserRequestRepository _userRequestRepo;
         private readonly IUserRepository _userRepo;
-        private readonly DictionaryService _dictSrv;
+        private readonly IDictionaryService _dictSrv;
 
-        public UserService(KrisLogger log) : base(log)
+        public UserService(ILogger log, IUserRepository userRepo, IUserRequestRepository userRequestRepo, IDictionaryService dictSrv) : base(log)
         {
-            _userRequestRepo = new UserRequestRepo(Properties.Settings.Default.csDB);
-            _userRepo = new UserRepo(Properties.Settings.Default.csDB);
-            _dictSrv = new DictionaryService(log);
+            _userRequestRepo = userRequestRepo;
+            _userRepo = userRepo;
+            _dictSrv = dictSrv;
         }
 
         /// <summary>
         /// Zwraca informację, czy istnieje na bazie niezduchowany użytkownik o danym loginie i haśle
         /// </summary>
-        internal UserResult AuthenticateUser(string login, string password)
+        public UserResult AuthenticateUser(string login, string password)
         {
             UserResult result = new UserResult();
 
@@ -57,22 +54,22 @@ namespace KrisApp.Services
         /// <summary>
         /// Dodaje prośbę o założenie konta na bazę
         /// </summary>
-        internal Result AddUserRequest(UserRegisterModel model)
+        public Result AddUserRequest(UserRequest userReq)
         {
             Result result = new Result();
             try
             {
-                _log.Debug("Próba rejestracji usera = '{0}' o email = '{1}'", model.UserName, model.Email);
+                _log.Debug("Próba rejestracji usera = '{0}' o email = '{1}'", userReq.Login, userReq.Email);
 
-                bool userExists = _userRequestRepo.IsUserExisting(model.UserName);
+                bool userExists = _userRequestRepo.IsUserExisting(userReq.Login);
 
                 if (userExists)
                 {
-                    result.Message = $"Użytkownik o loginie = '{model.UserName}' już istnieje w systemie!";
+                    result.Message = $"Użytkownik o loginie = '{userReq.Login}' już istnieje w systemie!";
                 }
                 else
                 {
-                    UserRequest userReq = PrepareUserRequest(model);
+                    FillUserRequest(userReq);
                     _userRequestRepo.AddUserRequest(userReq);
 
                     result.IsOK = true;
@@ -80,7 +77,7 @@ namespace KrisApp.Services
                 }
 
                 _log.Debug("[AddUserRequest] Wynik dla '{0}' -> '{1}' - {2}",
-                    model.UserName, result.IsOK, result.Message);
+                    userReq.Login, result.IsOK, result.Message);
 
             }
             catch (Exception ex)
@@ -95,23 +92,16 @@ namespace KrisApp.Services
         /// <summary>
         /// Zwraca UserRequest wypełniony danymi z modelu
         /// </summary>
-        private UserRequest PrepareUserRequest(UserRegisterModel model)
+        private void FillUserRequest(UserRequest user)
         {
-            UserRequest user = new UserRequest();
-
-            user.Login = model.UserName;
-            user.Password = Md5.CreateMd5(model.Password);
-            user.Email = model.Email;
-            user.Comment = model.Comment;
+            user.Password = Md5.CreateMd5(user.Password);
             user.AddDate = DateTime.Now;
-
-            return user;
         }
 
         /// <summary>
         /// Tworzy konto użytkownika o przekazanym ID prośby o konto
         /// </summary>
-        internal UserResult AcceptUserRequest(int userRequestID, int userTypeID)
+        public UserResult AcceptUserRequest(int userRequestID, int userTypeID)
         {
             UserResult result = new UserResult();
 
@@ -150,7 +140,7 @@ namespace KrisApp.Services
         /// <summary>
         /// Duchuje request o danym ID
         /// </summary>
-        internal Result RejectUserRequest(int id)
+        public Result RejectUserRequest(int id)
         {
             Result result = _userRequestRepo.UpdateUserRequestToGhost(id);
 
@@ -183,35 +173,15 @@ namespace KrisApp.Services
         }
 
         /// <summary>
-        /// Zwraca użytkowników oczekujących na akceptację
+        /// Zwraca oczekujących na akceptację użytkowników
         /// </summary>
-        internal UsersPendingModel PrepareUsersPendingModel()
+        public List<UserRequest> GetPendingUsers()
         {
             UsersPendingModel model = new UsersPendingModel();
             model.PendingUserRequests = new List<UserRequestModel>();
-            var pendingUsers = _userRequestRepo.GetUserRequests(false);
-            List<SelectListItem> selectList = PrepareUserTypesSelectItemList(_dictSrv.GetDictionary<UserType>());
+            List<UserRequest> pendingUsers = _userRequestRepo.GetUserRequests(false);
 
-            foreach (var pendingUser in pendingUsers)
-            {
-                UserRequestModel userreq = new UserRequestModel() { UserRequest = pendingUser, UserTypes = selectList };
-                model.PendingUserRequests.Add(userreq);
-            }
-
-            return model;
-        }
-
-        private List<SelectListItem> PrepareUserTypesSelectItemList(List<UserType> userTypes)
-        {
-            List<SelectListItem> selectList = new List<SelectListItem>();
-
-            foreach (UserType userType in userTypes)
-            {
-                SelectListItem item = new SelectListItem() { Text = userType.Name, Value = userType.ID.ToString() };
-                selectList.Add(item);
-            }
-
-            return selectList;
+            return pendingUsers;
         }
     }
 }
