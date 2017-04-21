@@ -2,6 +2,7 @@
 using KrisApp.DataModel.Contact;
 using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Logs;
+using KrisApp.DataModel.Rekru;
 using KrisApp.DataModel.Users;
 using KrisApp.DataModel.Work;
 using System.Data.Entity;
@@ -20,6 +21,7 @@ namespace KrisApp.DataAccess.DbContexts
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<AppLog> AppLogs { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<RekruQuestion> RekruQuestions { get; set; }
 
         internal KrisDbContext(string cs) : base(cs)
         {

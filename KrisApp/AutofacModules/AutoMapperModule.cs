@@ -2,10 +2,12 @@
 using AutoMapper;
 using KrisApp.DataModel.Contact;
 using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Rekru;
 using KrisApp.DataModel.Users;
 using KrisApp.DataModel.Work;
 using KrisApp.Models;
 using KrisApp.Models.Me;
+using KrisApp.Models.Rekru;
 using KrisApp.Models.User;
 using KrisApp.Models.Work;
 
@@ -26,6 +28,9 @@ namespace KrisApp.AutofacModules
                 cfg.CreateMap<DictionaryItem, DictionaryItemModel>();
                 cfg.CreateMap<UserRegisterModel, UserRequest>();
                 cfg.CreateMap<ContactModel, ContactMessage>();
+
+                cfg.CreateMap<RekruQuestion, QuestionModel>();
+                cfg.CreateMap<QuestionAddModel, RekruQuestion>();
 
                 //foreach (var profile in context.Resolve<IEnumerable<Profile>>())
                 //{

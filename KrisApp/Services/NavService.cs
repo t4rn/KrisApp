@@ -25,13 +25,13 @@ namespace KrisApp.Services
         internal MenuModel PrepareMenuModel(string controller)
         {
             MenuModel model = new MenuModel() { MenuItems = new List<MenuItemModel>() };
-            
+
             model.Login = _user?.Login;
 
             MenuItemModel articleMenu = PrepareArticleMenu();
             model.MenuItems.Add(articleMenu);
 
-            MenuItemModel rekruMenu = PrepareRekruMenu();
+            MenuItemModel rekruMenu = PrepareRekruMenu(_user);
             model.MenuItems.Add(rekruMenu);
 
             MenuItemModel aboutMenu = PrepareAboutMenu();
@@ -72,14 +72,14 @@ namespace KrisApp.Services
 
             #region Dodanie artykułu widoczne dla Moderatora i Administratora
 
-            if (_user?.Type?.Code != null && 
+            if (_user?.Type?.Code != null &&
                 _user.Type.Code.In(UserType.UserTypeCodes.MOD.ToString(), UserType.UserTypeCodes.ADM.ToString()))
             {
                 MenuItemModel addArticleItem = new MenuItemModel()
                 {
-                     Action = "Create",
-                     Controller = "Article",
-                      Text = "Dodaj artykuł"
+                    Action = "Create",
+                    Controller = "Article",
+                    Text = "Dodaj artykuł"
                 };
                 m.SubMenu.Add(addArticleItem);
             }
@@ -116,14 +116,26 @@ namespace KrisApp.Services
         /// <summary>
         /// Zwraca element menu dotyczący rekrutacji
         /// </summary>
-        private MenuItemModel PrepareRekruMenu()
+        private MenuItemModel PrepareRekruMenu(User user)
         {
-            return new MenuItemModel()
+            MenuItemModel menu = new MenuItemModel()
             {
                 Action = "Index",
                 Controller = "Rekru",
                 Text = "Rekrutacja"
             };
+
+            if (user != null)
+            {
+                // zalogowany
+                menu.SubMenu = new List<MenuItemModel>()
+                {
+                    new MenuItemModel { Action = "Add", Controller = "Rekru", Text = "Dodaj pytanie" },
+                    new MenuItemModel { Action = "List", Controller = "Rekru", Text = "Przeglądaj" }
+                };
+            }
+
+            return menu;
         }
 
         /// <summary>

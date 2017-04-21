@@ -41,6 +41,9 @@ namespace KrisApp.AutofacModules
             builder.Register(c => new WorkerRepo(_connStr))
                 .As<IWorkerRepository>().InstancePerRequest();
 
+            builder.Register(c => new RekruRepo(_connStr))
+                .As<IRekruRepository>().InstancePerRequest();
+
             #endregion
 
             #region Services
@@ -52,6 +55,7 @@ namespace KrisApp.AutofacModules
             builder.RegisterType<KrisLogger>().As<ILogger>().InstancePerRequest();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<WorkerService>().As<IWorkerService>().InstancePerRequest();
+            builder.RegisterType<RekruService>().As<IRekruService>().InstancePerRequest();
 
             #endregion
 

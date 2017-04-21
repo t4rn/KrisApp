@@ -1,0 +1,12 @@
+﻿@model KrisApp.Models.Rekru.QuestionListModel
+
+@{
+    ViewBag.Title = "Pytania rekrutacyjne";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div>
+    @{ Html.RenderPartial("_QuestionList", Model.Questions); }
+</div>
