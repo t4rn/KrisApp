@@ -120,9 +120,9 @@ namespace KrisApp.Services
         {
             MenuItemModel menu = new MenuItemModel()
             {
-                Action = "Index",
+                Action = "List",
                 Controller = "Rekru",
-                Text = "Rekrutacja"
+                Text = "Pytania",
             };
 
             if (user != null)
@@ -130,7 +130,7 @@ namespace KrisApp.Services
                 // zalogowany
                 menu.SubMenu = new List<MenuItemModel>()
                 {
-                    new MenuItemModel { Action = "Add", Controller = "Rekru", Text = "Dodaj pytanie" },
+                    new MenuItemModel { Action = "AddQuestion", Controller = "Rekru", Text = "Dodaj pytanie" },
                     new MenuItemModel { Action = "List", Controller = "Rekru", Text = "Przeglądaj" }
                 };
             }

@@ -30,7 +30,9 @@ namespace KrisApp.AutofacModules
                 cfg.CreateMap<ContactModel, ContactMessage>();
 
                 cfg.CreateMap<RekruQuestion, QuestionModel>();
-                cfg.CreateMap<QuestionAddModel, RekruQuestion>();
+                cfg.CreateMap<QuestionModel, RekruQuestion>();
+                cfg.CreateMap<RekruAnswer, AnswerModel>();
+                cfg.CreateMap<AnswerModel, RekruAnswer>();
 
                 //foreach (var profile in context.Resolve<IEnumerable<Profile>>())
                 //{

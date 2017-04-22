@@ -1,9 +1,10 @@
 ﻿using KrisApp.DataAccess.DbContexts;
 using KrisApp.DataModel.Interfaces.Repositories;
 using KrisApp.DataModel.Rekru;
-using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace KrisApp.DataAccess
 {
@@ -11,6 +12,15 @@ namespace KrisApp.DataAccess
     {
         public RekruRepo(string cs) : base(cs)
         {
+        }
+
+        public void AddAnswer(RekruAnswer answer)
+        {
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                context.Answers.Add(answer);
+                context.SaveChanges();
+            }
         }
 
         public void AddQuestion(RekruQuestion question)
@@ -22,9 +32,48 @@ namespace KrisApp.DataAccess
             }
         }
 
+        public void EditAnswer(RekruAnswer answer)
+        {
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                context.Entry<RekruAnswer>(answer).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void EditQuestion(RekruQuestion question)
+        {
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                context.Entry<RekruQuestion>(question).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public RekruAnswer GetAnswer(int id)
+        {
+            RekruAnswer answer = null;
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                answer = context.Answers.Where(x => x.ID == id).FirstOrDefault();
+            }
+
+            return answer;
+        }
+
         public RekruQuestion GetQuestion(int id)
         {
-            throw new NotImplementedException();
+            RekruQuestion question = new RekruQuestion();
+
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                question = context.RekruQuestions.AsNoTracking()
+                    .Where(x => x.ID == id)
+                    .Include(x => x.Answers)
+                    .FirstOrDefault();
+            }
+
+            return question;
         }
 
         public List<RekruQuestion> GetQuestions(bool includeGhosts)

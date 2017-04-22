@@ -22,6 +22,7 @@ namespace KrisApp.DataAccess.DbContexts
         public DbSet<AppLog> AppLogs { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
         public DbSet<RekruQuestion> RekruQuestions { get; set; }
+        public DbSet<RekruAnswer> Answers { get; set; }
 
         internal KrisDbContext(string cs) : base(cs)
         {

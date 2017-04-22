@@ -8,5 +8,10 @@ namespace KrisApp.DataModel.Interfaces
     {
         List<RekruQuestion> GetQuestions();
         Result AddQuestion(RekruQuestion question);
+        RekruQuestion GetQuestion(int id);
+        Result AddAnswer(RekruAnswer answer);
+        Result EditAnswer(RekruAnswer answer);
+        RekruAnswer GetAnswer(int id);
+        Result EditQuestion(RekruQuestion question);
     }
 }

@@ -1,0 +1,44 @@
+﻿@model KrisApp.Models.Rekru.QuestionModel
+
+@{
+    ViewBag.Title = "Pytanie";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+@Html.ActionLink("Poprzednie", "DetailsPrev", routeValues: new { id = Model.ID }) |
+@Html.ActionLink("Następne", "DetailsNext", routeValues: new { id = Model.ID })
+<div>
+
+    <h3>@Html.DisplayFor(model => model.Question)</h3>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddDate)
+        </dd>
+    </dl>
+    <h3>Odpowiedzi:</h3>
+    <div>
+        @{ Html.RenderPartial("_AnswerList", Model.Answers); }
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Dodaj nową odpowiedź", "AddAnswer", routeValues: new { id = Model.ID }) |
+    @Html.ActionLink("Edytuj pytanie", "EditQuestion", new { id = Model.ID })
+</p>
+<p>
+    @Html.ActionLink("Powrót do listy", "List")
+</p>

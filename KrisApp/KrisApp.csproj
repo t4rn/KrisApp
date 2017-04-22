@@ -228,7 +228,7 @@
     <Compile Include="Models\Nav\MainMenuModel.cs" />
     <Compile Include="Models\Nav\MenuItemModel.cs" />
     <Compile Include="Models\Nav\MenuModel.cs" />
-    <Compile Include="Models\Rekru\QuestionAddModel.cs" />
+    <Compile Include="Models\Rekru\AnswerModel.cs" />
     <Compile Include="Models\Rekru\QuestionListModel.cs" />
     <Compile Include="Models\Rekru\QuestionModel.cs" />
     <Compile Include="Models\User\LoginModel.cs" />
@@ -349,7 +349,12 @@
     <Content Include="Views\Rekru\List.cshtml" />
     <Content Include="Views\Rekru\_Question.cshtml" />
     <Content Include="Views\Rekru\_QuestionList.cshtml" />
-    <Content Include="Views\Rekru\Add.cshtml" />
+    <Content Include="Views\Rekru\AddQuestion.cshtml" />
+    <Content Include="Views\Rekru\Details.cshtml" />
+    <Content Include="Views\Rekru\_AnswerList.cshtml" />
+    <Content Include="Views\Rekru\AddAnswer.cshtml" />
+    <Content Include="Views\Rekru\EditAnswer.cshtml" />
+    <Content Include="Views\Rekru\EditQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

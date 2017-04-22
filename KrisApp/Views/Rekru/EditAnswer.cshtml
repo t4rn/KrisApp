@@ -1,0 +1,39 @@
+﻿@model KrisApp.Models.Rekru.AnswerModel
+
+@{
+    ViewBag.Title = "Edytuj odpowiedź";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Content,  htmlAttributes: new { @class = "form-control", rows = 5})
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.AddDate, htmlAttributes: new { @class = "form-control" })
+        @Html.HiddenFor(model => model.Author, htmlAttributes: new { @class = "form-control" })
+        @Html.HiddenFor(model => model.QuestionID, htmlAttributes: new { @class = "form-control" })
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Powrót do pytania", "Details", routeValues: new { id = Model.QuestionID })
+</div>
