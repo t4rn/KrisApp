@@ -9,5 +9,22 @@ namespace KrisApp.DataModel.Dictionaries
         public string Description { get; set; }
 
         public bool IsMain { get; set; }
+
+        public ArticleTypeCode[] CodeTypes
+        {
+            get
+            {
+                return new ArticleTypeCode[] {
+                ArticleTypeCode.ASP, ArticleTypeCode.PATTERN, ArticleTypeCode.SQL, ArticleTypeCode.WCF };
+            }
+        }
+        public enum ArticleTypeCode
+        {
+            ASP,
+            WCF,
+            PATTERN,
+            SQL,
+            REKRU
+        }
     }
 }

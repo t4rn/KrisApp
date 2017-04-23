@@ -212,12 +212,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin\ContactsListModel.cs" />
     <Compile Include="Models\Admin\LogsViewModel.cs" />
-    <Compile Include="Models\Articles\ArticleCreateModel.cs" />
+    <Compile Include="Models\Articles\ArticleDetailsModel.cs" />
     <Compile Include="Models\Articles\ArticleHomeModel.cs" />
-    <Compile Include="Models\Articles\ArticleMenuModel.cs" />
     <Compile Include="Models\Articles\ArticleModel.cs" />
     <Compile Include="Models\Articles\ArticleListModel.cs" />
-    <Compile Include="Models\Articles\ArticlePageModel.cs" />
     <Compile Include="Models\Articles\ArticleTypeModel.cs" />
     <Compile Include="Models\DictionaryItemModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -225,7 +223,6 @@
     <Compile Include="Models\Me\AboutMeModel.cs" />
     <Compile Include="Models\Me\ContactModel.cs" />
     <Compile Include="Models\Me\WebsiteDescModel.cs" />
-    <Compile Include="Models\Nav\MainMenuModel.cs" />
     <Compile Include="Models\Nav\MenuItemModel.cs" />
     <Compile Include="Models\Nav\MenuModel.cs" />
     <Compile Include="Models\Rekru\AnswerModel.cs" />
@@ -261,6 +258,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\redactor\redactor-iframe.css" />
+    <Content Include="Content\redactor\redactor.css" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -285,6 +284,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\redactor\redactor.js" />
+    <Content Include="Scripts\redactor\redactor.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -323,9 +324,7 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Article\_ArticleList.cshtml" />
-    <Content Include="Views\Article\Create.cshtml" />
-    <Content Include="Views\Article\_ArticleCreate.cshtml" />
+    <Content Include="Views\Article\CreateArticle.cshtml" />
     <Content Include="Views\Nav\MainMenu.cshtml" />
     <Content Include="Views\Rekru\Index.cshtml" />
     <Content Include="Views\Me\About.cshtml" />
@@ -339,11 +338,9 @@
     <Content Include="Views\User\_UserRequest.cshtml" />
     <Content Include="Views\Nav\_LoginPartial.cshtml" />
     <Content Include="Views\Admin\Logs.cshtml" />
-    <Content Include="Views\Article\ArticleListPage.cshtml" />
     <Content Include="Views\Article\Details.cshtml" />
     <Content Include="Views\Admin\ContactMessages.cshtml" />
-    <Content Include="Views\Article\Edit.cshtml" />
-    <Content Include="Views\Article\_EditArticle.cshtml" />
+    <Content Include="Views\Article\EditArticle.cshtml" />
     <Content Include="Views\Admin\Articles.cshtml" />
     <Content Include="Views\Article\List.cshtml" />
     <Content Include="Views\Rekru\List.cshtml" />

@@ -1,8 +1,8 @@
 ﻿using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Dictionaries;
-using KrisApp.DataModel.Enums;
 using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Interfaces.Repositories;
+using KrisApp.DataModel.Users;
 using KrisApp.Models.Articles;
 using System;
 using System.Collections.Generic;
@@ -14,11 +14,13 @@ namespace KrisApp.Services
     {
         private readonly IDictionaryService _dictSrv;
         private readonly IArticleRepository _articleRepo;
+        private readonly User _user;
 
         public ArticleService(ILogger log, IArticleRepository articleRepo, IDictionaryService dictSrv) : base(log)
         {
             _dictSrv = dictSrv;
             _articleRepo = articleRepo;
+            _user = SessionService.GetFromSession<User>(SessionService.SessionItem.User);
         }
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace KrisApp.Services
                 article.TypeId, article.Author, article.Title, article.Content.Length);
 
             article.AddDate = DateTime.Now;
+            article.Author = _user?.Login ?? article.Author;
 
             _articleRepo.AddArticle(article);
 
@@ -89,7 +92,7 @@ namespace KrisApp.Services
         /// <summary>
         /// Zwraca listę artykułów o danym typie
         /// </summary>
-        public List<Article> GetArticlesByType(ArticleTypeEnum articleType)
+        public List<Article> GetArticlesByType(ArticleType.ArticleTypeCode articleType)
         {
             return _articleRepo.GetArticlesByType(articleType.ToString());
         }

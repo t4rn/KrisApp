@@ -71,7 +71,9 @@ namespace KrisApp.DataAccess
             using (KrisDbContext context = new KrisDbContext(csKris))
             {
                 a = context.Articles.AsNoTracking()
-                    .Where(x => x.Id == id).FirstOrDefault();
+                    .Where(x => x.Id == id)
+                    .Include(x => x.Type)
+                    .FirstOrDefault();
             }
 
             return a;

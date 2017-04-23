@@ -1,6 +1,5 @@
 ﻿using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Dictionaries;
-using KrisApp.DataModel.Enums;
 using System.Collections.Generic;
 
 namespace KrisApp.DataModel.Interfaces
@@ -24,7 +23,7 @@ namespace KrisApp.DataModel.Interfaces
         /// <summary>
         /// Zwraca listę artykułów o danym typie
         /// </summary>
-        List<Article> GetArticlesByType(ArticleTypeEnum articleType);
+        List<Article> GetArticlesByType(ArticleType.ArticleTypeCode articleType);
 
         /// <summary>
         /// Zwraca listę typów artykułów

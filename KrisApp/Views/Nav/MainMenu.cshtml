@@ -12,7 +12,14 @@
                 <ul class="dropdown-menu">
                     @foreach (var sub in item.SubMenu)
                     {
-                        <li>@Html.ActionLink(sub.Text, sub.Action, sub.Controller)</li>
+                        if (!string.IsNullOrWhiteSpace(sub.Parameter))
+                        {
+                            <li>@Html.ActionLink(sub.Text, sub.Action, sub.Controller, routeValues: new { id = sub.Parameter }, htmlAttributes: null)</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink(sub.Text, sub.Action, sub.Controller, routeValues: null, htmlAttributes: null)</li>
+                        }
                     }
                 </ul>
             }
@@ -25,10 +32,10 @@
 </ul>
 
 @*<form class="navbar-form navbar-left">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Wyszukaj...">
-    </div>
-    <button type="submit" class="btn btn-default">Wyszukaj</button>
-</form>*@
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Wyszukaj...">
+        </div>
+        <button type="submit" class="btn btn-default">Wyszukaj</button>
+    </form>*@
 
 @Html.Partial("_LoginPartial", new ViewDataDictionary(Model.Login))

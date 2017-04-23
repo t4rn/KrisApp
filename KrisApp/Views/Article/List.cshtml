@@ -6,6 +6,58 @@
 
 <h2>@ViewBag.Title</h2>
 <hr />
+
+@if (Model.IsMod.HasValue && Model.IsMod.Value == true)
+{
+    <p>
+        @Html.ActionLink("Utwórz nowy", "CreateArticle", "Article")
+    </p>
+}
+
 <div>
-    @{ Html.RenderPartial("_ArticleList", Model.Articles); }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].AddDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Articles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddDate)
+                </td>
+                <td>
+                    @if (Model.IsMod.HasValue && Model.IsMod.Value == true)
+                    {
+                        @Html.ActionLink("Edytuj", "EditArticle", "Article", routeValues: new { id = item.ID }, htmlAttributes: null);
+                        @: |
+                    }
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID })
+                    
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>

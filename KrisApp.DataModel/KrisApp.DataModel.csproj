@@ -48,7 +48,6 @@
     <Compile Include="Dictionaries\UserType.cs" />
     <Compile Include="Dictionaries\PositionType.cs" />
     <Compile Include="Dictionaries\SkillType.cs" />
-    <Compile Include="Enums\ArticleTypeEnum.cs" />
     <Compile Include="Interfaces\IArticleService.cs" />
     <Compile Include="Interfaces\IContactService.cs" />
     <Compile Include="Interfaces\IDictionaryService.cs" />

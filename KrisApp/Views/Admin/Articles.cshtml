@@ -38,7 +38,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Type.Name)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -56,9 +56,8 @@
                 @Html.DisplayFor(modelItem => item.AddDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", "Article", routeValues: new { id = item.Id }, htmlAttributes: null) |
-                @Html.ActionLink("Details", "Details", "Article", routeValues: new { id = item.Id }, htmlAttributes: null) |
-                @Html.ActionLink("Delete", "Delete", "Article", routeValues: new { id = item.Id }, htmlAttributes: null)
+                @Html.ActionLink("Edytuj", "EditArticle", "Article", routeValues: new { id = item.ID }, htmlAttributes: null) |
+                @Html.ActionLink("Szczegóły", "Details", "Article", routeValues: new { id = item.ID }, htmlAttributes: null)
             </td>
         </tr>
     }

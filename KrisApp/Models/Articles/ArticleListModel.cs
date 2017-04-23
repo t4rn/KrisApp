@@ -1,12 +1,11 @@
-﻿using KrisApp.DataModel.Articles;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace KrisApp.Models.Articles
 {
     public class ArticleListModel
     {
-        public List<Article> Articles { get; set; }
+        public List<ArticleDetailsModel> Articles { get; set; }
 
-        public string ArticleType { get; set; }
+        public bool? IsMod { get; set; }
     }
 }

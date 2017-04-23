@@ -1,6 +1,9 @@
-﻿using KrisApp.DataModel.Interfaces;
+﻿using AutoMapper;
+using KrisApp.DataModel.Articles;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.Models.Admin;
 using KrisApp.Models.Articles;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace KrisApp.Controllers
@@ -12,13 +15,15 @@ namespace KrisApp.Controllers
         private readonly IAppLogService _appLogSrv;
         private readonly IContactService _contactSrv;
         private readonly IArticleService _articleSrv;
+        private readonly IMapper _mapper;
 
-        public AdminController(ILogger log, IAppLogService appLogSrv, IContactService contactSrv, IArticleService articleSrv)
+        public AdminController(ILogger log, IAppLogService appLogSrv, IContactService contactSrv, IArticleService articleSrv, IMapper mapper)
         {
             _log = log;
             _appLogSrv = appLogSrv;
             _contactSrv = contactSrv;
             _articleSrv = articleSrv;
+            _mapper = mapper;
         }
 
         public ActionResult Logs()
@@ -40,8 +45,9 @@ namespace KrisApp.Controllers
 
         public ActionResult Articles()
         {
+            List<Article> articles = _articleSrv.GetArticles();
             ArticleListModel model = new ArticleListModel();
-            model.Articles =_articleSrv.GetArticles();
+            model.Articles = _mapper.Map<List<ArticleDetailsModel>>(articles);;
 
             return View(model);
         }

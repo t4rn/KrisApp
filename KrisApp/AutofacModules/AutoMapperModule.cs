@@ -1,15 +1,18 @@
 ﻿using Autofac;
 using AutoMapper;
+using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Contact;
 using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Rekru;
 using KrisApp.DataModel.Users;
 using KrisApp.DataModel.Work;
 using KrisApp.Models;
+using KrisApp.Models.Articles;
 using KrisApp.Models.Me;
 using KrisApp.Models.Rekru;
 using KrisApp.Models.User;
 using KrisApp.Models.Work;
+using System.Collections.Generic;
 
 namespace KrisApp.AutofacModules
 {
@@ -33,12 +36,18 @@ namespace KrisApp.AutofacModules
                 cfg.CreateMap<QuestionModel, RekruQuestion>();
                 cfg.CreateMap<RekruAnswer, AnswerModel>();
                 cfg.CreateMap<AnswerModel, RekruAnswer>();
+                cfg.CreateMap<ArticleModel, Article>();
+                cfg.CreateMap<Article, ArticleModel>();
+                cfg.CreateMap<Article, ArticleDetailsModel>()
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
 
                 //foreach (var profile in context.Resolve<IEnumerable<Profile>>())
                 //{
                 //    cfg.AddProfile(profile);
                 //}
             })).AsSelf().SingleInstance();
+
+            //TODO: wymuszenie walidacji
 
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve))
                 .As<IMapper>()

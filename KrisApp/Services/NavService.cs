@@ -77,7 +77,7 @@ namespace KrisApp.Services
             {
                 MenuItemModel addArticleItem = new MenuItemModel()
                 {
-                    Action = "Create",
+                    Action = "CreateArticle",
                     Controller = "Article",
                     Text = "Dodaj artykuł"
                 };
@@ -92,9 +92,10 @@ namespace KrisApp.Services
             {
                 MenuItemModel item = new MenuItemModel()
                 {
-                    Action = at.Code,
+                    Action = "List",
                     Controller = "Article",
-                    Text = at.Name
+                    Text = at.Name,
+                    Parameter = at.Code
                 };
 
                 m.SubMenu.Add(item);

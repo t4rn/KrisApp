@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace KrisApp
 {
@@ -8,6 +7,8 @@ namespace KrisApp
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            #region Scripts
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -31,9 +32,22 @@ namespace KrisApp
                       "~/Scripts/jquery.unobtrusive-ajax.js"
                       ));
 
+            bundles.Add(new ScriptBundle("~/bundles/redactor").Include(
+                      "~/Scripts/redactor/redactor.js"
+                      ));
+
+            #endregion
+
+            #region Styles
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/redactor").Include(
+                      "~/Content/redactor/redactor.css"));
+
+            #endregion
         }
     }
 }

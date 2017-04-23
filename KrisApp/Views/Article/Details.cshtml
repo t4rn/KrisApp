@@ -1,57 +1,52 @@
-﻿@model KrisApp.Models.Articles.ArticlePageModel
+﻿@model KrisApp.Models.Articles.ArticleDetailsModel
 
 @{
-    ViewBag.Title = Model.Article.Title;
+    ViewBag.Title = Model.Title;
 }
 
 <h2>@ViewBag.Title</h2>
+<hr />
 
 <div>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Article.TypeId)
+            @Html.DisplayNameFor(model => model.Type)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Article.TypeId)
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Content)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Article.Title)
+            @Html.DisplayNameFor(model => model.AddDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Article.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.Content)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.Article.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Article.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.AddDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Article.AddDate)
+            @Html.DisplayFor(model => model.AddDate)
         </dd>
 
     </dl>
 </div>
-
+<hr />
+<div>
+    @Html.Raw(Model.Content)
+</div>
 <p>
-    @Html.ActionLink("Powrót do artykułów", "Index")
+    @Html.ActionLink("Powrót do listy artykułów", "List")
 </p>

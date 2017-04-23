@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace KrisApp.Models.Articles
 {
-    public class ArticleModel
+    public class ArticleDetailsModel
     {
         public int ID { get; set; }
 
-        [Display(Name = "Typ artykułu")]
-        public int TypeId { get; set; }
+        [Display(Name = "Typ")]
+        public string Type { get; set; }
 
         [Required]
         [Display(Name = "Tytuł")]
@@ -28,7 +26,5 @@ namespace KrisApp.Models.Articles
 
         [Display(Name = "Data dodania")]
         public DateTime AddDate { get; set; }
-
-        public IEnumerable<SelectListItem> ArticleTypes { get; set; }
     }
 }
