@@ -265,6 +265,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\progressbar.gif" />
+    <Content Include="Images\progressbarafter.png" />
+    <Content Include="Images\toolbar.png" />
+    <Content Include="Images\toolbarBig.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\NaDysk.pubxml" />

@@ -50,13 +50,24 @@ namespace KrisApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddQuestion(QuestionModel model)
         {
+            RekruQuestion q = null;
             if (ModelState.IsValid)
             {
-                RekruQuestion q = _mapper.Map<RekruQuestion>(model);
+                q = _mapper.Map<RekruQuestion>(model);
                 Result result = _rekruSrv.AddQuestion(q);
+                if (result.IsOK)
+                {
+                    return RedirectToAction("Details", routeValues: new { id = q.ID });
+                }
+                else
+                {
+                    return RedirectToAction("AddQuestion");
+                }
             }
-
-            return RedirectToAction("List");
+            else
+            {
+                return RedirectToAction("List");
+            }
         }
 
         public ActionResult Details(int id)
@@ -118,6 +129,7 @@ namespace KrisApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult AddAnswer(AnswerModel model)
         {
             if (ModelState.IsValid)
@@ -140,6 +152,7 @@ namespace KrisApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult EditAnswer(AnswerModel model)
         {
             RekruAnswer answer = _mapper.Map<RekruAnswer>(model);
