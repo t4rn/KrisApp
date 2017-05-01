@@ -114,3 +114,34 @@ CREATE TABLE WWW.ContactMessage
 )
 
 select * from www.ContactMessage
+
+
+-----------------------------
+-----------------------------
+---------- Rekru -------------
+
+--drop table www.RekruQuestions;
+CREATE TABLE WWW.RekruQuestions
+(
+	Id int primary key identity(1,1),
+	Question varchar(256) not null,
+	Author varchar(64),	
+	AddDate datetime2(2) not null default getdate(),
+	Ghost bit not null default 0,
+);
+
+select * from www.RekruQuestions;
+
+CREATE TABLE WWW.RekruAnswers
+(
+	Id int primary key identity(1,1),
+	QuestionId integer not null references WWW.RekruQuestions,
+	Content varchar(512) not null,
+	Author varchar(64),	
+	AddDate datetime2(2) not null default getdate(),
+	Ghost bit not null default 0,
+)
+
+alter table www.rekruanswers alter column content text;
+
+select * from www.RekruAnswers

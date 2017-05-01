@@ -99,8 +99,6 @@ namespace KrisApp.Controllers
         public ActionResult Pending()
         {
             // TODO: dostęp tylko dla admina
-            //UsersPendingModel model = _userSrv.PrepareUsersPendingModel();
-
             UsersPendingModel model = new UsersPendingModel();
             model.PendingUserRequests = new List<UserRequestModel>();
             List<UserRequest> pendingUsers = _userSrv.GetPendingUsers();

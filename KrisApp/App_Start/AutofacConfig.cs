@@ -9,7 +9,7 @@ namespace KrisApp
     {
         public static void ConfigureContainer()
         {
-            var builder = new ContainerBuilder();
+            ContainerBuilder builder = new ContainerBuilder();
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             //builder.RegisterAssemblyModules(typeof(MvcApplication).Assembly);
@@ -21,7 +21,7 @@ namespace KrisApp
             builder.RegisterModule(new AutofacModule(Properties.Settings.Default.csDB));
             builder.RegisterModule(new AutoMapperModule());
 
-            var container = builder.Build();
+            IContainer container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

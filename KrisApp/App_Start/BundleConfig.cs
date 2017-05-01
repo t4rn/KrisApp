@@ -44,7 +44,7 @@ namespace KrisApp
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/redactor").Include(
+            bundles.Add(new StyleBundle("~/Content/wysiwyg").Include(
                       "~/Content/redactor/redactor.css"));
 
             #endregion
