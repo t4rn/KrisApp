@@ -56,6 +56,7 @@ namespace KrisApp.AutofacModules
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<WorkerService>().As<IWorkerService>().InstancePerRequest();
             builder.RegisterType<RekruService>().As<IRekruService>().InstancePerRequest();
+            builder.RegisterType<SessionService>().As<ISessionService>().InstancePerRequest();
 
             #endregion
 

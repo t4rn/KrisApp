@@ -28,7 +28,6 @@ namespace KrisApp.Controllers
             return View();
         }
 
-        [AllowAnonymous]
         public ActionResult List()
         {
             QuestionListModel model = new QuestionListModel();

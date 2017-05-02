@@ -5,7 +5,6 @@ using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Users;
 using KrisApp.Models.Articles;
-using KrisApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +19,16 @@ namespace KrisApp.Controllers
         private readonly IDictionaryService _dictSrv;
         private readonly IMapper _mapper;
         private readonly User _user;
+        private readonly ISessionService _sessionSrv;
 
-        public ArticleController(ILogger log, IArticleService articleSrv, IDictionaryService dictSrv, IMapper mapper)
+        public ArticleController(ILogger log, IArticleService articleSrv, IDictionaryService dictSrv, IMapper mapper, ISessionService sessionSrv)
         {
             _log = log;
             _articleSrv = articleSrv;
             _dictSrv = dictSrv;
             _mapper = mapper;
-            _user = SessionService.GetFromSession<User>(SessionService.SessionItem.User);
+            _sessionSrv = sessionSrv;
+            _user = _sessionSrv.GetFromSession<User>(SessionItem.User);
         }
 
         //public ActionResult Index()

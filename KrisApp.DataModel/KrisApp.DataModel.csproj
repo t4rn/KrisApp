@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IAppLogService.cs" />
     <Compile Include="Interfaces\IRekruService.cs" />
+    <Compile Include="Interfaces\ISessionService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IWorkerService.cs" />
     <Compile Include="Interfaces\Repositories\IDictionaryRepository.cs" />

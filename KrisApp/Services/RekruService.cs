@@ -12,11 +12,13 @@ namespace KrisApp.Services
     {
         private readonly IRekruRepository _rekruRepo;
         private readonly User _user;
+        private readonly ISessionService _sessionSrv;
 
-        public RekruService(ILogger log, IRekruRepository rekruRepo) : base(log)
+        public RekruService(ILogger log, IRekruRepository rekruRepo, ISessionService sessionSrv) : base(log)
         {
             _rekruRepo = rekruRepo;
-            _user = SessionService.GetFromSession<User>(SessionService.SessionItem.User);
+            _sessionSrv = sessionSrv;
+            _user = _sessionSrv.GetFromSession<User>(SessionItem.User);
         }
 
         public Result AddAnswer(RekruAnswer answer)

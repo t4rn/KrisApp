@@ -4,8 +4,6 @@ using KrisApp.DataModel.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System;
-using KrisApp.DataModel.Dictionaries;
 
 namespace KrisApp.DataAccess
 {

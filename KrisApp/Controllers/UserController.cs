@@ -4,7 +4,6 @@ using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Results;
 using KrisApp.DataModel.Users;
 using KrisApp.Models.User;
-using KrisApp.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -18,13 +17,15 @@ namespace KrisApp.Controllers
         private readonly IUserService _userSrv;
         private readonly IDictionaryService _dictSrv;
         private readonly IMapper _mapper;
+        private readonly ISessionService _sessionSrv;
 
-        public UserController(ILogger log, IUserService userSrv, IDictionaryService dictSrv, IMapper mapper)
+        public UserController(ILogger log, IUserService userSrv, IDictionaryService dictSrv, IMapper mapper, ISessionService sessionSrv)
         {
             _log = log;
             _userSrv = userSrv;
             _dictSrv = dictSrv;
             _mapper = mapper;
+            _sessionSrv = sessionSrv;
         }
 
         [AllowAnonymous]
@@ -49,7 +50,7 @@ namespace KrisApp.Controllers
 
             if (loginResult.IsOK)
             {
-                SessionService.AddToSession(SessionService.SessionItem.User, loginResult.User);
+                _sessionSrv.AddToSession(SessionItem.User, loginResult.User);
                 FormsAuthentication.SetAuthCookie(model.Login, false);
                 return RedirectToLocal(returnUrl);
             }
@@ -145,7 +146,7 @@ namespace KrisApp.Controllers
 
         public ActionResult LogOut()
         {
-            SessionService.ClearSession();
+            _sessionSrv.ClearSession();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "User");
         }

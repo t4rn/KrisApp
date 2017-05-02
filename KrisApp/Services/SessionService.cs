@@ -1,17 +1,14 @@
-﻿using System.Web;
+﻿using KrisApp.DataModel.Interfaces;
+using System.Web;
 
 namespace KrisApp.Services
 {
-    public static class SessionService
+    public class SessionService : ISessionService
     {
-        public enum SessionItem
-        {
-            User
-        }
         /// <summary> 
         /// Dodaje element do Sesji [System.Web.HttpContext.Current.Session.Add(name, value)]
         /// </summary>
-        internal static void AddToSession(SessionItem itemName, object value)
+        public void AddToSession(SessionItem itemName, object value)
         {
             if (HttpContext.Current?.Session != null)
             {
@@ -22,7 +19,7 @@ namespace KrisApp.Services
         /// <summary>
         /// Zwraca element z sesji
         /// </summary>
-        internal static T GetFromSession<T>(SessionItem itemName)
+        public T GetFromSession<T>(SessionItem itemName)
         {
             if (HttpContext.Current?.Session[itemName.ToString()] != null &&
                 HttpContext.Current.Session[itemName.ToString()] is T)
@@ -38,7 +35,7 @@ namespace KrisApp.Services
         /// <summary> 
         /// Czyści sesję z zapisanych danych
         /// </summary>
-        internal static void ClearSession()
+        public void ClearSession()
         {
             if (HttpContext.Current.Session != null)
             {

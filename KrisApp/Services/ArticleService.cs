@@ -15,12 +15,14 @@ namespace KrisApp.Services
         private readonly IDictionaryService _dictSrv;
         private readonly IArticleRepository _articleRepo;
         private readonly User _user;
+        private readonly ISessionService _sessionSrv;
 
-        public ArticleService(ILogger log, IArticleRepository articleRepo, IDictionaryService dictSrv) : base(log)
+        public ArticleService(ILogger log, IArticleRepository articleRepo, IDictionaryService dictSrv, ISessionService sessionSrv) : base(log)
         {
             _dictSrv = dictSrv;
             _articleRepo = articleRepo;
-            _user = SessionService.GetFromSession<User>(SessionService.SessionItem.User);
+            _sessionSrv = sessionSrv;
+            _user = _sessionSrv.GetFromSession<User>(SessionItem.User);
         }
 
         /// <summary>

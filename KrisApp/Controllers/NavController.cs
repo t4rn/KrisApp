@@ -10,10 +10,10 @@ namespace KrisApp.Controllers
         private readonly ILogger _log;
         private readonly NavService _navSrv;
 
-        public NavController(ILogger log, IArticleService articleSrv)
+        public NavController(ILogger log, IArticleService articleSrv, ISessionService sessionSrv)
         {
             _log = log;
-            _navSrv = new NavService(_log, articleSrv);
+            _navSrv = new NavService(_log, articleSrv, sessionSrv);
         }
 
         public PartialViewResult MainMenu()

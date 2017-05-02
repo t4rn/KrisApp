@@ -12,11 +12,13 @@ namespace KrisApp.Services
     {
         private readonly IArticleService _articleSrv;
         private readonly User _user;
+        private readonly ISessionService _sessionSrv;
 
-        public NavService(ILogger log, IArticleService articleSrv) : base(log)
+        public NavService(ILogger log, IArticleService articleSrv, ISessionService sessionSrv) : base(log)
         {
             _articleSrv = articleSrv;
-            _user = SessionService.GetFromSession<User>(SessionService.SessionItem.User);
+            _sessionSrv = sessionSrv;
+            _user = _sessionSrv.GetFromSession<User>(SessionItem.User);
         }
 
         /// <summary>
