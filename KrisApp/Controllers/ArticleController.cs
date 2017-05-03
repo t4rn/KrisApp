@@ -60,7 +60,7 @@ namespace KrisApp.Controllers
             return View(model);
         }
 
-        public ActionResult CreateArticle()
+        public ViewResult CreateArticle()
         {
             ArticleModel model = new ArticleModel();
             model.ArticleTypes = PrepareArticleTypes();

@@ -55,6 +55,8 @@ namespace KrisApp.Controllers
                 "MemoryCache",
                 "AutoMapper",
                 "Autofac",
+                "NUnit",
+                "Moq",
                 "MS SQL",
                 "Bootstrap 3"
             };
