@@ -9,7 +9,7 @@
 * MemoryCache
 * AutoMapper
 * Autofac
-* Nunit,
-* Moq,
+* Nunit
+* Moq
 * MS SQL
 * Bootstrap 3
