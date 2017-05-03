@@ -1,6 +1,6 @@
 # README #
 
-### Aplikacja webowa wykonana w technologiach:###
+### Aplikacja webowa wykonana w technologiach:
 
 * .NET Framework 4.5
 * ASP.NET MVC 5
