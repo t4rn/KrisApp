@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using KrisApp.DataModel.Contact;
 using KrisApp.DataModel.Interfaces;
+using KrisApp.DataModel.Pages;
 using KrisApp.DataModel.Results;
 using KrisApp.Models.Me;
+using KrisApp.Models.Pages;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -13,15 +15,33 @@ namespace KrisApp.Controllers
         private readonly ILogger _log;
         private readonly IContactService _contactSrv;
         private readonly IMapper _mapper;
+        private readonly IPageContentService _pageContentSrv;
 
-        public MeController(ILogger log, IContactService contactSrv, IMapper mapper)
+        public MeController(ILogger log, IContactService contactSrv, IMapper mapper, IPageContentService pageContentSrv)
         {
             _log = log;
             _contactSrv = contactSrv;
             _mapper = mapper;
+            _pageContentSrv = pageContentSrv;
         }
 
+        //TODO: test jednostkowy
         public ActionResult About()
+        {
+            PageContent pageContent = _pageContentSrv.GetPageContentByCode(PageContent.Type.About.ToString());
+
+            if (pageContent != null)
+            {
+                PageContentModel model = _mapper.Map<PageContentModel>(pageContent);
+                return View((object)model.Content);
+            }
+            else
+            {
+                return RedirectToAction("AboutStatic");
+            }
+        }
+
+        public ActionResult AboutStatic()
         {
             AboutMeModel model = new AboutMeModel();
 
@@ -34,10 +54,6 @@ namespace KrisApp.Controllers
                 "NUnit", "NLog", "Ninject", "Moq", "Autofac", "AutoMapper",
                 "SoapUI", "Postman", "Fiddler",
                 "SVN", "GIT", "IIS", "Redmine", "Jira", "Jenkins"
-
-                /*
-                 * .NET, C#, JavaScript, HTML, CSS, SCSS, XML, JSON, YAML, ASP.NET MVC, WPF, Console Apps, Windows Phone, Silverlight, WinForms, Entity Framework, Dapper, NHibernate, LINQ, Autofac, AJAX, jQuery, KnockoutJS, AngularJS, AureliaJS, NodeJS, KendoUI, WCF, NancyFX, WebAPI, ServiceStack, RESTful API, SignalR, nopCommerce, Azure, Azure Websites, Azure Infrastructure, AWS, Windows Server, SQL, MSSQL, MongoDB, Redis, PostgreSQL, FIX, OSM, IIS, GIT, TFS, Docker, Visual Studio, Microsoft SQL Server Management Studio, Expression Blend, ReSharper, TeamCity, Selenium, NUnit, SpecsFor, Unit Testing, Integration Testing, End-To-End Testing, Responsive Design, Powershell, DevOps, DDD, CQRS, Message bus, Consulting, Agile, UML, Documentation, Design Patterns, Clean Code, SOLID, Refactoring, Async, Parallel, Multithreading, Profiling, Performance tuning
-                 */
             };
 
             return View(model);

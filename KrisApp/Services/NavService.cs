@@ -176,6 +176,7 @@ namespace KrisApp.Services
                     new MenuItemModel { Action = "Logs", Controller = "Admin", Text = "Logi" },
                     new MenuItemModel { Action = "ContactMessages", Controller = "Admin", Text = "Przesłane wiadomości" },
                     new MenuItemModel { Action = "Articles", Controller = "Admin", Text = "Artykuły" },
+                    new MenuItemModel { Action = "PageContents", Controller = "Admin", Text = "Treści podstron" },
                 }
             };
         }

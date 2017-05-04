@@ -145,3 +145,19 @@ CREATE TABLE WWW.RekruAnswers
 alter table www.rekruanswers alter column content text;
 
 select * from www.RekruAnswers
+
+-------------------------------------
+-------------------------------------
+---------- StaticContent -------------
+
+--drop table www.PageContent;
+CREATE TABLE WWW.PageContent
+(
+Id int identity(1,1) primary key,
+Code varchar(16) not null unique,
+Content text,
+Ghost bit default 0,
+AddDate datetime2(2) default getdate()
+);
+
+select * from www.PageContent;

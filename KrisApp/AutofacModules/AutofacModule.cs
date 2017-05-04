@@ -44,6 +44,9 @@ namespace KrisApp.AutofacModules
             builder.Register(c => new RekruRepo(_connStr))
                 .As<IRekruRepository>().InstancePerRequest();
 
+            builder.Register(c => new PageContentRepo(_connStr))
+                .As<IPageContentRepository>().InstancePerRequest();
+
             #endregion
 
             #region Services
@@ -57,6 +60,7 @@ namespace KrisApp.AutofacModules
             builder.RegisterType<WorkerService>().As<IWorkerService>().InstancePerRequest();
             builder.RegisterType<RekruService>().As<IRekruService>().InstancePerRequest();
             builder.RegisterType<SessionService>().As<ISessionService>().InstancePerRequest();
+            builder.RegisterType<PageContentService>().As<IPageContentService>().InstancePerRequest();
 
             #endregion
 

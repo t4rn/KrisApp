@@ -3,12 +3,14 @@ using AutoMapper;
 using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Contact;
 using KrisApp.DataModel.Dictionaries;
+using KrisApp.DataModel.Pages;
 using KrisApp.DataModel.Rekru;
 using KrisApp.DataModel.Users;
 using KrisApp.DataModel.Work;
 using KrisApp.Models;
 using KrisApp.Models.Articles;
 using KrisApp.Models.Me;
+using KrisApp.Models.Pages;
 using KrisApp.Models.Rekru;
 using KrisApp.Models.User;
 using KrisApp.Models.Work;
@@ -40,6 +42,8 @@ namespace KrisApp.AutofacModules
                 cfg.CreateMap<Article, ArticleModel>();
                 cfg.CreateMap<Article, ArticleDetailsModel>()
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
+                cfg.CreateMap<PageContent, PageContentModel>();
+                cfg.CreateMap<PageContentModel, PageContent>();
 
                 //foreach (var profile in context.Resolve<IEnumerable<Profile>>())
                 //{

@@ -224,6 +224,7 @@
     <Compile Include="Models\Me\WebsiteDescModel.cs" />
     <Compile Include="Models\Nav\MenuItemModel.cs" />
     <Compile Include="Models\Nav\MenuModel.cs" />
+    <Compile Include="Models\Pages\PageContentModel.cs" />
     <Compile Include="Models\Rekru\AnswerModel.cs" />
     <Compile Include="Models\Rekru\QuestionListModel.cs" />
     <Compile Include="Models\Rekru\QuestionModel.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Services\NavService.cs" />
     <Compile Include="Services\NetworkService.cs" />
+    <Compile Include="Services\PageContentService.cs" />
     <Compile Include="Services\RekruService.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -311,7 +313,7 @@
     <Content Include="Views\Article\CreateArticle.cshtml" />
     <Content Include="Views\Nav\MainMenu.cshtml" />
     <Content Include="Views\Rekru\Index.cshtml" />
-    <Content Include="Views\Me\About.cshtml" />
+    <Content Include="Views\Me\AboutStatic.cshtml" />
     <Content Include="Views\Me\Contact.cshtml" />
     <Content Include="Views\Me\Website.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
@@ -336,6 +338,10 @@
     <Content Include="Views\Rekru\AddAnswer.cshtml" />
     <Content Include="Views\Rekru\EditAnswer.cshtml" />
     <Content Include="Views\Rekru\EditQuestion.cshtml" />
+    <Content Include="Views\Admin\PageContents.cshtml" />
+    <Content Include="Views\Admin\CreatePageContent.cshtml" />
+    <Content Include="Views\Me\About.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
