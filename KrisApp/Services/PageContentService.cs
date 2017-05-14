@@ -32,6 +32,7 @@ namespace KrisApp.Services
         /// </summary>
         public PageContent GetPageContentByCode(string code)
         {
+            //TODO: cache
             return _pageContentRepo.GetPageContentByCode(code);
         }
 

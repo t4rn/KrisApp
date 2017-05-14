@@ -44,6 +44,7 @@ namespace KrisApp.AutofacModules
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
                 cfg.CreateMap<PageContent, PageContentModel>();
                 cfg.CreateMap<PageContentModel, PageContent>();
+                cfg.CreateMap<ArticleType, ArticleTypeModel>();
 
                 //foreach (var profile in context.Resolve<IEnumerable<Profile>>())
                 //{

@@ -4,6 +4,7 @@ using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Users;
+using KrisApp.Infrastructure;
 using KrisApp.Models.Articles;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace KrisApp.Controllers
             List<Article> articles = null;
 
             ArticleType.ArticleTypeCode articleTypeCode;
-            if (!string.IsNullOrWhiteSpace(id) && 
+            if (!string.IsNullOrWhiteSpace(id) &&
                 Enum.TryParse(id.ToUpper(), out articleTypeCode))
             {
                 articles = _articleSrv.GetArticlesByType(articleTypeCode);
@@ -131,6 +132,30 @@ namespace KrisApp.Controllers
             }
 
             return RedirectToAction("List");
+        }
+
+        /// <summary>
+        /// Metoda zwracająca wszytkie artykuły w XML
+        /// </summary>
+        public ActionResult GetArticlesXml()
+        {
+            List<Article> articles = _articleSrv.GetArticles();
+
+            ArticleListModel model = new ArticleListModel();
+            model.Articles = _mapper.Map<List<ArticleDetailsModel>>(articles);
+
+            return new XMLResult(model);
+        }
+
+        /// <summary>
+        /// Metoda zwracająca wszytkie typy artykułów w Csv
+        /// </summary>
+        public ActionResult GetArticleTypesCsv()
+        {
+            List<ArticleType> articleTypes = _articleSrv.GetArticleTypes();
+            List<ArticleTypeModel> articleTypesList = _mapper.Map<List<ArticleTypeModel>>(articleTypes);
+
+            return new CSVResult(articleTypesList, "articleTypes.csv");
         }
 
         /// <summary>
