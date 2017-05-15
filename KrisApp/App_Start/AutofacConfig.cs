@@ -14,7 +14,7 @@ namespace KrisApp
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             //builder.RegisterAssemblyModules(typeof(MvcApplication).Assembly);
 
-            //builder.RegisterFilterProvider();
+            builder.RegisterFilterProvider();
 
             //builder.RegisterSource(new ViewRegistrationSource());
 

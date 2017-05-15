@@ -2,6 +2,7 @@
 using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Pages;
+using KrisApp.Infrastructure;
 using KrisApp.Models.Admin;
 using KrisApp.Models.Articles;
 using KrisApp.Models.Pages;
@@ -12,6 +13,7 @@ using System.Web.Mvc;
 namespace KrisApp.Controllers
 {
     [Authorize]
+    [LogActionFilter(Desc = "Opis z kontrolera")]
     public class AdminController : Controller
     {
         private readonly ILogger _log;
