@@ -211,6 +211,7 @@
     <Compile Include="Infrastructure\ActionResults\CSVResult.cs" />
     <Compile Include="Infrastructure\ActionFilters\LogActionFilter.cs" />
     <Compile Include="Infrastructure\ActionResults\XMLResult.cs" />
+    <Compile Include="Infrastructure\HtmlHelpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin\ContactsListModel.cs" />
     <Compile Include="Models\Admin\LogsViewModel.cs" />
