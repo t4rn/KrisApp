@@ -266,6 +266,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\redactor\redactor-iframe.css" />
     <Content Include="Content\redactor\redactor.css" />
+    <Content Include="Content\sunlight\sunlight.dark.css" />
+    <Content Include="Content\sunlight\sunlight.default.css" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -298,6 +300,8 @@
     <Content Include="Scripts\redactor\redactor.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sunlight\sunlight-min.js" />
+    <Content Include="Scripts\sunlight\sunlight.csharp-min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

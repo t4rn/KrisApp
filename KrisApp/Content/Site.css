@@ -21,3 +21,7 @@ input,
 select {
     max-width: 280px;
 }
+
+.margin-top20px {
+    margin-top: 20px;
+}
