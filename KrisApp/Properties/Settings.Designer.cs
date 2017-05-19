@@ -32,5 +32,14 @@ namespace KrisApp.Properties {
                 return ((string)(this["csDB"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Vertical")]
+        public string ActiveTheme {
+            get {
+                return ((string)(this["ActiveTheme"]));
+            }
+        }
     }
 }
