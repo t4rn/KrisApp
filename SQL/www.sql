@@ -161,3 +161,8 @@ AddDate datetime2(2) default getdate()
 );
 
 select * from www.PageContent;
+
+
+update work.Article
+set Title = 'AutoMapper w Autofac (oddzielny Module)'
+where title = 'AutoMapper w Autofac ver. 2 '

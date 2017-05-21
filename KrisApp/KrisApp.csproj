@@ -209,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CSVResult.cs" />
+    <Compile Include="Infrastructure\LogActionFilter.cs" />
     <Compile Include="Infrastructure\XMLResult.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin\ContactsListModel.cs" />

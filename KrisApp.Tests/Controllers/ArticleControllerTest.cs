@@ -33,9 +33,6 @@ namespace KrisApp.Tests.Controllers
             Mock<IMapper> mockMapper = new Mock<IMapper>();
             Mock<ISessionService> mockSession = new Mock<ISessionService>();
 
-            var articleTypes = mockDictionarySrv.Object.GetDictionary<ArticleType>();
-
-
             ArticleController articleController = new ArticleController(mockLogger.Object, mockArticleSrv.Object,
                 mockDictionarySrv.Object, mockMapper.Object, mockSession.Object);
 
@@ -44,7 +41,10 @@ namespace KrisApp.Tests.Controllers
             // typ modelu w zwracanym widoku
             object model = actionResult.Model;
             Assert.IsInstanceOf(typeof(ArticleModel), model);
-            Assert.IsTrue(((ArticleModel)model).ArticleTypes.Count() == articleTypes.Count, 
+
+            // liczba typów artykułów
+            List<ArticleType> articleTypes = mockDictionarySrv.Object.GetDictionary<ArticleType>();
+            Assert.IsTrue(((ArticleModel)model).ArticleTypes.Count() == articleTypes.Count , 
                 "Niepoprawna liczba elementów");
         }
     }
