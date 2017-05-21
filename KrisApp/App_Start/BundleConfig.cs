@@ -10,42 +10,50 @@ namespace KrisApp
             #region Scripts
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                "~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/jquery-{version}.js",
-                      "~/Scripts/jquery.validate*",
-                      "~/Scripts/jquery.unobtrusive-ajax.js"
-                      ));
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/respond.js",
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery.validate*",
+                "~/Scripts/jquery.unobtrusive-ajax.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/redactor").Include(
-                      "~/Scripts/redactor/redactor.js"
-                      ));
+                "~/Scripts/redactor/redactor.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/sunlight").Include(
+                "~/Scripts/sunlight/sunlight-min.js",
+                "~/Scripts/sunlight/sunlight.csharp-min.js"
+                ));
 
             #endregion
 
             #region Styles
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                "~/Content/bootstrap.css",
+                "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/wysiwyg").Include(
-                      "~/Content/redactor/redactor.css"));
+                "~/Content/redactor/redactor.css"));
+
+            bundles.Add(new StyleBundle("~/Content/sunlight").Include(
+                "~/Content/sunlight/sunlight.default.css"));
 
             #endregion
         }

@@ -10,16 +10,9 @@
                     @item.Text<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    @foreach (var sub in item.SubMenu)
+                    @foreach (var subMenuItem in item.SubMenu)
                     {
-                        if (!string.IsNullOrWhiteSpace(sub.Parameter))
-                        {
-                            <li>@Html.ActionLink(sub.Text, sub.Action, sub.Controller, routeValues: new { id = sub.Parameter }, htmlAttributes: null)</li>
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink(sub.Text, sub.Action, sub.Controller, routeValues: null, htmlAttributes: null)</li>
-                        }
+                        <li>@Html.MenuItemLink(subMenuItem)</li>
                     }
                 </ul>
             }

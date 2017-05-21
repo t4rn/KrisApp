@@ -208,9 +208,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\CSVResult.cs" />
-    <Compile Include="Infrastructure\LogActionFilter.cs" />
-    <Compile Include="Infrastructure\XMLResult.cs" />
+    <Compile Include="Infrastructure\ActionResults\CSVResult.cs" />
+    <Compile Include="Infrastructure\ActionFilters\LogActionFilter.cs" />
+    <Compile Include="Infrastructure\ActionResults\XMLResult.cs" />
+    <Compile Include="Infrastructure\HtmlHelpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Infrastructure\ThemeViewEngine.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin\ContactsListModel.cs" />
     <Compile Include="Models\Admin\LogsViewModel.cs" />
@@ -264,6 +266,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\redactor\redactor-iframe.css" />
     <Content Include="Content\redactor\redactor.css" />
+    <Content Include="Content\sunlight\sunlight.dark.css" />
+    <Content Include="Content\sunlight\sunlight.default.css" />
     <Content Include="favicon.ico" />
     <Content Include="favicon.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -296,6 +300,8 @@
     <Content Include="Scripts\redactor\redactor.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sunlight\sunlight-min.js" />
+    <Content Include="Scripts\sunlight\sunlight.csharp-min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -348,6 +354,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Themes\Vertical\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using KrisApp.Infrastructure;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,6 +14,12 @@ namespace KrisApp
             //.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             //        GlobalConfiguration.Configuration.Formatters
             //            .Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+
+            //if (!string.IsNullOrEmpty(Properties.Settings.Default.ActiveTheme))
+            //{
+            //    string activeTheme = Properties.Settings.Default.ActiveTheme;
+            //    ViewEngines.Engines.Insert(0, new ThemeViewEngine(activeTheme));
+            //}
 
             AutofacConfig.ConfigureContainer();
             AreaRegistration.RegisterAllAreas();

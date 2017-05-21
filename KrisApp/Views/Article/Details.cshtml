@@ -4,49 +4,27 @@
     ViewBag.Title = Model.Title;
 }
 
-<h2>@ViewBag.Title</h2>
-<hr />
-
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.Content)
-        </dd>*@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AddDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AddDate)
-        </dd>
-
-    </dl>
+<div class="margin-top20px">
+    <p> @Html.DisplayFor(model => model.Type)</p>
+    <h2>@ViewBag.Title</h2>
+    <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> @Html.DisplayFor(model => model.AddDate) | @Html.DisplayFor(model => model.Author)</p>
+    <hr />
+    <p>
+        @Html.Raw(Model.Content)
+    </p>
+    <p>
+        @Html.ActionLink("Powrót do listy artykułów", "List")
+    </p>
 </div>
-<hr />
-<div>
-    @Html.Raw(Model.Content)
-</div>
-<p>
-    @Html.ActionLink("Powrót do listy artykułów", "List")
-</p>
+
+@section Styles{
+    @Styles.Render("~/Content/sunlight")
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/sunlight")
+
+    <script type="text/javascript">
+        Sunlight.highlightAll();
+    </script>
+}
