@@ -52,7 +52,7 @@ namespace KrisApp
             bundles.Add(new StyleBundle("~/Content/wysiwyg").Include(
                 "~/Content/redactor/redactor.css"));
 
-            bundles.Add(new StyleBundle("~/Content/sunlight").Include(
+            bundles.Add(new StyleBundle("~/Content/highlighter").Include(
                 "~/Content/sunlight/sunlight.default.css"));
 
             #endregion
