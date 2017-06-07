@@ -105,33 +105,26 @@ namespace KrisApp.Services
         {
             UserResult result = new UserResult();
 
-            try
+            UserRequest userRequest = _userRequestRepo.GetUserRequest(userRequestID);
+
+            if (userRequest != null)
             {
-                UserRequest userRequest = _userRequestRepo.GetUserRequest(userRequestID);
+                userRequest.Ghost = true;
+                User newUser = PrepareUserFromRequest(userRequest, userTypeID);
 
-                if (userRequest != null)
-                {
-                    userRequest.Ghost = true;
-                    User newUser = PrepareUserFromRequest(userRequest, userTypeID);
+                _userRepo.AddUser(newUser);
 
-                    _userRepo.AddUser(newUser);
+                result.IsOK = true;
+                result.User = newUser;
 
-                    result.IsOK = true;
-                    result.User = newUser;
+                // TODO: update userRequest
 
-                    _log.Debug("[AcceptRequest] Pomyślnie dodano usera o requestID = '{0}' -> otrzymał ID = '{1}'",
-                        userRequestID, newUser.Id);
-                }
-                else
-                {
-                    result.Message = $"Brak requesta o ID = '{userRequestID}'.";
-                }
+                _log.Debug("[AcceptRequest] Pomyślnie dodano usera o requestID = '{0}' -> otrzymał ID = '{1}'",
+                    userRequestID, newUser.Id);
             }
-            catch (Exception ex)
+            else
             {
-                result.Message = ex.Message;
-                _log.Error("[AcceptUserRequest] Ex: {0} {1}",
-                    ex.MessageFromInnerEx(), ex.StackTrace);
+                result.Message = $"Brak requesta o ID = '{userRequestID}'.";
             }
 
             return result;

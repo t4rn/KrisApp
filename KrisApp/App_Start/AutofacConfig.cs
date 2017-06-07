@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using KrisApp.AutofacModules;
+using KrisApp.Infrastructure.ExceptionFilters;
 using System.Web.Mvc;
 
 namespace KrisApp
@@ -20,6 +21,8 @@ namespace KrisApp
 
             builder.RegisterModule(new AutofacModule(Properties.Settings.Default.csDB));
             builder.RegisterModule(new AutoMapperModule());
+
+            builder.RegisterType<ExcepionLoggingFilter>().InstancePerRequest();
 
             IContainer container = builder.Build();
 

@@ -15,5 +15,20 @@ namespace KrisApp.Common.Extensions
                 return ex.Message;
             }
         }
+
+        /// <summary>
+        /// Returns the most inner exception
+        /// </summary>
+        public static Exception ExceptionFromInnerEx(this Exception ex)
+        {
+            if (ex.InnerException != null)
+            {
+                return ex.InnerException.ExceptionFromInnerEx();
+            }
+            else
+            {
+                return ex;
+            }
+        }
     }
 }
