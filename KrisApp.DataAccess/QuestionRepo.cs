@@ -1,16 +1,15 @@
 ﻿using KrisApp.DataAccess.DbContexts;
 using KrisApp.DataModel.Interfaces.Repositories;
-using KrisApp.DataModel.Rekru;
+using KrisApp.DataModel.Questions;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System;
 
 namespace KrisApp.DataAccess
 {
-    public class RekruRepo : BaseDAL, IRekruRepository
+    public class QuestionRepo : BaseDAL, IQuestionRepository
     {
-        public RekruRepo(string cs) : base(cs)
+        public QuestionRepo(string cs) : base(cs)
         {
         }
 

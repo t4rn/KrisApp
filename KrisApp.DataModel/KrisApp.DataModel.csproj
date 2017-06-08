@@ -54,7 +54,7 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IAppLogService.cs" />
     <Compile Include="Interfaces\IPageContentService.cs" />
-    <Compile Include="Interfaces\IRekruService.cs" />
+    <Compile Include="Interfaces\IQuestionService.cs" />
     <Compile Include="Interfaces\ISessionService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IWorkerService.cs" />
@@ -63,15 +63,15 @@
     <Compile Include="Interfaces\Repositories\IContactMessageRepository.cs" />
     <Compile Include="Interfaces\Repositories\ILogRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPageContentRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IRekruRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IQuestionRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserRequestRepository.cs" />
     <Compile Include="Interfaces\Repositories\IWorkerRepository.cs" />
     <Compile Include="Logs\AppLog.cs" />
     <Compile Include="Pages\PageContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rekru\RekruAnswer.cs" />
-    <Compile Include="Rekru\RekruQuestion.cs" />
+    <Compile Include="Questions\RekruAnswer.cs" />
+    <Compile Include="Questions\RekruQuestion.cs" />
     <Compile Include="Results\Result.cs" />
     <Compile Include="Results\UserResult.cs" />
     <Compile Include="Singleton.cs" />

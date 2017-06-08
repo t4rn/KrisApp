@@ -3,7 +3,7 @@ using KrisApp.DataModel.Contact;
 using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Logs;
 using KrisApp.DataModel.Pages;
-using KrisApp.DataModel.Rekru;
+using KrisApp.DataModel.Questions;
 using KrisApp.DataModel.Users;
 using KrisApp.DataModel.Work;
 using System.Data.Entity;

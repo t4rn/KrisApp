@@ -1,24 +1,24 @@
 ﻿using AutoMapper;
 using KrisApp.DataModel.Interfaces;
-using KrisApp.DataModel.Rekru;
+using KrisApp.DataModel.Questions;
 using KrisApp.DataModel.Results;
-using KrisApp.Models.Rekru;
+using KrisApp.Models.Questions;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace KrisApp.Controllers
 {
     [Authorize]
-    public class RekruController : Controller
+    public class QuestionController : Controller
     {
         private readonly ILogger _log;
-        private readonly IRekruService _rekruSrv;
+        private readonly IQuestionService _questionSrv;
         private readonly IMapper _mapper;
 
-        public RekruController(ILogger log, IRekruService rekruSrv, IMapper mapper)
+        public QuestionController(ILogger log, IQuestionService questionSrv, IMapper mapper)
         {
             _log = log;
-            _rekruSrv = rekruSrv;
+            _questionSrv = questionSrv;
             _mapper = mapper;
         }
 
@@ -32,7 +32,7 @@ namespace KrisApp.Controllers
         {
             QuestionListModel model = new QuestionListModel();
 
-            List<RekruQuestion> questions = _rekruSrv.GetQuestions();
+            List<RekruQuestion> questions = _questionSrv.GetQuestions();
             model.Questions = _mapper.Map<List<QuestionModel>>(questions);
 
             return View(model);
@@ -53,7 +53,7 @@ namespace KrisApp.Controllers
             if (ModelState.IsValid)
             {
                 q = _mapper.Map<RekruQuestion>(model);
-                Result result = _rekruSrv.AddQuestion(q);
+                Result result = _questionSrv.AddQuestion(q);
                 if (result.IsOK)
                 {
                     return RedirectToAction("Details", routeValues: new { id = q.ID });
@@ -71,7 +71,7 @@ namespace KrisApp.Controllers
 
         public ActionResult Details(int id)
         {
-            RekruQuestion rq = _rekruSrv.GetQuestion(id);
+            RekruQuestion rq = _questionSrv.GetQuestion(id);
 
             if (rq != null)
             {
@@ -99,7 +99,7 @@ namespace KrisApp.Controllers
 
         public ActionResult EditQuestion(int id)
         {
-            RekruQuestion question = _rekruSrv.GetQuestion(id);
+            RekruQuestion question = _questionSrv.GetQuestion(id);
             QuestionModel model = _mapper.Map<QuestionModel>(question);
 
             return View(model);
@@ -113,7 +113,7 @@ namespace KrisApp.Controllers
             {
                 RekruQuestion question = _mapper.Map<RekruQuestion>(model);
                 // TODO: obsłużyć result
-                Result result = _rekruSrv.EditQuestion(question);
+                Result result = _questionSrv.EditQuestion(question);
             }
 
             return RedirectToAction("Details", routeValues: new { id = model.ID });
@@ -134,7 +134,7 @@ namespace KrisApp.Controllers
             if (ModelState.IsValid)
             {
                 RekruAnswer answer = _mapper.Map<RekruAnswer>(model);
-                Result result = _rekruSrv.AddAnswer(answer);
+                Result result = _questionSrv.AddAnswer(answer);
             }
 
             return RedirectToAction("Details", new { id = model.QuestionID });
@@ -142,7 +142,7 @@ namespace KrisApp.Controllers
 
         public ActionResult EditAnswer(int id)
         {
-            RekruAnswer answer = _rekruSrv.GetAnswer(id);
+            RekruAnswer answer = _questionSrv.GetAnswer(id);
 
             AnswerModel model = _mapper.Map<AnswerModel>(answer);
 
@@ -156,7 +156,7 @@ namespace KrisApp.Controllers
         {
             RekruAnswer answer = _mapper.Map<RekruAnswer>(model);
 
-            Result result = _rekruSrv.EditAnswer(answer);
+            Result result = _questionSrv.EditAnswer(answer);
 
 
             return RedirectToAction("Details", routeValues: new { id = model.QuestionID });

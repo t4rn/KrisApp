@@ -41,8 +41,8 @@ namespace KrisApp.AutofacModules
             builder.Register(c => new WorkerRepo(_connStr))
                 .As<IWorkerRepository>().InstancePerRequest();
 
-            builder.Register(c => new RekruRepo(_connStr))
-                .As<IRekruRepository>().InstancePerRequest();
+            builder.Register(c => new QuestionRepo(_connStr))
+                .As<IQuestionRepository>().InstancePerRequest();
 
             builder.Register(c => new PageContentRepo(_connStr))
                 .As<IPageContentRepository>().InstancePerRequest();
@@ -58,7 +58,7 @@ namespace KrisApp.AutofacModules
             builder.RegisterType<KrisLogger>().As<ILogger>().InstancePerRequest();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<WorkerService>().As<IWorkerService>().InstancePerRequest();
-            builder.RegisterType<RekruService>().As<IRekruService>().InstancePerRequest();
+            builder.RegisterType<QuestionService>().As<IQuestionService>().InstancePerRequest();
             builder.RegisterType<SessionService>().As<ISessionService>().InstancePerRequest();
             builder.RegisterType<PageContentService>().As<IPageContentService>().InstancePerRequest();
 

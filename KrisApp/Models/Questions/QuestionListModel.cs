@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace KrisApp.Models.Rekru
+namespace KrisApp.Models.Questions
 {
     public class QuestionListModel
     {

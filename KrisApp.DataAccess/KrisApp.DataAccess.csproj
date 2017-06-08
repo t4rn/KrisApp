@@ -57,7 +57,7 @@
     <Compile Include="Dictionaries\DictionaryRepo.cs" />
     <Compile Include="PageContentRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RekruRepo.cs" />
+    <Compile Include="QuestionRepo.cs" />
     <Compile Include="UserRepo.cs" />
     <Compile Include="UserRequestRepo.cs" />
     <Compile Include="WorkerRepo.cs" />
