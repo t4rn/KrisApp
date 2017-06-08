@@ -214,6 +214,7 @@
     <Compile Include="Infrastructure\ExceptionFilters\ExcepionLoggingFilter.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\ThemeViewEngine.cs" />
+    <Compile Include="Infrastructure\ValidationAttributes\UppercaseValidator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin\ContactsListModel.cs" />
     <Compile Include="Models\Admin\LogsViewModel.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KrisApp.Infrastructure.ValidationAttributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -14,9 +15,11 @@ namespace KrisApp.Models.Articles
 
         [Required]
         [Display(Name = "Tytuł")]
+        [StringLength(128, ErrorMessage = "Tytuł musi zawierać od 5 do 128 znaków.", MinimumLength = 5)]
+        [UppercaseValidator("Tytuł musi zaczynać się wielką literą.")]
         public string Title { get; set; }
 
-        [MinLength(20)]
+        [MinLength(20, ErrorMessage = "Treść musi zawierać minimum 20 znaków.")]
         [Display(Name = "Treść artykułu")]
         public string Content { get; set; }
 

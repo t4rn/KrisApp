@@ -82,9 +82,14 @@ namespace KrisApp.Controllers
                 Article article = _articleSrv.AddArticle(a);
 
                 TempData["Msg"] = $"Artykuł dodany pomyślnie! Otrzymał ID = {article.Id}.";
+                return RedirectToAction("CreateArticle");
             }
-
-            return RedirectToAction("CreateArticle");
+            else
+            {
+                // we must repopulate SelectList
+                model.ArticleTypes = PrepareArticleTypes();
+                return View(model);
+            }
         }
 
         public ActionResult Details(int id)
