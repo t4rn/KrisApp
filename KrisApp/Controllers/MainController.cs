@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace KrisApp.Controllers
 {
     public class MainController : Controller
     {
-        // GET: Main
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ViewResult Error(Exception ex, string controllerName, string actionName)
+        {
+            HandleErrorInfo model = new HandleErrorInfo(ex, controllerName, actionName);
+            return View(model);
         }
     }
 }
