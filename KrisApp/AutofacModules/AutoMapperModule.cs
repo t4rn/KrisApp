@@ -4,17 +4,16 @@ using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Contact;
 using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Pages;
-using KrisApp.DataModel.Rekru;
+using KrisApp.DataModel.Questions;
 using KrisApp.DataModel.Users;
 using KrisApp.DataModel.Work;
 using KrisApp.Models;
 using KrisApp.Models.Articles;
 using KrisApp.Models.Me;
 using KrisApp.Models.Pages;
-using KrisApp.Models.Rekru;
+using KrisApp.Models.Questions;
 using KrisApp.Models.User;
 using KrisApp.Models.Work;
-using System.Collections.Generic;
 
 namespace KrisApp.AutofacModules
 {

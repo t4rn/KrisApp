@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KrisApp.Models.Rekru
+namespace KrisApp.Models.Questions
 {
     public class AnswerModel
     {

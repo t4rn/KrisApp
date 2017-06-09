@@ -1,10 +1,10 @@
-﻿using KrisApp.DataModel.Rekru;
-using System.Collections.Generic;
+﻿using KrisApp.DataModel.Questions;
 using KrisApp.DataModel.Results;
+using System.Collections.Generic;
 
 namespace KrisApp.DataModel.Interfaces
 {
-    public interface IRekruService
+    public interface IQuestionService
     {
         List<RekruQuestion> GetQuestions();
         Result AddQuestion(RekruQuestion question);

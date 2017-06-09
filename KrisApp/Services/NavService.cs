@@ -33,8 +33,8 @@ namespace KrisApp.Services
             MenuItemModel articleMenu = PrepareArticleMenu();
             model.MenuItems.Add(articleMenu);
 
-            MenuItemModel rekruMenu = PrepareRekruMenu(_user);
-            model.MenuItems.Add(rekruMenu);
+            MenuItemModel questionMenu = PrepareQuestionMenu(_user);
+            model.MenuItems.Add(questionMenu);
 
             MenuItemModel aboutMenu = PrepareAboutMenu();
             model.MenuItems.Add(aboutMenu);
@@ -117,14 +117,14 @@ namespace KrisApp.Services
         }
 
         /// <summary>
-        /// Zwraca element menu dotyczący rekrutacji
+        /// Returns question menu items
         /// </summary>
-        private MenuItemModel PrepareRekruMenu(User user)
+        private MenuItemModel PrepareQuestionMenu(User user)
         {
             MenuItemModel menu = new MenuItemModel()
             {
                 Action = "List",
-                Controller = "Rekru",
+                Controller = "Question",
                 Text = "Pytania",
             };
 
@@ -133,8 +133,8 @@ namespace KrisApp.Services
                 // zalogowany
                 menu.SubMenu = new List<MenuItemModel>()
                 {
-                    new MenuItemModel { Action = "AddQuestion", Controller = "Rekru", Text = "Dodaj pytanie" },
-                    new MenuItemModel { Action = "List", Controller = "Rekru", Text = "Przeglądaj" }
+                    new MenuItemModel { Action = "AddQuestion", Controller = "Question", Text = "Dodaj pytanie" },
+                    new MenuItemModel { Action = "List", Controller = "Question", Text = "Przeglądaj" }
                 };
             }
 

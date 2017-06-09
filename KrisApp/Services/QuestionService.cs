@@ -1,6 +1,6 @@
 ﻿using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Interfaces.Repositories;
-using KrisApp.DataModel.Rekru;
+using KrisApp.DataModel.Questions;
 using KrisApp.DataModel.Results;
 using KrisApp.DataModel.Users;
 using System;
@@ -8,15 +8,15 @@ using System.Collections.Generic;
 
 namespace KrisApp.Services
 {
-    public class RekruService : AbstractService, IRekruService
+    public class QuestionService : AbstractService, IQuestionService
     {
-        private readonly IRekruRepository _rekruRepo;
+        private readonly IQuestionRepository _questionRepo;
         private readonly User _user;
         private readonly ISessionService _sessionSrv;
 
-        public RekruService(ILogger log, IRekruRepository rekruRepo, ISessionService sessionSrv) : base(log)
+        public QuestionService(ILogger log, IQuestionRepository questionRepo, ISessionService sessionSrv) : base(log)
         {
-            _rekruRepo = rekruRepo;
+            _questionRepo = questionRepo;
             _sessionSrv = sessionSrv;
             _user = _sessionSrv.GetFromSession<User>(SessionItem.User);
         }
@@ -29,7 +29,7 @@ namespace KrisApp.Services
             {
                 answer.AddDate = DateTime.Now;
                 answer.Author = _user?.Login;
-                _rekruRepo.AddAnswer(answer);
+                _questionRepo.AddAnswer(answer);
                 result.IsOK = true;
                 _log.Debug("[AddAnswer] User '{0}' dodal odpowiedz na pytanie o ID = '{1}'",
                     _user?.Login, answer.QuestionID);
@@ -51,7 +51,7 @@ namespace KrisApp.Services
             {
                 question.AddDate = DateTime.Now;
                 question.Author = _user?.Login ?? question.Author;
-                _rekruRepo.AddQuestion(question);
+                _questionRepo.AddQuestion(question);
                 result.IsOK = true;
 
                 _log.Debug("[AddQuestion] User '{0}' dodal pytanie o tresci = '{1}'. Otrzymalo ID = '{2}'",
@@ -68,14 +68,14 @@ namespace KrisApp.Services
 
         public List<RekruQuestion> GetQuestions()
         {
-            List<RekruQuestion> questions = _rekruRepo.GetQuestions(false);
+            List<RekruQuestion> questions = _questionRepo.GetQuestions(false);
 
             return questions;
         }
 
         public RekruQuestion GetQuestion(int id)
         {
-            RekruQuestion question = _rekruRepo.GetQuestion(id);
+            RekruQuestion question = _questionRepo.GetQuestion(id);
 
             return question;
         }
@@ -86,7 +86,7 @@ namespace KrisApp.Services
 
             try
             {
-                _rekruRepo.EditAnswer(answer);
+                _questionRepo.EditAnswer(answer);
                 result.IsOK = true;
                 _log.Debug("[EditAnswer] User '{0}' edytowal odpowiedz o ID = '{1}'",
                     _user?.Login, answer.ID);
@@ -102,7 +102,7 @@ namespace KrisApp.Services
 
         public RekruAnswer GetAnswer(int id)
         {
-            RekruAnswer answer = _rekruRepo.GetAnswer(id);
+            RekruAnswer answer = _questionRepo.GetAnswer(id);
 
             return answer;
         }
@@ -113,7 +113,7 @@ namespace KrisApp.Services
 
             try
             {
-                _rekruRepo.EditQuestion(question);
+                _questionRepo.EditQuestion(question);
                 result.IsOK = true;
                 _log.Debug("[EditQuestion] User '{0}' edytowal pytanie o ID = '{1}'",
                     _user?.Login, question.ID);

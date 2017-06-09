@@ -13,7 +13,7 @@ using System.Web.Mvc;
 namespace KrisApp.Controllers
 {
     [Authorize]
-    [LogActionFilter(Desc = "Opis z kontrolera")]
+    //[LogActionFilter(Desc = "Opis z kontrolera")]
     public class AdminController : Controller
     {
         private readonly ILogger _log;

@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KrisApp.DataModel.Rekru
+namespace KrisApp.Models.Questions
 {
-    [Table("RekruQuestions", Schema = "WWW")]
-    public class RekruQuestion
+    public class QuestionModel
     {
-        [Key]
         public int ID { get; set; }
 
+        [Display(Name = "Treść pytania")]
         public string Question { get; set; }
 
+        [Display(Name = "Autor")]
         public string Author { get; set; }
 
+        [Display(Name = "Data dodania")]
         public DateTime AddDate { get; set; }
 
-        public bool Ghost { get; set; }
-
-        public List<RekruAnswer> Answers { get; set; }
+        [Display(Name = "Odpowiedzi")]
+        public List<AnswerModel> Answers { get; set; }
     }
 }
