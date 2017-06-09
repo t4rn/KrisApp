@@ -1,6 +1,7 @@
 ﻿using KrisApp.Controllers;
 using KrisApp.DataAccess;
 using KrisApp.DataModel.Interfaces;
+using KrisApp.Infrastructure.ModelBinders;
 using KrisApp.Services;
 using System;
 using System.Web;
@@ -31,6 +32,10 @@ namespace KrisApp
             //    string activeTheme = Properties.Settings.Default.ActiveTheme;
             //    ViewEngines.Engines.Insert(0, new ThemeViewEngine(activeTheme));
             //}
+
+            //ModelBinderProviders.BinderProviders.Insert(0, new XmlModelBinderProvider());
+            ModelBinderProviders.BinderProviders.Add(new XmlModelBinderProvider());
+            //ModelBinders.Binders.Add(typeof(ContactModel), new XmlModelBinder());
 
             AutofacConfig.ConfigureContainer();
             AreaRegistration.RegisterAllAreas();

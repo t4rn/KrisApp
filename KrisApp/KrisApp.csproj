@@ -213,6 +213,8 @@
     <Compile Include="Infrastructure\ActionResults\XMLResult.cs" />
     <Compile Include="Infrastructure\ExceptionFilters\ExcepionLoggingFilter.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Infrastructure\ModelBinders\XmlModelBinder.cs" />
+    <Compile Include="Infrastructure\ModelBinders\XmlModelBinderProvider.cs" />
     <Compile Include="Infrastructure\ThemeViewEngine.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\UppercaseValidator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
