@@ -5,6 +5,7 @@ using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Users;
 using KrisApp.Infrastructure;
+using KrisApp.Infrastructure.AuthenticationFilters;
 using KrisApp.Models.Articles;
 using System;
 using System.Collections.Generic;
@@ -142,6 +143,7 @@ namespace KrisApp.Controllers
         /// <summary>
         /// Metoda zwracająca wszytkie artykuły w XML
         /// </summary>
+        [HttpAuthenticate("xmluser", "pwd")]
         public ActionResult GetArticlesXml()
         {
             List<Article> articles = _articleSrv.GetArticles();
