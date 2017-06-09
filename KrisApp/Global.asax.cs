@@ -2,6 +2,7 @@
 using KrisApp.DataAccess;
 using KrisApp.DataModel.Interfaces;
 using KrisApp.Infrastructure.ModelBinders;
+using KrisApp.Infrastructure.ValueProviders;
 using KrisApp.Services;
 using System;
 using System.Web;
@@ -34,8 +35,11 @@ namespace KrisApp
             //}
 
             //ModelBinderProviders.BinderProviders.Insert(0, new XmlModelBinderProvider());
-            ModelBinderProviders.BinderProviders.Add(new XmlModelBinderProvider());
+            //ModelBinderProviders.BinderProviders.Add(new XmlModelBinderProvider());
             //ModelBinders.Binders.Add(typeof(ContactModel), new XmlModelBinder());
+
+            //ValueProviderFactories.Factories.Insert(0, new HttpValueProviderFactory());
+            ValueProviderFactories.Factories.Add(new HttpValueProviderFactory());
 
             AutofacConfig.ConfigureContainer();
             AreaRegistration.RegisterAllAreas();

@@ -4,8 +4,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KrisApp.Models.User
 {
-    public class UserRegisterModel : IValidatableObject
+    public class UserRegisterModel : RequestHeaderData, IValidatableObject
     {
+        /// <summary>
+        /// From Request Header
+        /// </summary>
+        public string UserAgent { get; set; }
+
         [Required(ErrorMessage = "Nazwa użytkownika jest wymagana.")]
         [Display(Name = "Użytkownik")]
         [StringLength(12, MinimumLength = 3, ErrorMessage = "Login musi zawierać od 3 do 12 znaków.")]

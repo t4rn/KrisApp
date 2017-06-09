@@ -217,6 +217,8 @@
     <Compile Include="Infrastructure\ModelBinders\XmlModelBinderProvider.cs" />
     <Compile Include="Infrastructure\ThemeViewEngine.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\UppercaseValidator.cs" />
+    <Compile Include="Infrastructure\ValueProviders\HttpValueProvider.cs" />
+    <Compile Include="Infrastructure\ValueProviders\HttpValueProviderFactory.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin\ContactsListModel.cs" />
     <Compile Include="Models\Admin\LogsViewModel.cs" />
@@ -237,6 +239,7 @@
     <Compile Include="Models\Questions\AnswerModel.cs" />
     <Compile Include="Models\Questions\QuestionListModel.cs" />
     <Compile Include="Models\Questions\QuestionModel.cs" />
+    <Compile Include="Models\RequestHeaderData.cs" />
     <Compile Include="Models\User\LoginModel.cs" />
     <Compile Include="Models\User\UserRegisterModel.cs" />
     <Compile Include="Models\User\UserRequestModel.cs" />
