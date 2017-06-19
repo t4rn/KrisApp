@@ -4,7 +4,6 @@ using KrisApp.DataModel.Articles;
 using KrisApp.DataModel.Dictionaries;
 using KrisApp.DataModel.Interfaces;
 using KrisApp.DataModel.Users;
-using KrisApp.Infrastructure;
 using KrisApp.Infrastructure.AuthenticationFilters;
 using KrisApp.Models.Articles;
 using System;
@@ -14,7 +13,7 @@ using System.Web.Mvc;
 
 namespace KrisApp.Controllers
 {
-    public class ArticleController : Controller
+    public class ArticleController : BaseController
     {
         private readonly ILogger _log;
         private readonly IArticleService _articleSrv;
@@ -151,7 +150,7 @@ namespace KrisApp.Controllers
             ArticleListModel model = new ArticleListModel();
             model.Articles = _mapper.Map<List<ArticleDetailsModel>>(articles);
 
-            return new XMLResult(model);
+            return XML(model);
         }
 
         /// <summary>
@@ -162,7 +161,7 @@ namespace KrisApp.Controllers
             List<ArticleType> articleTypes = _articleSrv.GetArticleTypes();
             List<ArticleTypeModel> articleTypesList = _mapper.Map<List<ArticleTypeModel>>(articleTypes);
 
-            return new CSVResult(articleTypesList, "articleTypes.csv");
+            return CSV(articleTypesList, "articleTypes.csv");
         }
 
         /// <summary>

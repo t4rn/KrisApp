@@ -199,6 +199,7 @@
     <Compile Include="AutofacModules\AutoMapperModule.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\MeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Infrastructure\ActionResults\CSVResult.cs" />
     <Compile Include="Infrastructure\ActionFilters\LogActionFilter.cs" />
     <Compile Include="Infrastructure\ActionResults\XMLResult.cs" />
+    <Compile Include="Infrastructure\ActionSelectors\IsAppMobile.cs" />
     <Compile Include="Infrastructure\AuthenticationFilters\HttpAuthenticate.cs" />
     <Compile Include="Infrastructure\ExceptionFilters\ExcepionLoggingFilter.cs" />
     <Compile Include="Infrastructure\HtmlHelpers\HtmlHelperExtensions.cs" />

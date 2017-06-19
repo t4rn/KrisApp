@@ -20,7 +20,7 @@ namespace KrisApp.Infrastructure.AuthenticationFilters
             string authHeader = filterContext.HttpContext.Request.Headers["Authorization"];
             if (!string.IsNullOrEmpty(authHeader))
             {
-                string[] credentials = ASCIIEncoding.ASCII.GetString(
+                string[] credentials = Encoding.ASCII.GetString(
                     Convert.FromBase64String(authHeader.Replace("Basic", ""))).Split(':');
 
                 string username = credentials[0];
