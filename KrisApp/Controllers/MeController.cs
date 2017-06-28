@@ -5,7 +5,6 @@ using KrisApp.DataModel.Pages;
 using KrisApp.DataModel.Results;
 using KrisApp.Models.Me;
 using KrisApp.Models.Pages;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace KrisApp.Controllers
@@ -25,7 +24,7 @@ namespace KrisApp.Controllers
             _pageContentSrv = pageContentSrv;
         }
 
-        //TODO: test jednostkowy
+        //TODO: unit test
         public ActionResult About()
         {
             PageContent pageContent = _pageContentSrv.GetPageContentByCode(PageContent.Type.About.ToString());
@@ -37,46 +36,23 @@ namespace KrisApp.Controllers
             }
             else
             {
-                return RedirectToAction("AboutStatic");
+                return RedirectToAction("Index", "Main");
             }
-        }
-
-        public ActionResult AboutStatic()
-        {
-            AboutMeModel model = new AboutMeModel();
-
-            model.MyTechnologies = new List<string>()
-            {
-                ".NET", "C#", "ASP.NET Web Forms", "ASP.NET MVC", "Web Services", "WCF", "WebAPI", "Windows Forms", "Windows Services", "HTML", "CSS", "XML", "JSON",
-                "Entity Framework", "Fluent NHibernate", "Dapper", "LINQ",
-                //"JavaScript", "jQuery", "AngularJS", "SignalR",
-                "MS SQL", "PostgreSQL",
-                "NUnit", "NLog", "Ninject", "Moq", "Autofac", "AutoMapper",
-                "SoapUI", "Postman", "Fiddler",
-                "SVN", "GIT", "IIS", "Redmine", "Jira", "Jenkins"
-            };
-
-            return View(model);
         }
 
         public ActionResult Website()
         {
-            WebsiteDescModel model = new WebsiteDescModel();
-            model.UsedTechnologies = new List<string>()
+            PageContent pageContent = _pageContentSrv.GetPageContentByCode(PageContent.Type.Website.ToString());
+
+            if (pageContent != null)
             {
-                ".NET Framework 4.5",
-                "ASP.NET MVC 5",
-                "ASP.NET Web API 2",
-                "Entity Framework 6",
-                "MemoryCache",
-                "AutoMapper",
-                "Autofac",
-                "NUnit",
-                "Moq",
-                "MS SQL",
-                "Bootstrap 3"
-            };
-            return View(model);
+                PageContentModel model = _mapper.Map<PageContentModel>(pageContent);
+                return View((object)model.Content);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Main");
+            }
         }
 
         public ActionResult Contact()
@@ -95,7 +71,7 @@ namespace KrisApp.Controllers
                 ContactMessage msg = _mapper.Map<ContactModel, ContactMessage>(model);
 
                 Result result = _contactSrv.AddContactMessage(msg);
-                // TODO: przenieść do klasy wraz z definicją typu klasy cssowej
+                // TODO: move to a seperate class with css class definition
                 TempData["Msg"] = $"Wiadomość wysłana pomyślnie! Otrzymała ID = {result.Message}";
             }
 

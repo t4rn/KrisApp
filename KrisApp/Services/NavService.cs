@@ -5,6 +5,7 @@ using KrisApp.DataModel.Users;
 using KrisApp.Models.Nav;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace KrisApp.Services
 {
@@ -22,7 +23,7 @@ namespace KrisApp.Services
         }
 
         /// <summary>
-        /// Zwraca model zawierający elementy Main Menu
+        /// Returns model containing Main Menu items
         /// </summary>
         internal MenuModel PrepareMenuModel(string controller)
         {
@@ -35,6 +36,9 @@ namespace KrisApp.Services
 
             MenuItemModel questionMenu = PrepareQuestionMenu(_user);
             model.MenuItems.Add(questionMenu);
+
+            MenuItemModel calcMenu = PrepareCalcMenu();
+            model.MenuItems.Add(calcMenu);
 
             MenuItemModel aboutMenu = PrepareAboutMenu();
             model.MenuItems.Add(aboutMenu);
@@ -55,11 +59,10 @@ namespace KrisApp.Services
             }
 
             return model;
-
         }
 
         /// <summary>
-        /// Zwraca element menu dotyczący artykułów
+        /// Returns article menu model
         /// </summary>
         private MenuItemModel PrepareArticleMenu()
         {
@@ -117,7 +120,7 @@ namespace KrisApp.Services
         }
 
         /// <summary>
-        /// Returns question menu items
+        /// Returns tech questions menu model
         /// </summary>
         private MenuItemModel PrepareQuestionMenu(User user)
         {
@@ -142,7 +145,22 @@ namespace KrisApp.Services
         }
 
         /// <summary>
-        /// Zwraca element menu dotyczący rekrutacji
+        /// Returns calculator page menu model
+        /// </summary>
+        private MenuItemModel PrepareCalcMenu()
+        {
+            MenuItemModel menu = new MenuItemModel()
+            {
+                Action = "Index",
+                Controller = "Calc",
+                Text = "Kalkulator",
+            };
+
+            return menu;
+        }
+
+        /// <summary>
+        /// Returns about page menu model
         /// </summary>
         private MenuItemModel PrepareAboutMenu()
         {
@@ -161,7 +179,7 @@ namespace KrisApp.Services
         }
 
         /// <summary>
-        /// Zwraca elementy do menu Admina
+        /// Returns admin items menu model
         /// </summary>
         private MenuItemModel PrepareAdminItems()
         {

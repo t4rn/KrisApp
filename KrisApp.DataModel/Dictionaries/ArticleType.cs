@@ -24,7 +24,8 @@ namespace KrisApp.DataModel.Dictionaries
             WCF,
             PATTERN,
             SQL,
-            REKRU
+            REKRU,
+            CORE
         }
     }
 }

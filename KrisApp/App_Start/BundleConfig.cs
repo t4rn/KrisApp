@@ -47,6 +47,7 @@ namespace KrisApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
+                //"~/Content/bootswatch/yeti/bootstrap.css",
                 "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/wysiwyg").Include(

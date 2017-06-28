@@ -200,6 +200,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CalcController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\MeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
@@ -233,9 +234,7 @@
     <Compile Include="Models\DictionaryItemModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Me\AboutMeModel.cs" />
     <Compile Include="Models\Me\ContactModel.cs" />
-    <Compile Include="Models\Me\WebsiteDescModel.cs" />
     <Compile Include="Models\Nav\MenuItemModel.cs" />
     <Compile Include="Models\Nav\MenuModel.cs" />
     <Compile Include="Models\Pages\PageContentModel.cs" />
@@ -272,8 +271,42 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\cerulean\bootstrap.css" />
+    <Content Include="Content\bootswatch\cerulean\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\cosmo\bootstrap.css" />
+    <Content Include="Content\bootswatch\cosmo\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\cyborg\bootstrap.css" />
+    <Content Include="Content\bootswatch\cyborg\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\darkly\bootstrap.css" />
+    <Content Include="Content\bootswatch\darkly\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\flatly\bootstrap.css" />
+    <Content Include="Content\bootswatch\flatly\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\journal\bootstrap.css" />
+    <Content Include="Content\bootswatch\journal\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\lumen\bootstrap.css" />
+    <Content Include="Content\bootswatch\lumen\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\paper\bootstrap.css" />
+    <Content Include="Content\bootswatch\paper\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\readable\bootstrap.css" />
+    <Content Include="Content\bootswatch\readable\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\sandstone\bootstrap.css" />
+    <Content Include="Content\bootswatch\sandstone\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\simplex\bootstrap.css" />
+    <Content Include="Content\bootswatch\simplex\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\slate\bootstrap.css" />
+    <Content Include="Content\bootswatch\slate\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\spacelab\bootstrap.css" />
+    <Content Include="Content\bootswatch\spacelab\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\superhero\bootstrap.css" />
+    <Content Include="Content\bootswatch\superhero\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\united\bootstrap.css" />
+    <Content Include="Content\bootswatch\united\bootstrap.min.css" />
+    <Content Include="Content\bootswatch\yeti\bootstrap.css" />
+    <Content Include="Content\bootswatch\yeti\bootstrap.min.css" />
     <Content Include="Content\redactor\redactor-iframe.css" />
     <Content Include="Content\redactor\redactor.css" />
     <Content Include="Content\sunlight\sunlight.dark.css" />
@@ -289,6 +322,11 @@
     <Content Include="Images\toolbarBig.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\NaDysk.pubxml" />
     <None Include="Properties\PublishProfiles\NaFTP.pubxml" />
     <None Include="Properties\Settings.settings">
@@ -332,9 +370,7 @@
     <Content Include="Views\Article\CreateArticle.cshtml" />
     <Content Include="Views\Nav\MainMenu.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
-    <Content Include="Views\Me\AboutStatic.cshtml" />
     <Content Include="Views\Me\Contact.cshtml" />
-    <Content Include="Views\Me\Website.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
@@ -361,6 +397,8 @@
     <Content Include="Views\Admin\CreatePageContent.cshtml" />
     <Content Include="Views\Me\About.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Calc\Index.cshtml" />
+    <Content Include="Views\Me\Website.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

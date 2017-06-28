@@ -17,6 +17,8 @@ insert into work.ArticleType(code, name, IsMain, descr) values
 ('SQL', 'SQL', 0,  'Sekcja poœwiêcona relacyjnym bazom danych MS SQL i PostgreSQL.'),
 ('REKRU', 'Pytania rekrutacyjne', 0, 'Sekcja poœwiêcona popularnym pytaniom pojawiaj¹cym siê na rekrutacjach.');
 
+insert into work.ArticleType(code, name, IsMain, descr) values 
+('CORE', 'ASP.NET Core', 0,'Sekcja poœwiêcona ASP.NET Core.');
 
 
 select * from work.articletype

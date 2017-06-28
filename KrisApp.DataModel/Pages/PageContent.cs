@@ -20,7 +20,7 @@ namespace KrisApp.DataModel.Pages
 
         public enum Type
         {
-            About
+            About, Website
         }
     }
 }

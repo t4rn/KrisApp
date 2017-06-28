@@ -1,4 +1,5 @@
-﻿@model KrisApp.Models.Me.WebsiteDescModel
+﻿@model string
+
 
 @{
     ViewBag.Title = "O stronie";
@@ -6,12 +7,6 @@
 
 <h2>@ViewBag.Title</h2>
 <hr />
-<p>
-    <b>Technologie wykorzystane w celu utworzenia strony:</b>
-    <ul>
-        @foreach (string item in Model.UsedTechnologies)
-        {
-            <li>@item</li>
-        }
-    </ul>
-</p>
+
+@Html.Raw(Model)
+
