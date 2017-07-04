@@ -3,5 +3,17 @@
     ViewBag.Title = "Kalkulator B2B";
 }
 
+@section Scripts{
+
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-route.js"></script>
+    <script src="~/app/kris-app.js"></script>
+    <script src="~/app/calc/calcController.js"></script>
+}
+
 <h2>Kalkulator</h2>
-<p>W przygotowaniu...</p>
+<div class="row" ng-app="kris-app">
+
+    <div ng-view></div>
+
+</div>

@@ -198,6 +198,7 @@
     <Compile Include="AutofacModules\AutofacModule.cs" />
     <Compile Include="AutofacModules\AutoMapperModule.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Api\B2bController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CalcController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\Articles\ArticleModel.cs" />
     <Compile Include="Models\Articles\ArticleListModel.cs" />
     <Compile Include="Models\Articles\ArticleTypeModel.cs" />
+    <Compile Include="Models\Calc\B2bAmountModel.cs" />
     <Compile Include="Models\DictionaryItemModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -320,6 +322,14 @@
     <Content Include="Images\progressbarafter.png" />
     <Content Include="Images\toolbar.png" />
     <Content Include="Images\toolbarBig.png" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="app\kris-app.js" />
+    <Content Include="app\calc\calcController.js" />
+    <Content Include="app\calc\calcView.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -333,6 +343,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

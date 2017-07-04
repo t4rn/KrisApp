@@ -1,0 +1,84 @@
+﻿<div>
+    <div class="col-md-6">
+        <h3>Dane wejściowe</h3>
+
+        <form novalidate name="b2bForm" ng-submit="vm.calcB2b()">
+            <div class="form-group">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsZus" id="startupZus" value="startupZus" ng-model="vm.selectedZus" required>
+                        Obniżony ZUS -> {{ vm.startupZusAmount | number: 2 }} zł
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsZus" id="normalZus" value="normalZus" ng-model="vm.selectedZus" required>
+                        Normalny ZUS -> {{ vm.normalZusAmount | number: 2 }} zł
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRate" id="perMonth" value="month" required
+                               ng-model="vm.rateType" ng-change="vm.changeRate(vm.rateType)"> Stawka za miesiąc
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRate" id="perHour" value="hour" required
+                               ng-model="vm.rateType" 
+                               ng-change="vm.changeRate(vm.rateType)"> Stawka za godzinę
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.rateType=='month'">
+                <label for="netto">{{ vm.nettoDesc }}</label>
+                <input class="form-control" type="number" step="1000"
+                       id="netto" name="netto" ng-model="vm.netto" ng-minlength="2" />
+            </div>
+            <div ng-show="vm.rateType=='hour'">
+                <div class="form-group">
+                    <label for="netto">{{ vm.nettoDesc }}</label>
+                    <input class="form-control" type="number" step="5"
+                           id="hourRate" name="hourRate"
+                           ng-model="vm.hourRate"
+                           ng-minlength="2" />
+                </div>
+                <div class="form-group">
+                    <label for="netto">Liczba godzin:</label>
+                    <input class="form-control" type="number" step="8"
+                           id="hoursCount" name="hoursCount"
+                           ng-model="vm.hoursCount"
+                           ng-minlength="2" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Oblicz" class="btn btn-success" ng-disabled="b2bForm.$invalid" />
+            </div>
+        </form>
+    </div>
+
+
+    <div class="col-md-6">
+        <h3>Wyniki</h3>
+        <div ng-show="vm.results.length">
+            <table class="table table-responsive table-striped">
+                <tr>
+                    <th>Stawka</th>
+                    <th>Typ stawki</th>
+                    <th>ZUS</th>
+                    <th>Na czysto</th>
+                </tr>
+                <tr ng-repeat="result in vm.results">
+                    <td>{{ result.rate }}</td>
+                    <td>{{ result.rateType }}</td>
+                    <td>{{ result.zus }}</td>
+                    <td>{{ result.cleanIncome | number: 2 }} zł</td>
+                </tr>
+            </table>
+            <a class="btn btn-warning" ng-click="vm.clearResults()">Wyczyść</a>
+        </div>
+    </div>
+</div>
