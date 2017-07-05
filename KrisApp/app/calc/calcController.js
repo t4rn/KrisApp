@@ -25,10 +25,12 @@
         vm.daysCount = 20;
 
         vm.isBusy = false;
+        vm.errorMessage = "";
 
         vm.calcB2b = function () {
 
             vm.isBusy = true;
+            vm.errorMessage = "";
 
             var isLowZus = vm.selectedZus == "startupZus";
 
@@ -54,7 +56,7 @@
 
                     }, function (err) {
                         // error
-                        vm.errorMessage = "Failed to save new trip";
+                        vm.errorMessage = "Failed to calculate, error: " + err.data.ExceptionMessage;
                     })
                     .finally(function () {
                         vm.isBusy = false;
