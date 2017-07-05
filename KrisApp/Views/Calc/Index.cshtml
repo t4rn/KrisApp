@@ -3,13 +3,7 @@
     ViewBag.Title = "Kalkulator B2B";
 }
 
-@section Scripts{
-
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/angular-route.js"></script>
-    <script src="~/app/kris-app.js"></script>
-    <script src="~/app/calc/calcController.js"></script>
-}
+@Scripts.Render("~/bundles/calc")
 
 <h2>Kalkulator</h2>
 <div class="row" ng-app="kris-app">

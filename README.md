@@ -13,3 +13,6 @@
 * Moq
 * MS SQL
 * Bootstrap 3
+* Bootswatch
+* AngularJS
+* Sunlight

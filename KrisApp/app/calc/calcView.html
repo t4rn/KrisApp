@@ -26,30 +26,53 @@
                 </div>
                 <div class="radio">
                     <label>
+                        <input type="radio" name="optionsRate" id="perDay" value="day" required
+                               ng-model="vm.rateType"
+                               ng-change="vm.changeRate(vm.rateType)"> Stawka za dzień
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
                         <input type="radio" name="optionsRate" id="perHour" value="hour" required
-                               ng-model="vm.rateType" 
+                               ng-model="vm.rateType"
                                ng-change="vm.changeRate(vm.rateType)"> Stawka za godzinę
                     </label>
                 </div>
             </div>
             <div class="form-group" ng-show="vm.rateType=='month'">
-                <label for="netto">{{ vm.nettoDesc }}</label>
+                <label for="monthRate">{{ vm.nettoDesc }}</label>
                 <input class="form-control" type="number" step="1000"
-                       id="netto" name="netto" ng-model="vm.netto" ng-minlength="2" />
+                       id="monthRate" name="monthRate" ng-model="vm.monthRate" ng-minlength="2" />
             </div>
             <div ng-show="vm.rateType=='hour'">
                 <div class="form-group">
-                    <label for="netto">{{ vm.nettoDesc }}</label>
+                    <label for="hourRate">{{ vm.nettoDesc }}</label>
                     <input class="form-control" type="number" step="5"
                            id="hourRate" name="hourRate"
                            ng-model="vm.hourRate"
                            ng-minlength="2" />
                 </div>
                 <div class="form-group">
-                    <label for="netto">Liczba godzin:</label>
+                    <label for="hoursCount">Liczba godzin:</label>
                     <input class="form-control" type="number" step="8"
                            id="hoursCount" name="hoursCount"
                            ng-model="vm.hoursCount"
+                           ng-minlength="2" />
+                </div>
+            </div>
+            <div ng-show="vm.rateType=='day'">
+                <div class="form-group">
+                    <label for="dayRate">{{ vm.nettoDesc }}</label>
+                    <input class="form-control" type="number" step="50"
+                           id="dayRate" name="dayRate"
+                           ng-model="vm.dayRate"
+                           ng-minlength="2" />
+                </div>
+                <div class="form-group">
+                    <label for="daysCount">Liczba dni:</label>
+                    <input class="form-control" type="number" step="1"
+                           id="daysCount" name="daysCount"
+                           ng-model="vm.daysCount"
                            ng-minlength="2" />
                 </div>
             </div>
@@ -78,6 +101,11 @@
                     <td>{{ result.cleanIncome | number: 2 }} zł</td>
                 </tr>
             </table>
+        </div>
+        <div class="text-center" ng-show="vm.isBusy">
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+        </div>
+        <div ng-show="vm.results.length" >
             <a class="btn btn-warning" ng-click="vm.clearResults()">Wyczyść</a>
         </div>
     </div>

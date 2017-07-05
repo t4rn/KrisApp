@@ -41,6 +41,13 @@ namespace KrisApp
                 "~/Scripts/sunlight/sunlight.csharp-min.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/calc").Include(
+                "~/Scripts/angular.js",
+                "~/Scripts/angular-route.js",
+                "~/app/kris-app.js",
+                "~/app/calc/calcController.js"
+                ));
+
             #endregion
 
             #region Styles
@@ -48,6 +55,7 @@ namespace KrisApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 //"~/Content/bootstrap.css",
                 "~/Content/bootswatch/cosmo/bootstrap.css",
+                "~/Content/font-awesome.css",
                 "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/wysiwyg").Include(

@@ -15,6 +15,7 @@ namespace KrisApp.Controllers.Api
         public IHttpActionResult Post(B2bAmountModel model)
         {
             decimal result = (model.NettoAmount - model.ZusAmount) * 0.81M;
+            //System.Threading.Thread.Sleep(1000);
 
             return Ok(result);
         }
