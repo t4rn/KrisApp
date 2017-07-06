@@ -3,7 +3,7 @@
     "use strict";
 
     angular.module("kris-app", ["ngRoute"])
-    .config(function ($routeProvider) {
+    .config(["$routeProvider", function ($routeProvider) {
 
         $routeProvider.when("/", {
             controller: "calcController",
@@ -13,6 +13,6 @@
 
         $routeProvider.otherwise({ redirectTo: "/" });
 
-    });
+    }]);
 
 })();

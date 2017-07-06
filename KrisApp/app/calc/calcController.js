@@ -5,6 +5,8 @@
     angular.module("kris-app")
         .controller("calcController", calcController);
 
+    calcController.$inject = ["$http"];
+
     function calcController($http) {
 
         var vm = this;
