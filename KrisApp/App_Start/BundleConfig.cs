@@ -31,7 +31,8 @@ namespace KrisApp
                 "~/Scripts/respond.js",
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.validate*",
-                "~/Scripts/jquery.unobtrusive-ajax.js"
+                "~/Scripts/jquery.unobtrusive-ajax.js",
+                "~/Scripts/_analytics.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/redactor").Include(
