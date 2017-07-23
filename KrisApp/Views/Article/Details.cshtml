@@ -5,7 +5,7 @@
 }
 
 <div class="margin-top20px">
-    <p> @Html.DisplayFor(model => model.Type)</p>
+    <p> @Html.DisplayFor(model => model.TypeName)</p>
     <h2>@ViewBag.Title</h2>
     <p><span class="glyphicon glyphicon-time" aria-hidden="true"></span> @Html.DisplayFor(model => model.AddDate) | @Html.DisplayFor(model => model.Author)</p>
     <hr />
@@ -13,7 +13,7 @@
         @Html.Raw(Model.Content)
     </p>
     <p>
-        @Html.ActionLink("Powrót do listy artykułów", "List")
+        @Html.ActionLink("Powrót do listy artykułów", "List", routeValues: new { id = Model.TypeCode }, htmlAttributes: new { @class = "btn btn-sm btn-default" })
     </p>
 </div>
 

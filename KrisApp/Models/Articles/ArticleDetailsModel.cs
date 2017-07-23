@@ -8,7 +8,10 @@ namespace KrisApp.Models.Articles
         public int ID { get; set; }
 
         [Display(Name = "Typ")]
-        public string Type { get; set; }
+        public string TypeName { get; set; }
+
+        [Display(Name = "Symbol artykułu")]
+        public string TypeCode { get; set; }
 
         [Required]
         [Display(Name = "Tytuł")]

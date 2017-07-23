@@ -40,7 +40,9 @@ namespace KrisApp.AutofacModules
                 cfg.CreateMap<ArticleModel, Article>();
                 cfg.CreateMap<Article, ArticleModel>();
                 cfg.CreateMap<Article, ArticleDetailsModel>()
-                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
+                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.Type.Name))
+                .ForMember(dest => dest.TypeCode, opt => opt.MapFrom(src => src.Type.Code));
+
                 cfg.CreateMap<PageContent, PageContentModel>();
                 cfg.CreateMap<PageContentModel, PageContent>();
                 cfg.CreateMap<ArticleType, ArticleTypeModel>();

@@ -10,7 +10,7 @@
 @if (Model.IsMod.HasValue && Model.IsMod.Value == true)
 {
     <p>
-        @Html.ActionLink("Utwórz nowy", "CreateArticle", "Article")
+        @Html.ActionLink("Utwórz nowy", "CreateArticle", "Article", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
     </p>
 }
 
@@ -18,7 +18,7 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Articles[0].Type)
+                @Html.DisplayNameFor(model => model.Articles[0].TypeName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Articles[0].Title)
@@ -36,7 +36,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Type)
+                    @Html.DisplayFor(modelItem => item.TypeName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
@@ -50,12 +50,13 @@
                 <td>
                     @if (Model.IsMod.HasValue && Model.IsMod.Value == true)
                     {
-                        @Html.ActionLink("Edytuj", "EditArticle", "Article", routeValues: new { id = item.ID }, htmlAttributes: null);
-                        @: |
+                        @Html.ActionLink("Edytuj", "EditArticle", "Article", routeValues: new { id = item.ID },
+                            htmlAttributes: new { @class = "btn btn-xs btn-warning" });
                     }
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID })
-                    
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-xs btn-success" })
+
                 </td>
+
             </tr>
         }
 
