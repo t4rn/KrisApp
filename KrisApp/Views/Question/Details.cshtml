@@ -42,3 +42,15 @@
 <p>
     @Html.ActionLink("Powrót do listy", "List")
 </p>
+
+@section Styles{
+    @Styles.Render("~/Content/highlighter")
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/sunlight")
+
+    <script type="text/javascript">
+        Sunlight.highlightAll();
+    </script>
+}
