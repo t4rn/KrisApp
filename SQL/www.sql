@@ -170,3 +170,5 @@ set Title = 'AutoMapper w Autofac (oddzielny Module)'
 where title = 'AutoMapper w Autofac ver. 2 '
 
 alter table work.article add Code character varying(24);
+alter table work.article alter column code character varying(24) NOT NULL;
+alter table work.article add unique (code);
