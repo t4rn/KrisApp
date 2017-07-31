@@ -14,6 +14,12 @@ namespace KrisApp.Models.Articles
         public int TypeId { get; set; }
 
         [Required]
+        [Display(Name = "Symbol")]
+        [StringLength(24, ErrorMessage = "Symbol musi zawierać od 3 do 24 znaków.", MinimumLength = 3)]
+        [WhitespaceValidator("Symbol nie może zawierać spacji.")]
+        public string Code { get; set; }
+
+        [Required]
         [Display(Name = "Tytuł")]
         [StringLength(128, ErrorMessage = "Tytuł musi zawierać od 5 do 128 znaków.", MinimumLength = 5)]
         [UppercaseValidator("Tytuł musi zaczynać się wielką literą.")]

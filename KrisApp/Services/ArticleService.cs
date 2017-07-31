@@ -54,8 +54,8 @@ namespace KrisApp.Services
         /// </summary>
         public Article AddArticle(Article article)
         {
-            _log.Debug("[AddArticle] Start - type '{0}', author '{1}' title '{2}' length '{3}'",
-                article.TypeId, article.Author, article.Title, article.Content.Length);
+            _log.Debug("[AddArticle] Start - type '{0}' code = '{1}' author '{2}' title '{3}' length '{4}'",
+                article.TypeId, article.Code, article.Author, article.Title, article.Content.Length);
 
             article.AddDate = DateTime.Now;
             article.Author = _user?.Login ?? article.Author;
@@ -71,6 +71,11 @@ namespace KrisApp.Services
         public Article GetByID(int id)
         {
             return _articleRepo.GetByID(id);
+        }
+
+        public Article GetByCode(string code)
+        {
+            return _articleRepo.GetByCode(code);
         }
 
         /// <summary>

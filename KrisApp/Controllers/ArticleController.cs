@@ -92,9 +92,9 @@ namespace KrisApp.Controllers
             }
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            Article article = _articleSrv.GetByID(id);
+            Article article = _articleSrv.GetByCode(id);
             if (article != null)
             {
                 ArticleDetailsModel model = _mapper.Map<ArticleDetailsModel>(article);
@@ -102,7 +102,7 @@ namespace KrisApp.Controllers
             }
             else
             {
-                _log.Error("[Details] Brak artykulu o ID = '{0}'", id);
+                _log.Error("[Details] Brak artykulu o code = '{0}'", id);
                 return RedirectToAction("List");
             }
         }

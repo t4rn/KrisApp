@@ -14,6 +14,8 @@ namespace KrisApp.DataModel.Articles
 
         public ArticleType Type { get; set; }
 
+        public string Code { get; set; }
+
         public string Title { get; set; }
 
         public string Content { get; set; }

@@ -222,6 +222,7 @@
     <Compile Include="Infrastructure\ModelBinders\XmlModelBinderProvider.cs" />
     <Compile Include="Infrastructure\ThemeViewEngine.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\UppercaseValidator.cs" />
+    <Compile Include="Infrastructure\ValidationAttributes\WhitespaceValidator.cs" />
     <Compile Include="Infrastructure\ValueProviders\HttpValueProvider.cs" />
     <Compile Include="Infrastructure\ValueProviders\HttpValueProviderFactory.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

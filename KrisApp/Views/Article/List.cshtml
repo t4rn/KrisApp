@@ -53,7 +53,7 @@
                         @Html.ActionLink("Edytuj", "EditArticle", "Article", routeValues: new { id = item.ID },
                             htmlAttributes: new { @class = "btn btn-xs btn-warning" });
                     }
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-xs btn-success" })
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Code }, htmlAttributes: new { @class = "btn btn-xs btn-success" })
 
                 </td>
 

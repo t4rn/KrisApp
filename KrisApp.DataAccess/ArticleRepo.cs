@@ -4,6 +4,7 @@ using KrisApp.DataModel.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace KrisApp.DataAccess
 {
@@ -57,6 +58,21 @@ namespace KrisApp.DataAccess
             }
 
             return articles;
+        }
+
+        public Article GetByCode(string code)
+        {
+            Article a = null;
+
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                a = context.Articles.AsNoTracking()
+                    .Where(x => x.Code == code)
+                    .Include(x => x.Type)
+                    .FirstOrDefault();
+            }
+
+            return a;
         }
 
         /// <summary>

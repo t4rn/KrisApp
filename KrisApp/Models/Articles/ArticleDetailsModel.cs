@@ -14,6 +14,10 @@ namespace KrisApp.Models.Articles
         public string TypeCode { get; set; }
 
         [Required]
+        [Display(Name = "Symbol")]
+        public string Code { get; set; }
+
+        [Required]
         [Display(Name = "Tytuł")]
         public string Title { get; set; }
 

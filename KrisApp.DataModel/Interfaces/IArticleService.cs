@@ -29,5 +29,7 @@ namespace KrisApp.DataModel.Interfaces
         /// Zwraca listę typów artykułów
         /// </summary>
         List<ArticleType> GetArticleTypes();
+
+        Article GetByCode(string code);
     }
 }

@@ -10,5 +10,6 @@ namespace KrisApp.DataModel.Interfaces.Repositories
         void UpdateArticle(Article article);
         List<Article> GetArticles();
         List<Article> GetArticlesByType(string articleType);
+        Article GetByCode(string code);
     }
 }
