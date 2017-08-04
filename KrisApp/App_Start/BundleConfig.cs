@@ -51,6 +51,11 @@ namespace KrisApp
                 "~/app/calc/calcController.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/autocomplete").Include(
+                "~/Scripts/jquery-ui-{version}.js",
+                "~/Scripts/_autocomplete.js"
+                ));
+
             #endregion
 
             #region Styles
@@ -66,6 +71,9 @@ namespace KrisApp
 
             bundles.Add(new StyleBundle("~/Content/highlighter").Include(
                 "~/Content/sunlight/sunlight.default.css"));
+
+            bundles.Add(new StyleBundle("~/Content/jqueryui").Include(
+                "~/Content/themes/base/jquery-ui.css"));
 
             #endregion
         }

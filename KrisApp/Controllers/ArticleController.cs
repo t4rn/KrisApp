@@ -32,31 +32,31 @@ namespace KrisApp.Controllers
             _user = _sessionSrv.GetFromSession<User>(SessionItem.User);
         }
 
-        //public ActionResult Index()
-        //{
-        //    ArticleHomeModel model = _articleSrv.PrepareArticleHomeModel(3);
-
-        //    return View(model);
-        //}
-
-        public ActionResult List(string id)
+        public ActionResult Autocomplete(string term)
         {
-            List<Article> articles = null;
+            var model =_articleSrv.GetArticlesByTitlePart(term)
+                .Select(r => new
+                {
+                    label = r.Title
+                });
 
-            ArticleType.ArticleTypeCode articleTypeCode;
-            if (!string.IsNullOrWhiteSpace(id) &&
-                Enum.TryParse(id.ToUpper(), out articleTypeCode))
-            {
-                articles = _articleSrv.GetArticlesByType(articleTypeCode);
-            }
-            else
-            {
-                articles = _articleSrv.GetArticles();
-            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [OutputCache(CacheProfile = "Normal")]
+        public ActionResult List(string titlePart = null, string type = null)
+        {
+            List<Article> articles = _articleSrv.GetArticles(titlePart, type);
 
             ArticleListModel model = new ArticleListModel();
             model.Articles = _mapper.Map<List<ArticleDetailsModel>>(articles);
             model.IsMod = _user?.Type?.Code.In(UserType.UserTypeCodes.ADM.ToString(), UserType.UserTypeCodes.MOD.ToString());
+            model.ArticleType = type;
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_ArticlesWithDetails", model);
+            }
 
             return View(model);
         }
@@ -140,7 +140,7 @@ namespace KrisApp.Controllers
         }
 
         /// <summary>
-        /// Metoda zwracająca wszytkie artykuły w XML
+        /// Returns all articles in XML format
         /// </summary>
         [HttpAuthenticate("xmluser", "pwd")]
         public ActionResult GetArticlesXml()
@@ -154,7 +154,7 @@ namespace KrisApp.Controllers
         }
 
         /// <summary>
-        /// Metoda zwracająca wszytkie typy artykułów w Csv
+        /// Returns article types in CSV
         /// </summary>
         public ActionResult GetArticleTypesCsv()
         {
@@ -165,30 +165,13 @@ namespace KrisApp.Controllers
         }
 
         /// <summary>
-        /// Zwraca SelectList z typami artykułów
+        /// Returns SelectList with article types
         /// </summary>
-        /// <returns></returns>
         private IEnumerable<SelectListItem> PrepareArticleTypes()
         {
-            List<ArticleType> articleTypes = _dictSrv.GetDictionary<ArticleType>().Where(x => x.IsMain == false).ToList();
-            IEnumerable<SelectListItem> articleTypesSelectList = PrepareArticleTypesSelectItemList(articleTypes);
+            IEnumerable<ArticleType> articleTypes = _dictSrv.GetDictionary<ArticleType>().Where(x => x.IsMain == false);
+            IEnumerable<SelectListItem> articleTypesSelectList = _mapper.Map<IEnumerable<SelectListItem>>(articleTypes);
             return articleTypesSelectList;
-        }
-
-        /// <summary>
-        /// Zwraca listę SelectListItem wypełnioną danymi z przekazanej listy typów artykułów
-        /// </summary>
-        private List<SelectListItem> PrepareArticleTypesSelectItemList(List<ArticleType> articleTypes)
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-
-            // TODO: automapper
-            foreach (ArticleType at in articleTypes)
-            {
-                items.Add(new SelectListItem() { Value = at.ID.ToString(), Text = at.Name });
-            }
-
-            return items;
         }
     }
 }

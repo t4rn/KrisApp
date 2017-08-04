@@ -14,6 +14,7 @@ using KrisApp.Models.Pages;
 using KrisApp.Models.Questions;
 using KrisApp.Models.User;
 using KrisApp.Models.Work;
+using System.Web.Mvc;
 
 namespace KrisApp.AutofacModules
 {
@@ -47,13 +48,17 @@ namespace KrisApp.AutofacModules
                 cfg.CreateMap<PageContentModel, PageContent>();
                 cfg.CreateMap<ArticleType, ArticleTypeModel>();
 
+                cfg.CreateMap<ArticleType, SelectListItem>()
+                .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.ID.ToString()))
+                .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Name));
+
                 //foreach (var profile in context.Resolve<IEnumerable<Profile>>())
                 //{
                 //    cfg.AddProfile(profile);
                 //}
             })).AsSelf().SingleInstance();
 
-            //TODO: wymuszenie walidacji
+            //TODO: force validation
 
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve))
                 .As<IMapper>()

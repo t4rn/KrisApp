@@ -7,5 +7,7 @@ namespace KrisApp.Models.Articles
         public List<ArticleDetailsModel> Articles { get; set; }
 
         public bool? IsMod { get; set; }
+
+        public string ArticleType { get; set; }
     }
 }

@@ -11,5 +11,7 @@ namespace KrisApp.DataModel.Interfaces.Repositories
         List<Article> GetArticles();
         List<Article> GetArticlesByType(string articleType);
         Article GetByCode(string code);
+        List<Article> GetArticlesByTitlePart(string titlePart);
+        List<Article> GetArticlesByTitlePartAndType(string titlePart, string typeCode);
     }
 }

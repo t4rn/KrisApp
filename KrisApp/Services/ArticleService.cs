@@ -130,5 +130,44 @@ namespace KrisApp.Services
 
             return model;
         }
+
+        public List<Article> GetArticlesByTitlePart(string titlePart)
+        {
+            return _articleRepo.GetArticlesByTitlePart(titlePart);
+        }
+
+        public List<Article> GetArticles(string titlePart, string typeCode)
+        {
+            List<Article> articles = null;
+
+            ArticleType.ArticleTypeCode articleTypeCode;
+            if (!string.IsNullOrWhiteSpace(typeCode) &&
+                Enum.TryParse(typeCode.ToUpper(), out articleTypeCode))
+            {
+                // by Type
+                if (!string.IsNullOrWhiteSpace(titlePart))
+                {
+                    articles = _articleRepo.GetArticlesByTitlePartAndType(titlePart, typeCode);
+                }
+                else
+                {
+                    articles = GetArticlesByType(articleTypeCode);
+                }
+            }
+            else
+            {
+                // all
+                if (!string.IsNullOrWhiteSpace(titlePart))
+                {
+                    articles = GetArticlesByTitlePart(titlePart);
+                }
+                else
+                {
+                    articles = GetArticles();
+                }
+            }
+
+            return articles;
+        }
     }
 }

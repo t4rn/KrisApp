@@ -1,0 +1,48 @@
+﻿@model KrisApp.Models.Articles.ArticleListModel
+
+<div id="articleList">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].TypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Articles[0].AddDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Articles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddDate)
+                </td>
+                <td>
+                    @if (Model.IsMod.HasValue && Model.IsMod.Value == true)
+                    {
+                        @Html.ActionLink("Edytuj", "EditArticle", "Article", routeValues: new { id = item.ID },
+                            htmlAttributes: new { @class = "btn btn-xs btn-warning" });
+                    }
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Code }, htmlAttributes: new { @class = "btn btn-xs btn-success" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -11,25 +11,35 @@ namespace KrisApp.DataModel.Interfaces
         Article GetByID(int id);
 
         /// <summary>
-        /// Aktualizuje przekazany artykuł
+        /// Updates article
         /// </summary>
         void UpdateArticle(Article article);
 
         /// <summary>
-        /// Zwraca listę artykułów
+        /// Returns all articles
         /// </summary>
         List<Article> GetArticles();
 
         /// <summary>
-        /// Zwraca listę artykułów o danym typie
+        /// Returns articles of a given type
         /// </summary>
         List<Article> GetArticlesByType(ArticleType.ArticleTypeCode articleType);
 
         /// <summary>
-        /// Zwraca listę typów artykułów
+        /// Returns a list of article types
         /// </summary>
         List<ArticleType> GetArticleTypes();
 
+        /// <summary>
+        /// Returns an article by its unique code
+        /// </summary>
         Article GetByCode(string code);
+
+        /// <summary>
+        /// Returns articles whose title contains a given part
+        /// </summary>
+        List<Article> GetArticlesByTitlePart(string titlePart);
+
+        List<Article> GetArticles(string titlePart, string type);
     }
 }

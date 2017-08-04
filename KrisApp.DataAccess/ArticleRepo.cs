@@ -14,7 +14,7 @@ namespace KrisApp.DataAccess
         { }
 
         /// <summary>
-        /// Zapisuje na bazie przekazany artykuł
+        /// Adds article do DB
         /// </summary>
         public void AddArticle(Article article)
         {
@@ -26,7 +26,7 @@ namespace KrisApp.DataAccess
         }
 
         /// <summary>
-        /// Zwraca wszystkie artykuły z includowanym Typem
+        /// Returns all articles with Type included
         /// </summary>
         public List<Article> GetArticles()
         {
@@ -43,7 +43,41 @@ namespace KrisApp.DataAccess
         }
 
         /// <summary>
-        /// Zwraca artykuły o danym typie
+        /// Returns articles whose title contains a given part
+        /// </summary>
+        public List<Article> GetArticlesByTitlePart(string titlePart)
+        {
+            List<Article> articles = null;
+
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                articles = context.Articles.AsNoTracking()
+                    .Where(r => r.Title.ToUpper().Contains(titlePart.ToUpper()))
+                    .Include(x => x.Type)
+                    .ToList();
+            }
+
+            return articles;
+        }
+
+        public List<Article> GetArticlesByTitlePartAndType(string titlePart, string typeCode)
+        {
+            List<Article> articles = null;
+
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                articles = context.Articles.AsNoTracking()
+                    .Where(r => r.Type.Code == typeCode &&
+                        r.Title.ToUpper().Contains(titlePart.ToUpper()))
+                    .Include(x => x.Type)
+                    .ToList();
+            }
+
+            return articles;
+        }
+
+        /// <summary>
+        /// Returns articles of a given type
         /// </summary>
         public List<Article> GetArticlesByType(string typeCode)
         {
@@ -76,7 +110,7 @@ namespace KrisApp.DataAccess
         }
 
         /// <summary>
-        /// Zwraca artykuł o danym ID
+        /// Returns an article with a given ID
         /// </summary>
         public Article GetByID(int id)
         {
@@ -94,7 +128,7 @@ namespace KrisApp.DataAccess
         }
 
         /// <summary>
-        /// Aktualizuje przekazany artykuł
+        /// Updates given article
         /// </summary>
         public void UpdateArticle(Article article)
         {

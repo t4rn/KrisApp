@@ -7,6 +7,23 @@
 <h2>@ViewBag.Title</h2>
 <hr />
 
+@using (Ajax.BeginForm(actionName: "List", routeValues: null, ajaxOptions:
+    new AjaxOptions
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.ReplaceWith,
+        UpdateTargetId = "articleList"
+    }, htmlAttributes: new { @class = "form-inline" }))
+{
+    <div class="form-group">
+    <input type="search" placeholder="Tytuł artykułu" class="form-control" id="titlePart" name="titlePart" data-otf-autocomplete="@Url.Action("Autocomplete")" />
+    <input type="hidden" id="articleType" name="type" value="@Model.ArticleType" />
+    <input type="submit" value="Wyszukaj" class="btn btn-primary" />
+    </div>
+}
+
+<br />
+
 @if (Model.IsMod.HasValue && Model.IsMod.Value == true)
 {
     <p>
@@ -14,51 +31,13 @@
     </p>
 }
 
-<div>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Articles[0].TypeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Articles[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Articles[0].Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Articles[0].AddDate)
-            </th>
-            <th></th>
-        </tr>
+@{ Html.RenderPartial("_ArticlesWithDetails", Model); }
 
-        @foreach (var item in Model.Articles)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TypeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AddDate)
-                </td>
-                <td>
-                    @if (Model.IsMod.HasValue && Model.IsMod.Value == true)
-                    {
-                        @Html.ActionLink("Edytuj", "EditArticle", "Article", routeValues: new { id = item.ID },
-                            htmlAttributes: new { @class = "btn btn-xs btn-warning" });
-                    }
-                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Code }, htmlAttributes: new { @class = "btn btn-xs btn-success" })
 
-                </td>
+@section Styles{
+    @Styles.Render("~/Content/jqueryui")
+}
 
-            </tr>
-        }
-
-    </table>
-</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/autocomplete")
+}
