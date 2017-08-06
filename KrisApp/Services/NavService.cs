@@ -173,6 +173,7 @@ namespace KrisApp.Services
                 {
                     new MenuItemModel { Action = "About", Controller = "Me", Text = "O mnie" },
                     new MenuItemModel { Action = "Website", Controller = "Me", Text = "O stronie" },
+                    new MenuItemModel { Action = "Tools", Controller = "Me", Text = "Narzędzia" },
                     new MenuItemModel { Action = "Contact", Controller = "Me", Text = "Kontakt" },
                 }
             };

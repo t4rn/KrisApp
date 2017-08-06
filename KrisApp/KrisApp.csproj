@@ -468,6 +468,7 @@
     <Content Include="Views\Me\Website.cshtml" />
     <Content Include="Views\Article\_ArticlesWithDetails.cshtml" />
     <Content Include="Views\Question\DeleteAnswer.cshtml" />
+    <Content Include="Views\Me\Tools.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

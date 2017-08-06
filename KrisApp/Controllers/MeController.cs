@@ -5,7 +5,9 @@ using KrisApp.DataModel.Pages;
 using KrisApp.DataModel.Results;
 using KrisApp.Models.Me;
 using KrisApp.Models.Pages;
+using System.Diagnostics;
 using System.Web.Mvc;
+using System;
 
 namespace KrisApp.Controllers
 {
@@ -27,22 +29,28 @@ namespace KrisApp.Controllers
         //TODO: unit test
         public ActionResult About()
         {
-            PageContent pageContent = _pageContentSrv.GetPageContentByCode(PageContent.Type.About.ToString());
+            string methodName = new StackTrace().GetFrame(0).GetMethod().Name;
 
-            if (pageContent != null)
-            {
-                PageContentModel model = _mapper.Map<PageContentModel>(pageContent);
-                return View((object)model.Content);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Main");
-            }
+            return GenerateResult(methodName);
         }
 
         public ActionResult Website()
         {
-            PageContent pageContent = _pageContentSrv.GetPageContentByCode(PageContent.Type.Website.ToString());
+            string methodName = new StackTrace().GetFrame(0).GetMethod().Name;
+
+            return GenerateResult(methodName);
+        }
+
+        public ActionResult Tools()
+        {
+            string methodName = new StackTrace().GetFrame(0).GetMethod().Name;
+
+            return GenerateResult(methodName);
+        }
+
+        private ActionResult GenerateResult(string methodName)
+        {
+            PageContent pageContent = _pageContentSrv.GetPageContentByCode(methodName);
 
             if (pageContent != null)
             {
