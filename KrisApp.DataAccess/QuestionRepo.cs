@@ -4,6 +4,7 @@ using KrisApp.DataModel.Questions;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace KrisApp.DataAccess
 {
@@ -28,6 +29,15 @@ namespace KrisApp.DataAccess
             {
                 context.RekruQuestions.Add(question);
                 context.SaveChanges();
+            }
+        }
+
+        public int DeleteAnswer(int answerID)
+        {
+            using (KrisDbContext context = new KrisDbContext(csKris))
+            {
+                context.Entry(new RekruAnswer { ID = answerID }).State = EntityState.Deleted;
+                return context.SaveChanges();
             }
         }
 

@@ -6,6 +6,17 @@
 
 <h2>@ViewBag.Title</h2>
 <hr />
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.Message))
+{
+    <div class="alert alert-success">@ViewBag.Message</div>
+}
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
 @Html.ActionLink("Poprzednie", "DetailsPrev", routeValues: new { id = Model.ID }) |
 @Html.ActionLink("Następne", "DetailsNext", routeValues: new { id = Model.ID })
 <div>

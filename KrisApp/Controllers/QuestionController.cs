@@ -77,6 +77,8 @@ namespace KrisApp.Controllers
             {
                 QuestionModel model = _mapper.Map<QuestionModel>(rq);
 
+                ViewBag.Message = TempData["Message"];
+
                 return View(model);
             }
             else
@@ -160,6 +162,34 @@ namespace KrisApp.Controllers
 
 
             return RedirectToAction("Details", routeValues: new { id = model.QuestionID });
+        }
+
+        public ActionResult DeleteAnswer(int id)
+        {
+            RekruAnswer answer = _questionSrv.GetAnswer(id);
+
+            AnswerModel model = _mapper.Map<AnswerModel>(answer);
+
+            ViewBag.Error = TempData["Error"];
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAnswer(int id, AnswerModel answerModel)
+        {
+            Result deleteResult = _questionSrv.DeleteAnswer(id);
+
+            if (deleteResult.IsOK)
+            {
+                TempData["Message"] = $"Odpowiedź of ID = '{id}' usunięta!";
+                return RedirectToAction("Details", routeValues: new { id = answerModel.QuestionID });
+            }
+            else
+            {
+                TempData["Error"] = deleteResult.Message;
+                return RedirectToAction("DeleteAnswer", routeValues: new { id = id });
+            }
         }
     }
 }

@@ -41,7 +41,7 @@
             </div>
             <div class="form-group" ng-show="vm.rateType=='month'">
                 <label for="monthRate">{{ vm.nettoDesc }}</label>
-                <input class="form-control" type="number" step="1000"
+                <input class="form-control" type="number" step="500"
                        id="monthRate" name="monthRate" ng-model="vm.monthRate" ng-minlength="2" />
             </div>
             <div ng-show="vm.rateType=='hour'">

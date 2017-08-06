@@ -13,5 +13,6 @@ namespace KrisApp.DataModel.Interfaces
         Result EditAnswer(RekruAnswer answer);
         RekruAnswer GetAnswer(int id);
         Result EditQuestion(RekruQuestion question);
+        Result DeleteAnswer(int id);
     }
 }

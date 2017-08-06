@@ -121,7 +121,34 @@ namespace KrisApp.Services
             catch (Exception ex)
             {
                 result.Message = ex.Message;
-                ExceptionLog("[EditQuestion]", ex);
+                ExceptionLog("EditQuestion", ex);
+            }
+
+            return result;
+        }
+
+        public Result DeleteAnswer(int answerID)
+        {
+            Result result = new Result();
+            try
+            {
+                int rowsAffected = _questionRepo.DeleteAnswer(answerID);
+
+                if (rowsAffected > 0)
+                {
+                    _log.Debug("[DeleteAnswer] User '{0}' usunal odpowiedz o ID = '{1}'",
+                        _user?.Login, answerID);
+                    result.IsOK = true;
+                }
+                else
+                {
+                    result.Message = $"Nie usunięto odpowiedzi o ID '{answerID}'";
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionLog("DeleteAnswer", ex);
+                result.Message = ex.Message;
             }
 
             return result;

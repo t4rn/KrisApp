@@ -22,5 +22,6 @@ namespace KrisApp.DataModel.Interfaces.Repositories
         void EditAnswer(RekruAnswer answer);
         RekruAnswer GetAnswer(int id);
         void EditQuestion(RekruQuestion question);
+        int DeleteAnswer(int answerID);
     }
 }

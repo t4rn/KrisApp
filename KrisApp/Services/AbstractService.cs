@@ -22,7 +22,7 @@ namespace KrisApp.Services
         protected void ExceptionLog(string methodName, Exception ex)
         {
             _log.Error("[{0}] Ex: Msg = {1} StackTrace = {2}",
-                ex.MessageFromInnerEx(), ex.StackTrace);
+                methodName, ex.MessageFromInnerEx(), ex.StackTrace);
         }
     }
 }
