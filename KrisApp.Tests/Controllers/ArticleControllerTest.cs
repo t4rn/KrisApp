@@ -14,38 +14,64 @@ namespace KrisApp.Tests.Controllers
     [TestFixture]
     class ArticleControllerTest
     {
+        private ArticleController _articleController;
+        private Mock<IMapper> _mockMapper;
+        private Mock<IDictionaryService> _mockDictionarySrv;
+
         [SetUp]
         protected void Setup()
         {
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
+            Mock<IArticleService> mockArticleSrv = new Mock<IArticleService>();
+            Mock<ISessionService> mockSession = new Mock<ISessionService>();
+            _mockDictionarySrv = new Mock<IDictionaryService>();
+            _mockMapper = new Mock<IMapper>();
+
+            _articleController = new ArticleController(mockLogger.Object, mockArticleSrv.Object,
+                _mockDictionarySrv.Object, _mockMapper.Object, mockSession.Object);
         }
 
         [Test]
         public void CreateArticle()
         {
-            Mock<ILogger> mockLogger = new Mock<ILogger>();
-            Mock<IArticleService> mockArticleSrv = new Mock<IArticleService>();
-            Mock<IDictionaryService> mockDictionarySrv = new Mock<IDictionaryService>();
-            mockDictionarySrv.Setup(m => m.GetDictionary<ArticleType>()).Returns(new List<ArticleType> {
+            // Dictionary mock
+            var allArticleTypes = new List<ArticleType> {
                 new ArticleType { Code = "ASP" },
                 new ArticleType { Code = "WCF" },
-            });
+                new ArticleType { Code = "Main", IsMain = true }
+            };
 
-            Mock<IMapper> mockMapper = new Mock<IMapper>();
-            Mock<ISessionService> mockSession = new Mock<ISessionService>();
+            _mockDictionarySrv.Setup(m => m.GetDictionary<ArticleType>()).Returns(allArticleTypes);
 
-            ArticleController articleController = new ArticleController(mockLogger.Object, mockArticleSrv.Object,
-                mockDictionarySrv.Object, mockMapper.Object, mockSession.Object);
+            // AutoMapper mock
+            var expectedMappedArticleTypes = new List<SelectListItem>() {
+                new SelectListItem() { Text = "ASP" },
+                new SelectListItem() { Text = "WCF" }
+            };
 
-            ViewResult actionResult = articleController.CreateArticle();
+            _mockMapper
+                .Setup(m =>
+                    m.Map<IEnumerable<SelectListItem>>
+                    (It.IsAny<IEnumerable<ArticleType>>()))
+                .Returns(expectedMappedArticleTypes);
 
-            // typ modelu w zwracanym widoku
+            ViewResult actionResult = _articleController.CreateArticle();
+
+            // type of model in ViewResult
+            Assert.IsNotNull(actionResult);
+
             object model = actionResult.Model;
             Assert.IsInstanceOf(typeof(ArticleModel), model);
 
-            // liczba typów artykułów
-            List<ArticleType> articleTypes = mockDictionarySrv.Object.GetDictionary<ArticleType>();
-            Assert.IsTrue(((ArticleModel)model).ArticleTypes.Count() == articleTypes.Count , 
-                "Niepoprawna liczba elementów");
+            var properArticleTypes = _mockDictionarySrv.Object.GetDictionary<ArticleType>()
+                .Where(x => x.IsMain == false);
+
+            // was mock invoked
+            _mockMapper.Verify(x => x.Map<IEnumerable<SelectListItem>>(properArticleTypes), Times.Once);
+
+            // article types count
+            Assert.AreEqual(properArticleTypes.Count(), ((ArticleModel)model).ArticleTypes.Count(),
+                "Incorrect article types count");
         }
     }
 }
