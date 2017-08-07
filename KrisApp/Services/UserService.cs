@@ -114,10 +114,10 @@ namespace KrisApp.Services
 
                 _userRepo.AddUser(newUser);
 
+                _userRequestRepo.UpdateUserRequestToGhost(userRequestID);
+
                 result.IsOK = true;
                 result.User = newUser;
-
-                // TODO: update userRequest
 
                 _log.Debug("[AcceptRequest] Pomyślnie dodano usera o requestID = '{0}' -> otrzymał ID = '{1}'",
                     userRequestID, newUser.Id);

@@ -82,9 +82,13 @@ namespace KrisApp.DataAccess
                 if (req != null)
                 {
                     req.Ghost = true;
-                    context.SaveChanges();
+                    int rowsAffected = context.SaveChanges();
 
                     result.IsOK = true;
+                }
+                else
+                {
+                    result.Message = $"User Request of ID = '{id}' not existing in DB.";
                 }
             }
 
