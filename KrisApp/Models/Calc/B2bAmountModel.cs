@@ -4,6 +4,8 @@
     {
         public decimal NettoAmount { get; set; }
 
-        public decimal ZusAmount { get; set; }
+        public decimal ZdroAmount { get; set; }
+
+        public decimal SpolAmount { get; set; }
     }
 }

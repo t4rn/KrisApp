@@ -12,8 +12,17 @@
         var vm = this;
 
         vm.results = [];
-        vm.startupZusAmount = 487.90;
-        vm.normalZusAmount = 1109.89;
+
+        vm.spolStartupBase = 175.92;
+        vm.spolNormalBase =  749.94;
+        vm.zdroBase = 297.28;
+
+        vm.startupZusAmount = vm.zdroBase + vm.spolStartupBase; //  + fundusz = 487.90;
+        vm.normalZusAmount = vm.zdroBase + vm.spolNormalBase; //1109.89;
+
+        vm.startupZusAmountDesc = vm.startupZusAmount.toFixed(2) + ' zł (' + vm.zdroBase + ' zł + ' + vm.spolStartupBase + ' zł)';
+        vm.normalZusAmountDesc = vm.normalZusAmount.toFixed(2) + ' zł (' + vm.zdroBase + ' zł + ' + vm.spolNormalBase + ' zł)';
+
         vm.netto = 0;
         vm.selectedZus = "";
         vm.rateType = "month";
@@ -36,11 +45,13 @@
 
             var isLowZus = vm.selectedZus == "startupZus";
 
-            var zusAmount = isLowZus ? vm.startupZusAmount : vm.normalZusAmount;
+            //var zusAmount = isLowZus ? vm.startupZusAmount : vm.normalZusAmount;
+            var spolAmount = isLowZus ? vm.spolStartupBase : vm.spolNormalBase;
 
             var nettoAmount = _countNettoAmount(vm);
 
-            $http.post("/api/b2b", { nettoAmount: nettoAmount, zusAmount: zusAmount })
+            //$http.post("/api/b2b", { nettoAmount: nettoAmount, zusAmount: zusAmount })
+            $http.post("/api/b2b", { nettoAmount: nettoAmount, zdroAmount: vm.zdroBase, spolAmount: spolAmount })
                     .then(function (response) {
                         // success
                         console.log(response);

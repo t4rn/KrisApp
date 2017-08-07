@@ -7,13 +7,13 @@
                 <div class="radio">
                     <label>
                         <input type="radio" name="optionsZus" id="startupZus" value="startupZus" ng-model="vm.selectedZus" required>
-                        Obniżony ZUS -> {{ vm.startupZusAmount | number: 2 }} zł
+                        Obniżony ZUS -> {{ vm.startupZusAmountDesc }}
                     </label>
                 </div>
                 <div class="radio">
                     <label>
                         <input type="radio" name="optionsZus" id="normalZus" value="normalZus" ng-model="vm.selectedZus" required>
-                        Normalny ZUS -> {{ vm.normalZusAmount | number: 2 }} zł
+                        Normalny ZUS -> {{ vm.normalZusAmountDesc }}
                     </label>
                 </div>
             </div>
