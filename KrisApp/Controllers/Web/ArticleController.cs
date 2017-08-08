@@ -78,7 +78,7 @@ namespace KrisApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Article a = _mapper.Map<ArticleModel, Article>(model);
+                Article a = _mapper.Map<Article>(model);
                 Article article = _articleSrv.AddArticle(a);
 
                 TempData["Msg"] = $"Artykuł dodany pomyślnie! Otrzymał ID = {article.Id}.";

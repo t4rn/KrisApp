@@ -197,17 +197,17 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AutofacModules\AutofacModule.cs" />
     <Compile Include="AutofacModules\AutoMapperModule.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Web\AdminController.cs" />
     <Compile Include="Controllers\Api\B2bController.cs" />
-    <Compile Include="Controllers\ArticleController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CalcController.cs" />
-    <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\MeController.cs" />
-    <Compile Include="Controllers\NavController.cs" />
-    <Compile Include="Controllers\QuestionController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\WorkerApiController.cs" />
+    <Compile Include="Controllers\Web\ArticleController.cs" />
+    <Compile Include="Controllers\Web\BaseController.cs" />
+    <Compile Include="Controllers\Web\CalcController.cs" />
+    <Compile Include="Controllers\Web\MainController.cs" />
+    <Compile Include="Controllers\Web\MeController.cs" />
+    <Compile Include="Controllers\Web\NavController.cs" />
+    <Compile Include="Controllers\Web\QuestionController.cs" />
+    <Compile Include="Controllers\Web\UserController.cs" />
+    <Compile Include="Controllers\Api\WorkerApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
