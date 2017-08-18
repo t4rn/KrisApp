@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Web\ArticleControllerTest.cs" />
     <Compile Include="Controllers\Api\B2bControllerTests.cs" />
+    <Compile Include="MockHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
