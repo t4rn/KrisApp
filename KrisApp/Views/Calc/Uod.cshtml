@@ -1,0 +1,71 @@
+﻿@model KrisApp.Models.Calc.UodModel
+
+@{
+    ViewBag.Title = "Umowa o dzieło";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <h3>Dane wejściowe</h3>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Limit, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Limit, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Limit, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BruttoAmountPerMonth, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.BruttoAmountPerMonth, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BruttoAmountPerMonth, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Policz" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        <h3>Wyniki</h3>
+
+        @if (Model.NettoAmounts != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>Miesiąc</th>
+                    <th>Kwota netto</th>
+                </tr>
+
+                @foreach (var item in Model.NettoAmounts)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Key)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value) zł
+                        </td>
+                    </tr>
+                }
+                <tr><td><b>Rocznie</b></td><td><b>@Model.Sum zł</b></td></tr>
+                <tr><td><b>Średnio na miesiąc</b></td><td><b>@Model.AverageIncomeNetto zł</b></td></tr>
+            </table>
+        }
+    </div>
+</div>

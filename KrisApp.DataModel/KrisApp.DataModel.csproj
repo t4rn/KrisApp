@@ -49,6 +49,7 @@
     <Compile Include="Dictionaries\PositionType.cs" />
     <Compile Include="Dictionaries\SkillType.cs" />
     <Compile Include="Interfaces\IArticleService.cs" />
+    <Compile Include="Interfaces\ICalcService.cs" />
     <Compile Include="Interfaces\IContactService.cs" />
     <Compile Include="Interfaces\IDictionaryService.cs" />
     <Compile Include="Interfaces\ILogger.cs" />

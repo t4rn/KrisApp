@@ -151,9 +151,14 @@ namespace KrisApp.Services
         {
             MenuItemModel menu = new MenuItemModel()
             {
-                Action = "Index",
-                Controller = "Calc",
+                Action = "XXX",
+                Controller = "XXX",
                 Text = "Kalkulator",
+                SubMenu = new List<MenuItemModel>()
+                {
+                    new MenuItemModel { Action = "B2b", Controller = "Calc", Text = "B2B" },
+                    new MenuItemModel { Action = "Uod", Controller = "Calc", Text = "Umowa o dzieło" },
+                }
             };
 
             return menu;

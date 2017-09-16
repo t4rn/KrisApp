@@ -234,6 +234,7 @@
     <Compile Include="Models\Articles\ArticleListModel.cs" />
     <Compile Include="Models\Articles\ArticleTypeModel.cs" />
     <Compile Include="Models\Calc\B2bAmountModel.cs" />
+    <Compile Include="Models\Calc\UodModel.cs" />
     <Compile Include="Models\DictionaryItemModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -260,6 +261,7 @@
     </Compile>
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\AbstractService.cs" />
+    <Compile Include="Services\CalcService.cs" />
     <Compile Include="Services\ContactService.cs" />
     <Compile Include="Services\DictionaryService.cs" />
     <Compile Include="Services\KrisLogger.cs" />
@@ -387,6 +389,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="Properties\PublishProfiles\kris.aspnet.pl - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\NaDysk.pubxml" />
     <None Include="Properties\PublishProfiles\NaFTP.pubxml" />
     <None Include="Properties\Settings.settings">
@@ -464,11 +467,12 @@
     <Content Include="Views\Admin\CreatePageContent.cshtml" />
     <Content Include="Views\Me\About.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Calc\Index.cshtml" />
+    <Content Include="Views\Calc\B2b.cshtml" />
     <Content Include="Views\Me\Website.cshtml" />
     <Content Include="Views\Article\_ArticlesWithDetails.cshtml" />
     <Content Include="Views\Question\DeleteAnswer.cshtml" />
     <Content Include="Views\Me\Tools.cshtml" />
+    <Content Include="Views\Calc\Uod.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

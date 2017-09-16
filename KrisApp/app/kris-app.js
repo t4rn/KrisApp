@@ -8,7 +8,7 @@
         $routeProvider.when("/", {
             controller: "calcController",
             controllerAs: "vm",
-            templateUrl: "app/calc/calcView.html"
+            templateUrl: "/app/calc/calcView.html"
         });
 
         $routeProvider.otherwise({ redirectTo: "/" });

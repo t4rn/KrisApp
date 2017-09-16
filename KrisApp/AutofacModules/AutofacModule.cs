@@ -61,6 +61,7 @@ namespace KrisApp.AutofacModules
             builder.RegisterType<QuestionService>().As<IQuestionService>().InstancePerRequest();
             builder.RegisterType<SessionService>().As<ISessionService>().InstancePerRequest();
             builder.RegisterType<PageContentService>().As<IPageContentService>().InstancePerRequest();
+            builder.RegisterType<CalcService>().As<ICalcService>().InstancePerRequest();
 
             #endregion
 
