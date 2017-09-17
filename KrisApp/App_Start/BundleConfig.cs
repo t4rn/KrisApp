@@ -1,4 +1,5 @@
-﻿using System.Web.Optimization;
+﻿using System.Collections.Generic;
+using System.Web.Optimization;
 
 namespace KrisApp
 {
@@ -26,14 +27,19 @@ namespace KrisApp
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+            var appBundle = new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
-                "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery.validate*",
-                "~/Scripts/jquery.unobtrusive-ajax.js",
-                "~/Scripts/_analytics.js"
-                ));
+                "~/Scripts/_analytics.js",
+                "~/Scripts/globalize.js",
+                "~/Scripts/jquery.validate.globalize.js"
+                );
+            appBundle.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(appBundle);
 
             bundles.Add(new ScriptBundle("~/bundles/redactor").Include(
                 "~/Scripts/redactor/redactor.js"
@@ -76,6 +82,14 @@ namespace KrisApp
                 "~/Content/themes/base/jquery-ui.css"));
 
             #endregion
+        }
+    }
+
+    class NonOrderingBundleOrderer : IBundleOrderer
+    {
+        public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+        {
+            return files;
         }
     }
 }
