@@ -12,7 +12,7 @@ namespace KrisApp.Services
 
         public Dictionary<string, decimal> CalculateIncome(decimal bruttoAmountPerMonth, decimal limit)
         {
-            _log.Debug($"[{nameof(CalculateIncome)} Calculating for brutto = '{bruttoAmountPerMonth}' and limit = '{limit}'");
+            _log.Debug($"[{nameof(CalculateIncome)}] Calculating for brutto = '{bruttoAmountPerMonth}' and limit = '{limit}'");
 
             decimal sum = 0;
             decimal monthlyAmount = 0;
