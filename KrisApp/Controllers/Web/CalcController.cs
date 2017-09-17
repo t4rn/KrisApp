@@ -1,5 +1,9 @@
-﻿using KrisApp.DataModel.Interfaces;
+﻿using AutoMapper;
+using KrisApp.DataModel.Calc;
+using KrisApp.DataModel.Interfaces;
 using KrisApp.Models.Calc;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace KrisApp.Controllers
@@ -7,10 +11,16 @@ namespace KrisApp.Controllers
     public class CalcController : BaseController
     {
         private readonly ICalcService _calcService;
+        private readonly IMapper _mapper;
+        private readonly ISessionService _sessionService;
 
-        public CalcController(ICalcService calcService)
+        public CalcController(ICalcService calcService,
+            ISessionService sessionService,
+            IMapper mapper)
         {
             _calcService = calcService;
+            _sessionService = sessionService;
+            _mapper = mapper;
         }
 
         public ActionResult B2b()
@@ -20,10 +30,13 @@ namespace KrisApp.Controllers
 
         public ActionResult Uod()
         {
+            var summariesFromSession = _sessionService.GetFromSession<List<UodSummaryModel>>(SessionItem.Uod);
+
             UodModel model = new UodModel()
             {
                 Limit = 42764,
-                BruttoAmountPerMonth = 10000
+                BruttoAmountPerMonth = 10000,
+                SavedSummaries = summariesFromSession
             };
 
             return View(model);
@@ -32,7 +45,24 @@ namespace KrisApp.Controllers
         [HttpPost]
         public ActionResult Uod(UodModel model)
         {
-            model.NettoAmounts = _calcService.CalculateIncome(model.BruttoAmountPerMonth, model.Limit);
+            UodSummary uodSummary = _calcService.CalculateIncome(model.BruttoAmountPerMonth, model.Limit);
+
+            model.CurrentSummary = _mapper.Map<UodSummaryModel>(uodSummary);
+
+            var summariesFromSession = _sessionService.GetFromSession<List<UodSummaryModel>>(SessionItem.Uod);
+
+            if (summariesFromSession == null)
+            {
+                summariesFromSession = new List<UodSummaryModel>() { model.CurrentSummary };
+                _sessionService.AddToSession(SessionItem.Uod, summariesFromSession);
+            }
+            else if (!summariesFromSession.Exists(x => Convert.ToDecimal(x.Brutto) ==  model.BruttoAmountPerMonth))
+            {
+                summariesFromSession.Add(model.CurrentSummary);
+            }
+
+            model.SavedSummaries = summariesFromSession;
+
             return View(model);
         }
     }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using KrisApp.DataModel.Calc;
 
 namespace KrisApp.DataModel.Interfaces
 {
@@ -7,6 +7,6 @@ namespace KrisApp.DataModel.Interfaces
         /// <summary>
         /// Calculates income pre month based on cost limit
         /// </summary>
-        Dictionary<string, decimal> CalculateIncome(decimal bruttoAmountPerMonth, decimal limit);
+        UodSummary CalculateIncome(decimal bruttoAmountPerMonth, decimal limit);
     }
 }

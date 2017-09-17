@@ -19,7 +19,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Limit, htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-6">
-                        @Html.EditorFor(model => model.Limit, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Limit, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                         @Html.ValidationMessageFor(model => model.Limit, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -40,31 +40,56 @@
                 </div>
             </div>
         }
+
+        @if (Model.SavedSummaries != null && Model.SavedSummaries.Any())
+        {
+            <h3>Poprzednie wyniki</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.SavedSummaries[0].Brutto)</th>
+                    <th>@Html.DisplayNameFor(x => x.SavedSummaries[0].NettoMax)</th>
+                    <th>@Html.DisplayNameFor(x => x.SavedSummaries[0].NettoMin)</th>
+                    <th>@Html.DisplayNameFor(x => x.SavedSummaries[0].Average)</th>
+                    <th>@Html.DisplayNameFor(x => x.SavedSummaries[0].Sum)</th>
+                </tr>
+
+                @foreach (var item in Model.SavedSummaries)
+                {
+                    <tr>
+                        <td>@item.Brutto</td>
+                        <td>@item.NettoMax</td>
+                        <td>@item.NettoMin</td>
+                        <td>@item.Average</td>
+                        <td>@item.Sum</td>
+                    </tr>
+                }
+            </table>
+        }
     </div>
     <div class="col-md-6">
         <h3>Wyniki</h3>
 
-        @if (Model.NettoAmounts != null)
+        @if (Model.CurrentSummary?.NettoAmounts != null)
         {
-            <table class="table">
+            <table class="table table-striped">
                 <tr>
                     <th>Miesiąc</th>
                     <th>Kwota netto</th>
                 </tr>
 
-                @foreach (var item in Model.NettoAmounts)
+                @foreach (var item in Model.CurrentSummary.NettoAmounts)
                 {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Key)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Value) zł
+                            @item.Value.ToString("n") zł
                         </td>
                     </tr>
                 }
-                <tr><td><b>Rocznie</b></td><td><b>@Model.Sum zł</b></td></tr>
-                <tr><td><b>Średnio na miesiąc</b></td><td><b>@Model.AverageIncomeNetto zł</b></td></tr>
+                <tr><td><b>Rocznie</b></td><td><b>@Model.CurrentSummary.Sum zł</b></td></tr>
+                <tr><td><b>Średnio na miesiąc</b></td><td><b>@Model.CurrentSummary.Average zł</b></td></tr>
             </table>
         }
     </div>

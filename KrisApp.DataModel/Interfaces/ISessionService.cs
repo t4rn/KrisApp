@@ -11,6 +11,7 @@
 
     public enum SessionItem
     {
-        User
+        User,
+        Uod
     }
 }

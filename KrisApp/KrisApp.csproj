@@ -235,6 +235,7 @@
     <Compile Include="Models\Articles\ArticleTypeModel.cs" />
     <Compile Include="Models\Calc\B2bAmountModel.cs" />
     <Compile Include="Models\Calc\UodModel.cs" />
+    <Compile Include="Models\Calc\UodSummaryModel.cs" />
     <Compile Include="Models\DictionaryItemModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

@@ -1,34 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace KrisApp.Models.Calc
 {
     public class UodModel
     {
+        public UodModel()
+        {
+            SavedSummaries = new List<UodSummaryModel>();
+        }
+
         [Display(Name = "Limit kosztów")]
         public decimal Limit { get; set; }
 
         [Display(Name = "Kwota brutto")]
         public decimal BruttoAmountPerMonth { get; set; }
 
-        public Dictionary<string, decimal> NettoAmounts { get; set; }
+        public UodSummaryModel CurrentSummary { get; set; }
 
-        public string Sum
-        {
-            get
-            {
-                return NettoAmounts != null ? NettoAmounts.Sum(x => x.Value).ToString() : "0";
-            }
-        }
-
-        public string AverageIncomeNetto
-        {
-            get
-            {
-                return NettoAmounts != null ? (NettoAmounts.Sum(x => x.Value) / 12).ToString() : "";
-            }
-        }
-
+        public List<UodSummaryModel> SavedSummaries { get; set; }
     }
 }

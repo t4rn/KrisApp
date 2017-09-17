@@ -1,4 +1,5 @@
 ﻿using KrisApp.Common.Extensions;
+using KrisApp.DataModel.Calc;
 using KrisApp.DataModel.Interfaces;
 using System.Collections.Generic;
 
@@ -10,8 +11,9 @@ namespace KrisApp.Services
         {
         }
 
-        public Dictionary<string, decimal> CalculateIncome(decimal bruttoAmountPerMonth, decimal limit)
+        public UodSummary CalculateIncome(decimal bruttoAmountPerMonth, decimal limit)
         {
+            UodSummary summary = new UodSummary();
             _log.Debug($"[{nameof(CalculateIncome)}] Calculating for brutto = '{bruttoAmountPerMonth}' and limit = '{limit}'");
 
             decimal sum = 0;
@@ -31,7 +33,10 @@ namespace KrisApp.Services
                 amounts.Add(i.GetMonthName(), monthlyAmount);
             }
 
-            return amounts;
+            summary.NettoAmounts = amounts;
+            summary.Brutto = bruttoAmountPerMonth;
+
+            return summary;
         }
     }
 }

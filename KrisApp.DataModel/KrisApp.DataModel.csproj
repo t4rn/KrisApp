@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Articles\Article.cs" />
+    <Compile Include="Calc\UodSummary.cs" />
     <Compile Include="Contact\ContactMessage.cs" />
     <Compile Include="Dictionaries\ArticleType.cs" />
     <Compile Include="Dictionaries\DictionaryItem.cs" />
