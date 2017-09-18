@@ -7,6 +7,6 @@ namespace KrisApp.DataModel.Interfaces
         /// <summary>
         /// Calculates income pre month based on cost limit
         /// </summary>
-        UodSummary CalculateIncome(decimal bruttoAmountPerMonth, decimal limit);
+        UodSummary CalculateIncome(decimal bruttoPerMonth, decimal limit);
     }
 }

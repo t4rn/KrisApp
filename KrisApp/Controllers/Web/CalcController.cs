@@ -45,25 +45,32 @@ namespace KrisApp.Controllers
         [HttpPost]
         public ActionResult Uod(UodModel model)
         {
-            UodSummary uodSummary = _calcService.CalculateIncome(model.BruttoAmountPerMonth, model.Limit);
-
-            model.CurrentSummary = _mapper.Map<UodSummaryModel>(uodSummary);
-
-            var summariesFromSession = _sessionService.GetFromSession<List<UodSummaryModel>>(SessionItem.Uod);
-
-            if (summariesFromSession == null)
+            if (ModelState.IsValid)
             {
-                summariesFromSession = new List<UodSummaryModel>() { model.CurrentSummary };
-                _sessionService.AddToSession(SessionItem.Uod, summariesFromSession);
+                UodSummary uodSummary = _calcService.CalculateIncome(model.BruttoAmountPerMonth, model.Limit);
+
+                model.CurrentSummary = _mapper.Map<UodSummaryModel>(uodSummary);
+
+                var summariesFromSession = _sessionService.GetFromSession<List<UodSummaryModel>>(SessionItem.Uod);
+
+                if (summariesFromSession == null)
+                {
+                    summariesFromSession = new List<UodSummaryModel>() { model.CurrentSummary };
+                    _sessionService.AddToSession(SessionItem.Uod, summariesFromSession);
+                }
+                else if (!summariesFromSession.Exists(x => Convert.ToDecimal(x.Brutto) == model.BruttoAmountPerMonth))
+                {
+                    summariesFromSession.Add(model.CurrentSummary);
+                }
+
+                model.SavedSummaries = summariesFromSession;
+
+                return View(model);
             }
-            else if (!summariesFromSession.Exists(x => Convert.ToDecimal(x.Brutto) ==  model.BruttoAmountPerMonth))
+            else
             {
-                summariesFromSession.Add(model.CurrentSummary);
+                return RedirectToAction(nameof(Uod));
             }
-
-            model.SavedSummaries = summariesFromSession;
-
-            return View(model);
         }
     }
 }

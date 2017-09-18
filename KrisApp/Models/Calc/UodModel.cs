@@ -14,6 +14,7 @@ namespace KrisApp.Models.Calc
         public decimal Limit { get; set; }
 
         [Display(Name = "Kwota brutto")]
+        [Range(1, 1000000)]
         public decimal BruttoAmountPerMonth { get; set; }
 
         public UodSummaryModel CurrentSummary { get; set; }

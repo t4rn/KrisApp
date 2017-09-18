@@ -1,6 +1,7 @@
 ﻿using KrisApp.Common.Extensions;
 using KrisApp.DataModel.Calc;
 using KrisApp.DataModel.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace KrisApp.Services
@@ -11,30 +12,42 @@ namespace KrisApp.Services
         {
         }
 
-        public UodSummary CalculateIncome(decimal bruttoAmountPerMonth, decimal limit)
+        public UodSummary CalculateIncome(decimal bruttoPerMonth, decimal limit)
         {
             UodSummary summary = new UodSummary();
-            _log.Debug($"[{nameof(CalculateIncome)}] Calculating for brutto = '{bruttoAmountPerMonth}' and limit = '{limit}'");
+            _log.Debug($"[{nameof(CalculateIncome)}] Calculating for brutto = '{bruttoPerMonth}' and limit = '{limit}'");
 
-            decimal sum = 0;
-            decimal monthlyAmount = 0;
+            decimal sumBrutto = 0;
+            decimal nettoPerMonth = 0;
             decimal multiplier = 0;
-
+            bool isLower = false;
             Dictionary<string, decimal> amounts = new Dictionary<string, decimal>();
 
             for (int i = 1; i <= 12; i++)
             {
-                sum = sum + bruttoAmountPerMonth;
+                sumBrutto = sumBrutto + bruttoPerMonth;
+                if (sumBrutto > limit * 2 && isLower == false)
+                {
+                    decimal newPartialBrutto = sumBrutto - limit * 2; // 90000 - 85528 = 4472
+                    decimal newPartialNetto = newPartialBrutto * 0.82M;
 
-                multiplier = sum > limit * 2 ? 0.82M : 0.91M;
+                    decimal oldPartialBrutto = bruttoPerMonth - newPartialBrutto;
+                    decimal oldPartialNetto = oldPartialBrutto * 0.91M;
 
-                monthlyAmount = bruttoAmountPerMonth * multiplier;
+                    nettoPerMonth = Math.Round(newPartialNetto + oldPartialNetto);
+                    isLower = true;
+                }
+                else
+                {
+                    multiplier = isLower ? 0.82M : 0.91M;
+                    nettoPerMonth = bruttoPerMonth * multiplier;
+                }
 
-                amounts.Add(i.GetMonthName(), monthlyAmount);
+                amounts.Add(i.GetMonthName(), nettoPerMonth);
             }
 
             summary.NettoAmounts = amounts;
-            summary.Brutto = bruttoAmountPerMonth;
+            summary.Brutto = bruttoPerMonth;
 
             return summary;
         }

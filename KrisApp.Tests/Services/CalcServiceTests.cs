@@ -19,8 +19,10 @@ namespace KrisApp.Tests.Services
             _calcService = new CalcService(mockLogger.Object);
         }
 
+        [TestCase(1000, 42764, ExpectedResult = 10920)]
         [TestCase(5000, 42764, ExpectedResult = 54600)]
-        [TestCase(1000, 42764, ExpectedResult = 54600)]
+        [TestCase(10000, 42764, ExpectedResult = 106098)]
+        [TestCase(15000, 42764, ExpectedResult = 155298)]
         public decimal CalculateUodAmount(decimal brutto, decimal limit)
         {
             // Arrange
@@ -31,7 +33,7 @@ namespace KrisApp.Tests.Services
             // Assert
             result.Should().NotBeNull();
 
-            return result.Sum(x => x.Value);
+            return result.Sum;
         }
     }
 }
