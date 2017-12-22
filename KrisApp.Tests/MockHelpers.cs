@@ -1,5 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Web;
+using System.Web.Http;
+using System.Web.Mvc;
 using System.Web.SessionState;
 
 namespace KrisApp.Tests
@@ -22,6 +26,28 @@ namespace KrisApp.Tests
             SessionStateUtility.AddHttpSessionStateToContext(httpContext, sessionContainer);
 
             return httpContext;
+        }
+
+        public static IHttpActionResult CallWithModelValidation<C, R, T>(this C controller,
+            Func<C, R> action, T model)
+            where C : ApiController
+            where R : IHttpActionResult
+            where T : class
+        {
+            var provider = new DataAnnotationsModelValidatorProvider();
+            IEnumerable<ModelMetadata> metadata = ModelMetadataProviders.Current.GetMetadataForProperties(model, typeof(T));
+            foreach (ModelMetadata modelMetadata in metadata)
+            {
+                IEnumerable<ModelValidator> validators = provider
+                    .GetValidators(modelMetadata, new ControllerContext());
+                foreach (ModelValidator validator in validators)
+                {
+                    IEnumerable<ModelValidationResult> results = validator.Validate(model);
+                    foreach (ModelValidationResult result in results)
+                        controller.ModelState.AddModelError(modelMetadata.PropertyName, result.Message);
+                }
+            }
+            return action(controller);
         }
     }
 }
