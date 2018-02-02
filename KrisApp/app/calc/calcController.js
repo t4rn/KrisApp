@@ -13,9 +13,9 @@
 
         vm.results = [];
 
-        vm.spolStartupBase = 175.92;
-        vm.spolNormalBase =  749.94;
-        vm.zdroBase = 297.28;
+        vm.spolStartupBase = 200.16;
+        vm.spolNormalBase =  912.22;
+        vm.zdroBase = 319.94;
 
         vm.startupZusAmount = vm.zdroBase + vm.spolStartupBase; //  + fundusz = 487.90;
         vm.normalZusAmount = vm.zdroBase + vm.spolNormalBase; //1109.89;
