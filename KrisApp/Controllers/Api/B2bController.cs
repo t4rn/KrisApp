@@ -11,24 +11,24 @@ namespace KrisApp.Controllers.Api
             return Ok("OK from API");
         }
 
-        [HttpPost]
-        public IHttpActionResult Post(B2bAmountModel model)
-        {
-            decimal result = (model.NettoAmount - (model.ZdroAmount + model.SpolAmount)) * 0.81M;
-            //System.Threading.Thread.Sleep(1000);
-
-            return Ok(result);
-        }
-
         //[HttpPost]
         //public IHttpActionResult Post(B2bAmountModel model)
         //{
-        //    decimal podstawa = model.NettoAmount - model.SpolAmount;
-        //    decimal podatek = podstawa * 0.19M;
-
-        //    decimal result = model.NettoAmount - podatek - model.SpolAmount - model.ZdroAmount;
+        //    decimal result = (model.NettoAmount - (model.ZdroAmount + model.SpolAmount)) * 0.81M;
+        //    //System.Threading.Thread.Sleep(1000);
 
         //    return Ok(result);
         //}
+
+        [HttpPost]
+        public IHttpActionResult Post(B2bAmountModel model)
+        {
+            decimal taxBase = model.NettoAmount - model.SpolAmount;
+            decimal taxAmount = taxBase * 0.19M;
+
+            decimal result = model.NettoAmount - taxAmount - model.SpolAmount;
+
+            return Ok(result);
+        }
     }
 }
