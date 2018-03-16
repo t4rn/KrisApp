@@ -41,20 +41,20 @@
             </div>
             <div class="form-group" ng-show="vm.rateType=='month'">
                 <label for="monthRate">{{ vm.nettoDesc }}</label>
-                <input class="form-control" type="number" step="500"
+                <input class="form-control" type="number" step="1"
                        id="monthRate" name="monthRate" ng-model="vm.monthRate" ng-minlength="2" />
             </div>
             <div ng-show="vm.rateType=='hour'">
                 <div class="form-group">
                     <label for="hourRate">{{ vm.nettoDesc }}</label>
-                    <input class="form-control" type="number" step="5"
+                    <input class="form-control" type="number" step="1"
                            id="hourRate" name="hourRate"
                            ng-model="vm.hourRate"
                            ng-minlength="2" />
                 </div>
                 <div class="form-group">
                     <label for="hoursCount">Liczba godzin:</label>
-                    <input class="form-control" type="number" step="8"
+                    <input class="form-control" type="number" step="1"
                            id="hoursCount" name="hoursCount"
                            ng-model="vm.hoursCount"
                            ng-minlength="2" />
@@ -63,7 +63,7 @@
             <div ng-show="vm.rateType=='day'">
                 <div class="form-group">
                     <label for="dayRate">{{ vm.nettoDesc }}</label>
-                    <input class="form-control" type="number" step="50"
+                    <input class="form-control" type="number" step="1"
                            id="dayRate" name="dayRate"
                            ng-model="vm.dayRate"
                            ng-minlength="2" />
