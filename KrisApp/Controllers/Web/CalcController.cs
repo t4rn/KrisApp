@@ -34,7 +34,7 @@ namespace KrisApp.Controllers
 
             UodModel model = new UodModel()
             {
-                Limit = 42764,
+                Limit = 85528,
                 BruttoAmountPerMonth = 10000,
                 SavedSummaries = summariesFromSession
             };

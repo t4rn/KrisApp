@@ -29,11 +29,11 @@
 
         vm.monthRate = 12000;
 
-        vm.hoursCount = 160;
+        vm.hoursCount = 168;
         vm.hourRate = 80;
 
         vm.dayRate = 650;
-        vm.daysCount = 20;
+        vm.daysCount = 21;
 
         vm.isBusy = false;
         vm.errorMessage = "";
